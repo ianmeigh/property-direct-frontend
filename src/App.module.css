@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+.Main {
+  padding-top: 85px;
+}
+
 .App {
   font-family: "Lato", Helvetica, sans-serif;
   min-height: 100vh;

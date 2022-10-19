@@ -1,14 +1,17 @@
 :root {
-  --icon-color: #0e6ba8;
+  --icon-color: #000000;
+  --icon-color-active: #0e6ba8;
 }
 
 .NavLink {
   color: #000000;
+  text-decoration: none;
   font-size: 1.2rem;
   font-family: "Montserrat", Helvetica, sans-serif;
 }
 
 .NavLink:hover {
+  color: #000000;
   opacity: 0.5;
   transition-property: opacity, background-color, border-color;
   transition-duration: 0.15s, 0.15s, 0.15s;
@@ -40,4 +43,12 @@
 .BrandText {
   font-size: 1.5rem;
   font-family: "Montserrat", Helvetica, sans-serif;
+}
+
+.Active i, img {
+  color: var(--icon-color-active);
+}
+
+.Active p {
+  text-decoration: underline;
 }
