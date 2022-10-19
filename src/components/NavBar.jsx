@@ -47,7 +47,11 @@ export default function NavBar() {
                 width="45"
                 height="45"
               />{" "}
-              <p className="ps-2 m-0 text-decoration-none">Property Direct</p>
+              <p
+                className={`${styles.BrandText} ps-2 m-0 text-decoration-none`}
+              >
+                Property Direct
+              </p>
             </Navbar.Brand>
           </Nav.Link>
         </Col>
@@ -56,7 +60,7 @@ export default function NavBar() {
           - Branding for mobile viewport (visible below md breakpoint)
           - Variable column sizing to maintain logo centering
         */}
-        <Col xs={5} md={2}>
+        <Col xs={3} md={2}>
           <Nav.Link
             to="#"
             className={`${styles.NavLink} d-flex flex-row align-items-center justify-content-center d-md-none`}
@@ -84,7 +88,7 @@ export default function NavBar() {
           <Navbar className="py-0 py-md-2" aria-label="User Navigation Links">
             <Nav className="d-md-none">
               <Nav.Link
-                className={`${styles.NavMobileIcon} ${styles.NavLink} py-1`}
+                className={`${styles.NavMobileIcon} ${styles.NavLink} px-0`}
                 to="#"
               >
                 <div className="d-flex flex-column align-items-center">

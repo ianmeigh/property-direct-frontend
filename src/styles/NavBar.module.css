@@ -1,6 +1,11 @@
+:root {
+  --icon-color: #0e6ba8;
+}
+
 .NavLink {
   color: #000000;
   font-size: 1.2rem;
+  font-family: "Montserrat", Helvetica, sans-serif;
 }
 
 .NavLink:hover {
@@ -21,10 +26,18 @@
 }
 
 .NavMobileIcon i {
-  font-size: 2.4rem;
+  font-size: 2rem;
+  color: var(--icon-color)
+
 }
 
 .NavIcon i {
   font-size: 1.5rem;
   text-decoration: none;
+  color: var(--icon-color);
+}
+
+.BrandText {
+  font-size: 1.5rem;
+  font-family: "Montserrat", Helvetica, sans-serif;
 }
