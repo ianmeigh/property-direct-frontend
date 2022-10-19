@@ -1,0 +1,30 @@
+.NavLink {
+  color: #000000;
+  font-size: 1.2rem;
+}
+
+.NavLink:hover {
+  opacity: 0.5;
+  transition-property: opacity, background-color, border-color;
+  transition-duration: 0.15s, 0.15s, 0.15s;
+  transition-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  transition-delay: 0s, 0s, 0s;
+  cursor: pointer;
+}
+
+.NavLink:hover p {
+  text-decoration: underline;
+}
+
+.NavMobileIcon p {
+  font-size: 0.8rem;
+}
+
+.NavMobileIcon i {
+  font-size: 2.4rem;
+}
+
+.NavIcon i {
+  font-size: 1.5rem;
+  text-decoration: none;
+}
