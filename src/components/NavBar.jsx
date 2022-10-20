@@ -8,7 +8,11 @@ import styles from "../styles/NavBar.module.css";
 
 export default function NavBar() {
   return (
-    <Navbar className="mb-3 border-bottom flex-nowrap" expand="md" fixed="top">
+    <Navbar
+      className={`${styles.NavBar} mb-3 border-bottom flex-nowrap`}
+      expand="md"
+      fixed="top"
+    >
       {/* 
         Container:
         - Center content and horizontally pad

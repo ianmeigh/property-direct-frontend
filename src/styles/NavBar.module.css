@@ -1,8 +1,16 @@
+/* root variables */
 :root {
+  --navbar-color: #ffffff;
   --icon-color: #000000;
   --icon-color-active: #0e6ba8;
 }
 
+/* Navigation Bar Styles */
+.NavBar {
+  background-color: var(--navbar-color);
+}
+
+/* Navigation Elements Styles */
 .NavLink {
   color: #000000;
   text-decoration: none;
@@ -24,14 +32,13 @@
   text-decoration: underline;
 }
 
-.NavMobileIcon p {
-  font-size: 0.8rem;
-}
-
 .NavMobileIcon i {
   font-size: 2rem;
   color: var(--icon-color)
+}
 
+.NavMobileIcon p {
+  font-size: 0.8rem;
 }
 
 .NavIcon i {
@@ -45,7 +52,9 @@
   font-family: "Montserrat", Helvetica, sans-serif;
 }
 
-.Active i, img {
+/* Active Link Styles */
+.Active i,
+img {
   color: var(--icon-color-active);
 }
 
