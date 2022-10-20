@@ -45,7 +45,7 @@ export default function RegistrationForm() {
     <Row className={styles.Row}>
       <Col className="my-auto mx-auto py-2 p-md-2" md={8} lg={6}>
         <Container
-          className={`${styles.FormContainer} p-4 d-flex flex-column align-items-center rounded`}
+          className={`${styles.FormContainer} p-4 text-center rounded`}
         >
           <h1>Sign Up</h1>
           <p className="mt-2 mb-4">
@@ -54,7 +54,7 @@ export default function RegistrationForm() {
               Sign in here.
             </Link>
           </p>
-          <Form className="align-self-start w-100" onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="username">
               <Form.Label className="d-none">Username</Form.Label>
               <Form.Control
@@ -85,7 +85,7 @@ export default function RegistrationForm() {
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group className="my-3" controlId="checkbox">
+            <Form.Group className="my-3 text-start" controlId="checkbox">
               <Form.Check
                 type="checkbox"
                 label="Are you selling property?"
