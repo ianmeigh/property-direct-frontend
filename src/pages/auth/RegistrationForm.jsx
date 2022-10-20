@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import styles from "../../styles/AuthForms.module.css";
 import btnStyles from "../../styles/Buttons.module.css";
@@ -37,9 +37,9 @@ export default function RegistrationForm() {
           <h1>Sign Up</h1>
           <p className="mt-2 mb-4">
             Already have an account?
-            <Link className="ps-1" to="/signin">
+            <NavLink className="ps-1" to="/signin">
               Sign in here.
-            </Link>
+            </NavLink>
           </p>
           <Form className="align-self-start w-100">
             <Form.Group className="mb-3" controlId="username">
