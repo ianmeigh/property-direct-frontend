@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import axios from "axios";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 
 import styles from "../../styles/AuthForms.module.css";
@@ -13,6 +13,8 @@ export default function SignInForm() {
     password: "",
   });
   const { username, password } = signInData;
+  const [errors, setErrors] = useState({});
+
   const history = useHistory();
 
   const handleChange = (event) => {
@@ -29,7 +31,7 @@ export default function SignInForm() {
       await axios.post("/dj-rest-auth/login/", signInData);
       history.push("/");
     } catch (err) {
-      console.log(err);
+      setErrors(err.response?.data);
     }
   };
 
@@ -57,6 +59,11 @@ export default function SignInForm() {
                 onChange={handleChange}
               />
             </Form.Group>
+            {errors.username?.map((message, idx) => (
+              <Alert variant="warning" key={idx}>
+                {message}
+              </Alert>
+            ))}
             <Form.Group className="mb-3" controlId="password">
               <Form.Label className="d-none">Password</Form.Label>
               <Form.Control
@@ -67,12 +74,22 @@ export default function SignInForm() {
                 onChange={handleChange}
               />
             </Form.Group>
+            {errors.password?.map((message, idx) => (
+              <Alert variant="warning" key={idx}>
+                {message}
+              </Alert>
+            ))}
             <Button
               className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Primary}`}
               type="submit"
             >
               Sign In
             </Button>
+            {errors.non_field_errors?.map((message, idx) => (
+              <Alert variant="warning" key={idx} className="mt-3 mb-0">
+                {message}
+              </Alert>
+            ))}
           </Form>
         </Container>
       </Col>
