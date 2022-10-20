@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import axios from "axios";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 
 import styles from "../../styles/AuthForms.module.css";
@@ -15,6 +15,7 @@ export default function RegistrationForm() {
     isSeller: false,
   });
   const { username, password1, password2, isSeller } = registrationData;
+  const [errors, setErrors] = useState({});
   const history = useHistory();
 
   const handleChange = (event) => {
@@ -37,7 +38,7 @@ export default function RegistrationForm() {
       await axios.post("/dj-rest-auth/registration/", registrationData);
       history.push("/signin");
     } catch (err) {
-      console.log(err);
+      setErrors(err.response?.data);
     }
   };
 
@@ -65,6 +66,11 @@ export default function RegistrationForm() {
                 onChange={handleChange}
               />
             </Form.Group>
+            {errors.username?.map((message, idx) => (
+              <Alert variant="warning" key={idx}>
+                {message}
+              </Alert>
+            ))}
             <Form.Group className="mb-3" controlId="password1">
               <Form.Label className="d-none">Password</Form.Label>
               <Form.Control
@@ -75,6 +81,12 @@ export default function RegistrationForm() {
                 onChange={handleChange}
               />
             </Form.Group>
+
+            {errors.password1?.map((message, idx) => (
+              <Alert variant="warning" key={idx}>
+                {message}
+              </Alert>
+            ))}
             <Form.Group className="mb-3" controlId="password2">
               <Form.Label className="d-none">Confirm password</Form.Label>
               <Form.Control
@@ -85,6 +97,11 @@ export default function RegistrationForm() {
                 onChange={handleChange}
               />
             </Form.Group>
+            {errors.password2?.map((message, idx) => (
+              <Alert variant="warning" key={idx}>
+                {message}
+              </Alert>
+            ))}
             <Form.Group className="my-3 text-start" controlId="checkbox">
               <Form.Check
                 type="checkbox"
@@ -100,6 +117,11 @@ export default function RegistrationForm() {
             >
               Sign Up
             </Button>
+            {errors.non_field_errors?.map((message, idx) => (
+              <Alert variant="warning" key={idx} className="mt-3 mb-0">
+                {message}
+              </Alert>
+            ))}
           </Form>
         </Container>
       </Col>
