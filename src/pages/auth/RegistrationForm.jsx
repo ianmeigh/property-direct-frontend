@@ -4,6 +4,7 @@ import { Col, Container, Row, Button, Form } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 import styles from "../../styles/AuthForms.module.css";
+import btnStyles from "../../styles/Buttons.module.css";
 
 export default function RegistrationForm() {
   return (
@@ -48,7 +49,10 @@ export default function RegistrationForm() {
               <Form.Check type="checkbox" label="Are you selling property?" />
             </Form.Group>
           </Form>
-          <Button variant="primary" type="submit">
+          <Button
+            className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Primary}`}
+            type="submit"
+          >
             Sign Up
           </Button>
         </Container>
