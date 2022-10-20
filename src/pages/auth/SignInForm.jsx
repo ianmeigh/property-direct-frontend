@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
+import axios from "axios";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import styles from "../../styles/AuthForms.module.css";
 import btnStyles from "../../styles/Buttons.module.css";
@@ -12,12 +13,24 @@ export default function SignInForm() {
     password: "",
   });
   const { username, password } = signInData;
+  const history = useHistory();
 
   const handleChange = (event) => {
     setSignInData({
       ...signInData,
       [event.target.name]: event.target.value,
     });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(signInData);
+    try {
+      await axios.post("/dj-rest-auth/login/", signInData);
+      history.push("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -33,7 +46,7 @@ export default function SignInForm() {
               Register here.
             </Link>
           </p>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="username">
               <Form.Label className="d-none">Username</Form.Label>
               <Form.Control
