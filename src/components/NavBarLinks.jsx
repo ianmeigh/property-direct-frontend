@@ -195,7 +195,7 @@ export const loggedInMobileNavLinksSellers = (
    */
   <>
     <NavLink
-      className={`${styles.NavMobileIcon} ${styles.NavLink} pt-1 px-0`}
+      className={`${styles.NavMobileIcon} ${styles.NavLink} pt-1 pe-1`}
       activeClassName={styles.Active}
       to="/property/create"
     >
