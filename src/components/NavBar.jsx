@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 
 import logo from "../assets/logo.png";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
+import useOffcanvasToggle from "../hooks/useOffcanvasToggle";
 import styles from "../styles/NavBar.module.css";
 import {
   LoggedInDesktopNavLinksAllUsers,
@@ -22,6 +23,7 @@ import {
 
 export default function NavBar() {
   const currentUser = useCurrentUser();
+  const { expanded, setExpanded, ref } = useOffcanvasToggle();
 
   return (
     <Navbar
@@ -39,21 +41,23 @@ export default function NavBar() {
           Left column:
           - Branding for larger viewport (hidden below "md" breakpoint)
           - Responsive Offcanvas Navbar (visible below "md" breakpoint)
-          - TODO: Contains Mobile Navigation Links
         */}
         <Col className="d-flex flex-row justify-content-start">
           <Navbar.Toggle
             className={`${styles.NavLink} border-dark border-2`}
-            aria-controls={`offcanvasNavbar`}
+            aria-controls="offcanvasNavbar"
+            onClick={() => setExpanded(!expanded)}
           />
           <Navbar.Offcanvas
             className="d-md-none"
-            id={`offcanvasNavbar`}
+            id="offcanvasNavbar"
             placement="start"
+            show={expanded}
+            onHide={() => setExpanded(!expanded)}
           >
             <Offcanvas.Header className="pt-4" aria-label="Close" closeButton />
             <Offcanvas.Body>
-              <Nav className="justify-content-end flex-grow-1 pe-3">
+              <Nav ref={ref} className="justify-content-end flex-grow-1 pe-3">
                 {/* offcanvas nav links */}
                 {currentUser?.is_seller ? (
                   <>
