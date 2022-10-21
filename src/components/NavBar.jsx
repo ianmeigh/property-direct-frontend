@@ -6,64 +6,17 @@ import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { useCurrentUser } from "../hooks/CurrentUserContext";
 import styles from "../styles/NavBar.module.css";
+import {
+  loggedInDesktopNavLinks,
+  loggedInMobileNavLinks,
+  loggedInOffcanvasLinks,
+  loggedOutDesktopNavLinks,
+  loggedOutMobileNavLinks,
+  loggedOutOffcanvasLinks,
+} from "./NavBarLinks";
 
 export default function NavBar() {
   const currentUser = useCurrentUser();
-
-  const loggedOutOffcanvasLinks = (
-    <>
-      <NavLink
-        exact
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to="/"
-      >
-        <p>Home</p>
-      </NavLink>
-    </>
-  );
-
-  const loggedInOffcanvasLinks = <>{currentUser?.username}</>;
-
-  const loggedOutDesktopNavLinks = (
-    <>
-      <NavLink
-        className={`${styles.NavLink} ${styles.NavIcon} d-flex flex-row align-items-center p-1`}
-        activeClassName={styles.Active}
-        to="/signin"
-      >
-        <i className="fas fa-sign-in-alt pe-1"></i>
-        <p className="m-0">Sign in</p>
-      </NavLink>
-      <NavLink
-        className={`${styles.NavLink} ${styles.NavIcon} d-flex flex-row align-items-center p-1`}
-        activeClassName={styles.Active}
-        to="/signup"
-      >
-        <i className="fas fa-user-plus pe-1"></i>
-        <p className="m-0">Sign up</p>
-      </NavLink>
-    </>
-  );
-
-  const loggedInDesktopNavLinks = <>{currentUser?.username}</>;
-
-  const loggedOutMobileNavLinks = (
-    <>
-      <NavLink
-        className={`${styles.NavMobileIcon} ${styles.NavLink} pt-1 px-0`}
-        activeClassName={styles.Active}
-        to="/signin"
-      >
-        <div className="d-flex flex-column align-items-center">
-          <i className="far fa-user fa-2x"></i>
-          <p className="m-0">Sign in</p>
-        </div>
-      </NavLink>
-    </>
-  );
-
-  const loggedInMobileNavLinks = <>{currentUser?.username}</>;
 
   return (
     <Navbar
@@ -165,6 +118,8 @@ export default function NavBar() {
               {currentUser ? loggedInDesktopNavLinks : loggedOutDesktopNavLinks}
             </Nav>
           </Navbar>
+          {/* DEBUG */}
+          {currentUser?.username}
         </Col>
       </Container>
     </Navbar>
