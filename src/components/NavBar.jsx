@@ -4,9 +4,67 @@ import { Col, Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 import logo from "../assets/logo.png";
+import { useCurrentUser } from "../hooks/CurrentUserContext";
 import styles from "../styles/NavBar.module.css";
 
 export default function NavBar() {
+  const currentUser = useCurrentUser();
+
+  const loggedOutOffcanvasLinks = (
+    <>
+      <NavLink
+        exact
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/"
+      >
+        <p>Home</p>
+      </NavLink>
+    </>
+  );
+
+  const loggedInOffcanvasLinks = <>{currentUser?.username}</>;
+
+  const loggedOutDesktopNavLinks = (
+    <>
+      <NavLink
+        className={`${styles.NavLink} ${styles.NavIcon} d-flex flex-row align-items-center p-1`}
+        activeClassName={styles.Active}
+        to="/signin"
+      >
+        <i className="fas fa-sign-in-alt pe-1"></i>
+        <p className="m-0">Sign in</p>
+      </NavLink>
+      <NavLink
+        className={`${styles.NavLink} ${styles.NavIcon} d-flex flex-row align-items-center p-1`}
+        activeClassName={styles.Active}
+        to="/signup"
+      >
+        <i className="fas fa-user-plus pe-1"></i>
+        <p className="m-0">Sign up</p>
+      </NavLink>
+    </>
+  );
+
+  const loggedInDesktopNavLinks = <>{currentUser?.username}</>;
+
+  const loggedOutMobileNavLinks = (
+    <>
+      <NavLink
+        className={`${styles.NavMobileIcon} ${styles.NavLink} pt-1 px-0`}
+        activeClassName={styles.Active}
+        to="/signin"
+      >
+        <div className="d-flex flex-column align-items-center">
+          <i className="far fa-user fa-2x"></i>
+          <p className="m-0">Sign in</p>
+        </div>
+      </NavLink>
+    </>
+  );
+
+  const loggedInMobileNavLinks = <>{currentUser?.username}</>;
+
   return (
     <Navbar
       className={`${styles.NavBar} mb-3 border-bottom flex-nowrap`}
@@ -38,14 +96,8 @@ export default function NavBar() {
             <Offcanvas.Header className="pt-4" aria-label="Close" closeButton />
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <NavLink
-                  exact
-                  className={styles.NavLink}
-                  activeClassName={styles.Active}
-                  to="/"
-                >
-                  <p>Home</p>
-                </NavLink>
+                {/* offcanvas nav links */}
+                {currentUser ? loggedInOffcanvasLinks : loggedOutOffcanvasLinks}
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
@@ -105,34 +157,12 @@ export default function NavBar() {
         <Col className="d-flex flex-row justify-content-end">
           <Navbar className="py-0 py-md-2" aria-label="User Navigation Links">
             <Nav className="d-md-none">
-              <NavLink
-                className={`${styles.NavMobileIcon} ${styles.NavLink} pt-1 px-0`}
-                activeClassName={styles.Active}
-                to="/signin"
-              >
-                <div className="d-flex flex-column align-items-center">
-                  <i className="far fa-user fa-2x"></i>
-                  <p className="m-0">Sign in</p>
-                </div>
-              </NavLink>
+              {/* logged out nav links */}
+              {currentUser ? loggedInMobileNavLinks : loggedOutMobileNavLinks}
             </Nav>
             <Nav className="d-none d-md-flex">
-              <NavLink
-                className={`${styles.NavLink} ${styles.NavIcon} d-flex flex-row align-items-center p-1`}
-                activeClassName={styles.Active}
-                to="/signin"
-              >
-                <i className="fas fa-sign-in-alt pe-1"></i>
-                <p className="m-0">Sign in</p>
-              </NavLink>
-              <NavLink
-                className={`${styles.NavLink} ${styles.NavIcon} d-flex flex-row align-items-center p-1`}
-                activeClassName={styles.Active}
-                to="/signup"
-              >
-                <i className="fas fa-user-plus pe-1"></i>
-                <p className="m-0">Sign up</p>
-              </NavLink>
+              {/* desktop nav links */}
+              {currentUser ? loggedInDesktopNavLinks : loggedOutDesktopNavLinks}
             </Nav>
           </Navbar>
         </Col>
