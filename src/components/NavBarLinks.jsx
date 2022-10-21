@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import { useCurrentUser } from "../hooks/CurrentUserContext";
 import styles from "../styles/NavBar.module.css";
+import Avatar from "./Avatar";
 
 // Desktop Links
 
@@ -63,11 +64,13 @@ export function LoggedInDesktopNavLinksAllUsers() {
       </NavLink>
       {/* Profile */}
       <NavLink
-        className={`${styles.NavLink} ${styles.NavIcon} d-flex flex-row align-items-center p-1`}
+        className={`${styles.NavLink} ${styles.NavIcon} p-1`}
         to={`/profiles/${currentUser?.profile_id}`}
       >
-        <i className="far fa-user-circle pe-1"></i>
-        <p className="m-0">{currentUser?.username}</p>
+        <Avatar
+          src={currentUser?.profile_image}
+          text={currentUser?.username}
+        ></Avatar>
       </NavLink>
       {/* Logout */}
       <NavLink
@@ -138,10 +141,8 @@ export function LoggedInMobileNavLinksAllUsers() {
         className={`${styles.NavMobileIcon} ${styles.NavLink} pt-1 px-0`}
         to={`/profiles/${currentUser?.profile_id}`}
       >
-        <div className="d-flex flex-column align-items-center">
-          <i className="far fa-user-circle fa-2x"></i>
-          <p className="m-0">Profile</p>
-        </div>
+        <Avatar src={currentUser?.profile_image} height={32} isMobile></Avatar>
+        <p className="m-0">Profile</p>
       </NavLink>
       <NavLink
         className={`${styles.NavMobileIcon} ${styles.NavLink} pt-1 px-0`}
