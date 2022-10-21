@@ -2,22 +2,10 @@ import React from "react";
 
 import { NavLink } from "react-router-dom";
 
-import { axiosReq } from "../api/axiosDefaults";
-import {
-  SetCurrentUserContext,
-  useCurrentUser,
-} from "../contexts/CurrentUserContext";
+import { useCurrentUser } from "../contexts/CurrentUserContext";
+import { useHandleLogout } from "../hooks/useHandleLogout";
 import styles from "../styles/NavBar.module.css";
 import Avatar from "./Avatar";
-
-const handleLogout = async () => {
-  try {
-    await axiosReq.post("/dj-rest-auth/logout/");
-    SetCurrentUserContext(null);
-  } catch (err) {
-    console.log(err);
-  }
-};
 
 // Desktop Links
 
@@ -54,6 +42,7 @@ export function LoggedInDesktopNavLinksAllUsers() {
     - Logout (TODO: Move to Profile Page)
    */
   const currentUser = useCurrentUser();
+  const handleLogout = useHandleLogout();
 
   return (
     <>
@@ -147,6 +136,7 @@ export function LoggedInMobileNavLinksAllUsers() {
   - Logout (TODO: Move to Profile Page)
    */
   const currentUser = useCurrentUser();
+  const handleLogout = useHandleLogout();
 
   return (
     <>
@@ -251,6 +241,7 @@ export function LoggedInOffcanvasLinksAllUsers() {
     - Logout
    */
   const currentUser = useCurrentUser();
+  const handleLogout = useHandleLogout();
 
   return (
     <>
