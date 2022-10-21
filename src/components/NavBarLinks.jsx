@@ -2,9 +2,22 @@ import React from "react";
 
 import { NavLink } from "react-router-dom";
 
-import { useCurrentUser } from "../hooks/CurrentUserContext";
+import { axiosReq } from "../api/axiosDefaults";
+import {
+  SetCurrentUserContext,
+  useCurrentUser,
+} from "../hooks/CurrentUserContext";
 import styles from "../styles/NavBar.module.css";
 import Avatar from "./Avatar";
+
+const handleLogout = async () => {
+  try {
+    await axiosReq.post("/dj-rest-auth/logout/");
+    SetCurrentUserContext(null);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 // Desktop Links
 
@@ -76,7 +89,7 @@ export function LoggedInDesktopNavLinksAllUsers() {
       <NavLink
         className={`${styles.NavLink} ${styles.NavIcon} d-flex flex-row align-items-center p-1`}
         to="/"
-        onClick={() => {}}
+        onClick={handleLogout}
       >
         <i className="fas fa-sign-out-alt pe-1"></i>
         <p className="m-0 d-none">Logout</p>
@@ -147,7 +160,7 @@ export function LoggedInMobileNavLinksAllUsers() {
       <NavLink
         className={`${styles.NavMobileIcon} ${styles.NavLink} pt-1 px-0`}
         to="/"
-        onClick={() => {}}
+        onClick={handleLogout}
       >
         <div className="d-flex flex-column align-items-center">
           <i className="fas fa-sign-out-alt fa-2x"></i>
@@ -278,7 +291,7 @@ export function LoggedInOffcanvasLinksAllUsers() {
       </NavLink>
       {/* Bookmarks */}
       {/* Logout */}
-      <NavLink exact className={styles.NavLink} to="/" onClick={() => {}}>
+      <NavLink exact className={styles.NavLink} to="/" onClick={handleLogout}>
         <p>Logout</p>
       </NavLink>
     </>
