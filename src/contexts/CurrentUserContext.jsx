@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { axiosReq, axiosRes } from "../api/axiosDefaults";
 
 // CREDIT: Code Institute Moments Tutorial Project
-// URL: https://github.com/Code-Institute-Solutions/moments
+// URL:    https://github.com/Code-Institute-Solutions/moments
 
 // Context used to share data about the currently authenticated user between
 // components.
