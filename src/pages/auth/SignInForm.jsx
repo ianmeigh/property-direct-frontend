@@ -4,7 +4,7 @@ import axios from "axios";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 
-import { useSetCurrentUser } from "../../hooks/CurrentUserContext";
+import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import styles from "../../styles/AuthForms.module.css";
 import btnStyles from "../../styles/Buttons.module.css";
 

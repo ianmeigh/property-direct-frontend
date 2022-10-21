@@ -6,7 +6,7 @@ import { axiosReq } from "../api/axiosDefaults";
 import {
   SetCurrentUserContext,
   useCurrentUser,
-} from "../hooks/CurrentUserContext";
+} from "../contexts/CurrentUserContext";
 import styles from "../styles/NavBar.module.css";
 import Avatar from "./Avatar";
 

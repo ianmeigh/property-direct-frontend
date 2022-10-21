@@ -4,7 +4,7 @@ import { Col, Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 import logo from "../assets/logo.png";
-import { useCurrentUser } from "../hooks/CurrentUserContext";
+import { useCurrentUser } from "../contexts/CurrentUserContext";
 import styles from "../styles/NavBar.module.css";
 import {
   LoggedInDesktopNavLinksAllUsers,

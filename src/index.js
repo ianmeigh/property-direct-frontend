@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import App from "./App";
-import { CurrentUserProvider } from "./hooks/CurrentUserContext";
+import { CurrentUserProvider } from "./contexts/CurrentUserContext";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
