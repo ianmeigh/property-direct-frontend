@@ -12,9 +12,9 @@ export default function RegistrationForm() {
     username: "",
     password1: "",
     password2: "",
-    isSeller: false,
+    is_seller: false,
   });
-  const { username, password1, password2, isSeller } = registrationData;
+  const { username, password1, password2, is_seller } = registrationData;
   const [errors, setErrors] = useState({});
   const history = useHistory();
 
@@ -33,10 +33,9 @@ export default function RegistrationForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(registrationData);
     try {
       await axios.post("/dj-rest-auth/registration/", registrationData);
-      history.push("/signin");
+      history.push("/login");
     } catch (err) {
       setErrors(err.response?.data);
     }
@@ -51,7 +50,7 @@ export default function RegistrationForm() {
           <h1>Sign Up</h1>
           <p className="mt-2 mb-4">
             Already have an account?
-            <Link className="ps-1" to="/signin">
+            <Link className="ps-1" to="/login">
               Sign in here.
             </Link>
           </p>
@@ -81,7 +80,6 @@ export default function RegistrationForm() {
                 onChange={handleChange}
               />
             </Form.Group>
-
             {errors.password1?.map((message, idx) => (
               <Alert variant="warning" key={idx}>
                 {message}
@@ -106,8 +104,8 @@ export default function RegistrationForm() {
               <Form.Check
                 type="checkbox"
                 label="Are you selling property?"
-                name="isSeller"
-                value={isSeller}
+                name="is_seller"
+                value={is_seller}
                 onChange={handleChecked}
               />
             </Form.Group>

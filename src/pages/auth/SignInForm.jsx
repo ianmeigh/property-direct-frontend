@@ -47,7 +47,7 @@ export default function SignInForm() {
           <h1>Sign In</h1>
           <p className="mt-2 mb-4">
             New to Property Direct?
-            <Link className="ps-1" to="/signup">
+            <Link className="ps-1" to="/register">
               Register here.
             </Link>
           </p>

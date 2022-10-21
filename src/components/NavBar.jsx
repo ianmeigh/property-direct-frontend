@@ -14,6 +14,7 @@ import {
   loggedInMobileNavLinksSellers,
   loggedInMobileNavLinksStandardUsers,
   LoggedInOffcanvasLinksAllUsers,
+  loggedInOffcanvasLinksSellers,
   loggedOutDesktopNavLinks,
   loggedOutMobileNavLinks,
   loggedOutOffcanvasLinks,
@@ -54,7 +55,12 @@ export default function NavBar() {
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
                 {/* offcanvas nav links */}
-                {currentUser ? (
+                {currentUser?.is_seller ? (
+                  <>
+                    {loggedInOffcanvasLinksSellers}
+                    {<LoggedInOffcanvasLinksAllUsers />}
+                  </>
+                ) : currentUser ? (
                   <LoggedInOffcanvasLinksAllUsers />
                 ) : (
                   loggedOutOffcanvasLinks
@@ -119,14 +125,14 @@ export default function NavBar() {
           <Navbar className="py-0 py-md-2" aria-label="User Navigation Links">
             <Nav className="d-md-none">
               {/* mobile nav links */}
-              {currentUser ? (
-                <>
-                  {loggedInMobileNavLinksStandardUsers}
-                  {<LoggedInMobileNavLinksAllUsers />}
-                </>
-              ) : currentUser?.isSeller ? (
+              {currentUser?.is_seller ? (
                 <>
                   {loggedInMobileNavLinksSellers}
+                  {<LoggedInMobileNavLinksAllUsers />}
+                </>
+              ) : currentUser ? (
+                <>
+                  {loggedInMobileNavLinksStandardUsers}
                   {<LoggedInMobileNavLinksAllUsers />}
                 </>
               ) : (
@@ -135,14 +141,14 @@ export default function NavBar() {
             </Nav>
             <Nav className="d-none d-md-flex">
               {/* desktop nav links */}
-              {currentUser ? (
-                <>
-                  {loggedInDesktopNavLinksStandardUsers}
-                  {<LoggedInDesktopNavLinksAllUsers />}
-                </>
-              ) : currentUser?.isSeller ? (
+              {currentUser?.is_seller ? (
                 <>
                   {loggedInDesktopNavLinksSellers}
+                  {<LoggedInDesktopNavLinksAllUsers />}
+                </>
+              ) : currentUser ? (
+                <>
+                  {loggedInDesktopNavLinksStandardUsers}
                   {<LoggedInDesktopNavLinksAllUsers />}
                 </>
               ) : (
