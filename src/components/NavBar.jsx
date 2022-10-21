@@ -4,66 +4,26 @@ import { Col, Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 import logo from "../assets/logo.png";
-import { useCurrentUser } from "../hooks/CurrentUserContext";
+import { useCurrentUser } from "../contexts/CurrentUserContext";
+import useOffcanvasToggle from "../hooks/useOffcanvasToggle";
 import styles from "../styles/NavBar.module.css";
+import {
+  LoggedInDesktopNavLinksAllUsers,
+  loggedInDesktopNavLinksSellers,
+  loggedInDesktopNavLinksStandardUsers,
+  LoggedInMobileNavLinksAllUsers,
+  loggedInMobileNavLinksSellers,
+  loggedInMobileNavLinksStandardUsers,
+  LoggedInOffcanvasLinksAllUsers,
+  loggedInOffcanvasLinksSellers,
+  loggedOutDesktopNavLinks,
+  loggedOutMobileNavLinks,
+  loggedOutOffcanvasLinks,
+} from "./NavBarLinks";
 
 export default function NavBar() {
   const currentUser = useCurrentUser();
-
-  const loggedOutOffcanvasLinks = (
-    <>
-      <NavLink
-        exact
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to="/"
-      >
-        <p>Home</p>
-      </NavLink>
-    </>
-  );
-
-  const loggedInOffcanvasLinks = <>{currentUser?.username}</>;
-
-  const loggedOutDesktopNavLinks = (
-    <>
-      <NavLink
-        className={`${styles.NavLink} ${styles.NavIcon} d-flex flex-row align-items-center p-1`}
-        activeClassName={styles.Active}
-        to="/signin"
-      >
-        <i className="fas fa-sign-in-alt pe-1"></i>
-        <p className="m-0">Sign in</p>
-      </NavLink>
-      <NavLink
-        className={`${styles.NavLink} ${styles.NavIcon} d-flex flex-row align-items-center p-1`}
-        activeClassName={styles.Active}
-        to="/signup"
-      >
-        <i className="fas fa-user-plus pe-1"></i>
-        <p className="m-0">Sign up</p>
-      </NavLink>
-    </>
-  );
-
-  const loggedInDesktopNavLinks = <>{currentUser?.username}</>;
-
-  const loggedOutMobileNavLinks = (
-    <>
-      <NavLink
-        className={`${styles.NavMobileIcon} ${styles.NavLink} pt-1 px-0`}
-        activeClassName={styles.Active}
-        to="/signin"
-      >
-        <div className="d-flex flex-column align-items-center">
-          <i className="far fa-user fa-2x"></i>
-          <p className="m-0">Sign in</p>
-        </div>
-      </NavLink>
-    </>
-  );
-
-  const loggedInMobileNavLinks = <>{currentUser?.username}</>;
+  const { expanded, setExpanded, ref } = useOffcanvasToggle();
 
   return (
     <Navbar
@@ -81,23 +41,34 @@ export default function NavBar() {
           Left column:
           - Branding for larger viewport (hidden below "md" breakpoint)
           - Responsive Offcanvas Navbar (visible below "md" breakpoint)
-          - TODO: Contains Mobile Navigation Links
         */}
         <Col className="d-flex flex-row justify-content-start">
           <Navbar.Toggle
             className={`${styles.NavLink} border-dark border-2`}
-            aria-controls={`offcanvasNavbar`}
+            aria-controls="offcanvasNavbar"
+            onClick={() => setExpanded(!expanded)}
           />
           <Navbar.Offcanvas
             className="d-md-none"
-            id={`offcanvasNavbar`}
+            id="offcanvasNavbar"
             placement="start"
+            show={expanded}
+            onHide={() => setExpanded(!expanded)}
           >
             <Offcanvas.Header className="pt-4" aria-label="Close" closeButton />
             <Offcanvas.Body>
-              <Nav className="justify-content-end flex-grow-1 pe-3">
+              <Nav ref={ref} className="justify-content-end flex-grow-1 pe-3">
                 {/* offcanvas nav links */}
-                {currentUser ? loggedInOffcanvasLinks : loggedOutOffcanvasLinks}
+                {currentUser?.is_seller ? (
+                  <>
+                    {loggedInOffcanvasLinksSellers}
+                    {<LoggedInOffcanvasLinksAllUsers />}
+                  </>
+                ) : currentUser ? (
+                  <LoggedInOffcanvasLinksAllUsers />
+                ) : (
+                  loggedOutOffcanvasLinks
+                )}
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
@@ -128,7 +99,7 @@ export default function NavBar() {
           - Branding for mobile viewport (visible below md breakpoint)
           - Variable column sizing to maintain logo centering
         */}
-        <Col xs={3} md={2}>
+        <Col xs={3} md={1}>
           <NavLink
             exact
             className={`${styles.NavLink} d-flex flex-row align-items-center justify-content-center d-md-none`}
@@ -157,12 +128,36 @@ export default function NavBar() {
         <Col className="d-flex flex-row justify-content-end">
           <Navbar className="py-0 py-md-2" aria-label="User Navigation Links">
             <Nav className="d-md-none">
-              {/* logged out nav links */}
-              {currentUser ? loggedInMobileNavLinks : loggedOutMobileNavLinks}
+              {/* mobile nav links */}
+              {currentUser?.is_seller ? (
+                <>
+                  {loggedInMobileNavLinksSellers}
+                  {<LoggedInMobileNavLinksAllUsers />}
+                </>
+              ) : currentUser ? (
+                <>
+                  {loggedInMobileNavLinksStandardUsers}
+                  {<LoggedInMobileNavLinksAllUsers />}
+                </>
+              ) : (
+                loggedOutMobileNavLinks
+              )}
             </Nav>
             <Nav className="d-none d-md-flex">
               {/* desktop nav links */}
-              {currentUser ? loggedInDesktopNavLinks : loggedOutDesktopNavLinks}
+              {currentUser?.is_seller ? (
+                <>
+                  {loggedInDesktopNavLinksSellers}
+                  {<LoggedInDesktopNavLinksAllUsers />}
+                </>
+              ) : currentUser ? (
+                <>
+                  {loggedInDesktopNavLinksStandardUsers}
+                  {<LoggedInDesktopNavLinksAllUsers />}
+                </>
+              ) : (
+                loggedOutDesktopNavLinks
+              )}
             </Nav>
           </Navbar>
         </Col>

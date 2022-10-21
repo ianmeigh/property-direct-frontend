@@ -14,8 +14,8 @@ function App() {
       <Container className={styles.Main}>
         <Switch>
           <Route exact path="/" render={() => <h1>Home Page Placeholder</h1>} />
-          <Route exact path="/signin" render={() => <SignInForm />} />
-          <Route exact path="/signup" render={() => <RegistrationForm />} />
+          <Route exact path="/login" render={() => <SignInForm />} />
+          <Route exact path="/register" render={() => <RegistrationForm />} />
           <Route render={() => <p>Page Not Found Placeholder</p>} />
         </Switch>
       </Container>
