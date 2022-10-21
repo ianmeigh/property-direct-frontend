@@ -7,9 +7,13 @@ import logo from "../assets/logo.png";
 import { useCurrentUser } from "../hooks/CurrentUserContext";
 import styles from "../styles/NavBar.module.css";
 import {
-  loggedInDesktopNavLinks,
-  loggedInMobileNavLinks,
-  loggedInOffcanvasLinks,
+  LoggedInDesktopNavLinksAllUsers,
+  loggedInDesktopNavLinksSellers,
+  loggedInDesktopNavLinksStandardUsers,
+  LoggedInMobileNavLinksAllUsers,
+  loggedInMobileNavLinksSellers,
+  loggedInMobileNavLinksStandardUsers,
+  LoggedInOffcanvasLinksAllUsers,
   loggedOutDesktopNavLinks,
   loggedOutMobileNavLinks,
   loggedOutOffcanvasLinks,
@@ -50,7 +54,11 @@ export default function NavBar() {
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
                 {/* offcanvas nav links */}
-                {currentUser ? loggedInOffcanvasLinks : loggedOutOffcanvasLinks}
+                {currentUser ? (
+                  <LoggedInOffcanvasLinksAllUsers />
+                ) : (
+                  loggedOutOffcanvasLinks
+                )}
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
@@ -81,7 +89,7 @@ export default function NavBar() {
           - Branding for mobile viewport (visible below md breakpoint)
           - Variable column sizing to maintain logo centering
         */}
-        <Col xs={3} md={2}>
+        <Col xs={3} md={1}>
           <NavLink
             exact
             className={`${styles.NavLink} d-flex flex-row align-items-center justify-content-center d-md-none`}
@@ -110,16 +118,38 @@ export default function NavBar() {
         <Col className="d-flex flex-row justify-content-end">
           <Navbar className="py-0 py-md-2" aria-label="User Navigation Links">
             <Nav className="d-md-none">
-              {/* logged out nav links */}
-              {currentUser ? loggedInMobileNavLinks : loggedOutMobileNavLinks}
+              {/* mobile nav links */}
+              {currentUser ? (
+                <>
+                  {loggedInMobileNavLinksStandardUsers}
+                  {<LoggedInMobileNavLinksAllUsers />}
+                </>
+              ) : currentUser?.isSeller ? (
+                <>
+                  {loggedInMobileNavLinksSellers}
+                  {<LoggedInMobileNavLinksAllUsers />}
+                </>
+              ) : (
+                loggedOutMobileNavLinks
+              )}
             </Nav>
             <Nav className="d-none d-md-flex">
               {/* desktop nav links */}
-              {currentUser ? loggedInDesktopNavLinks : loggedOutDesktopNavLinks}
+              {currentUser ? (
+                <>
+                  {loggedInDesktopNavLinksStandardUsers}
+                  {<LoggedInDesktopNavLinksAllUsers />}
+                </>
+              ) : currentUser?.isSeller ? (
+                <>
+                  {loggedInDesktopNavLinksSellers}
+                  {<LoggedInDesktopNavLinksAllUsers />}
+                </>
+              ) : (
+                loggedOutDesktopNavLinks
+              )}
             </Nav>
           </Navbar>
-          {/* DEBUG */}
-          {currentUser?.username}
         </Col>
       </Container>
     </Navbar>
