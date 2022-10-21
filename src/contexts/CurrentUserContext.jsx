@@ -43,7 +43,7 @@ export const CurrentUserProvider = ({ children }) => {
       Request interceptor:
       - Try to refresh the access_token (using the refresh_token) before sending
         the request.
-      - If refresh_token has expired or doesn't exist, redirect to signin page
+      - If refresh_token has expired or doesn't exist, redirect to login page
         and set currentUser to null.
     */
     axiosReq.interceptors.response.use(
@@ -53,7 +53,7 @@ export const CurrentUserProvider = ({ children }) => {
         } catch (err) {
           setCurrentUser((prevCurrentUser) => {
             if (prevCurrentUser) {
-              history.push("/signin");
+              history.push("/login");
             }
             return null;
           });
@@ -70,7 +70,7 @@ export const CurrentUserProvider = ({ children }) => {
       Response interceptor:
       - If API response is 401, try to refresh the access_token (using the
         refresh_token).
-      - If refresh_token has expired or doesn't exist, redirect to signin page
+      - If refresh_token has expired or doesn't exist, redirect to login page
         and set currentUser to null. 
     */
     axiosRes.interceptors.response.use(
@@ -82,7 +82,7 @@ export const CurrentUserProvider = ({ children }) => {
           } catch (err) {
             setCurrentUser((prevCurrentUser) => {
               if (prevCurrentUser) {
-                history.push("/signin");
+                history.push("/login");
               }
               return null;
             });
