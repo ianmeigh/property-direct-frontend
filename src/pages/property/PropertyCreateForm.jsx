@@ -72,6 +72,7 @@ export default function PropertyCreateForm() {
     });
 
   const handleChangeImage = (event) => {
+    console.log(image_hero);
     if (event.target.files.length) {
       URL.revokeObjectURL(event.target.id);
       setPropertyData({
@@ -79,6 +80,16 @@ export default function PropertyCreateForm() {
         [event.target.id]: URL.createObjectURL(event.target.files[0]),
       });
     }
+  };
+
+  const handleClearImage = (event) => {
+    URL.revokeObjectURL(
+      propertyData[event.target.previousSibling.attributes.for.value]
+    );
+    setPropertyData({
+      ...propertyData,
+      [event.target.previousSibling.attributes.for.value]: "",
+    });
   };
 
   const handleSubmit = (event) => {
@@ -97,13 +108,19 @@ export default function PropertyCreateForm() {
             <figure>
               <Image className={appStyles.Image} src={image_hero} rounded />
             </figure>
-            <div>
+            <div className="d-flex gap-2 justify-content-center align-items-baseline">
               <Form.Label
                 className={`${btnStyles.Button} ${btnStyles.Primary} btn`}
                 htmlFor="image_hero"
               >
-                Change the image
+                Change image
               </Form.Label>
+              <Button
+                className={`${btnStyles.Button} ${btnStyles.Primary}`}
+                onClick={handleClearImage}
+              >
+                Clear Image
+              </Button>
             </div>
           </>
         ) : (
@@ -131,13 +148,19 @@ export default function PropertyCreateForm() {
             <figure>
               <Image className={appStyles.Image} src={floorplan} rounded />
             </figure>
-            <div>
+            <div className="d-flex gap-2 justify-content-center align-items-baseline">
               <Form.Label
                 className={`${btnStyles.Button} ${btnStyles.Primary} btn`}
                 htmlFor="floorplan"
               >
                 Change the image
               </Form.Label>
+              <Button
+                className={`${btnStyles.Button} ${btnStyles.Primary}`}
+                onClick={handleClearImage}
+              >
+                Clear Image
+              </Button>
             </div>
           </>
         ) : (
@@ -165,13 +188,19 @@ export default function PropertyCreateForm() {
             <figure>
               <Image className={appStyles.Image} src={epc} rounded />
             </figure>
-            <div>
+            <div className="d-flex gap-2 justify-content-center align-items-baseline">
               <Form.Label
                 className={`${btnStyles.Button} ${btnStyles.Primary} btn`}
                 htmlFor="epc"
               >
                 Change the image
               </Form.Label>
+              <Button
+                className={`${btnStyles.Button} ${btnStyles.Primary}`}
+                onClick={handleClearImage}
+              >
+                Clear Image
+              </Button>
             </div>
           </>
         ) : (
