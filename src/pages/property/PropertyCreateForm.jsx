@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -12,7 +12,61 @@ import btnStyles from "../../styles/Buttons.module.css";
 import styles from "../../styles/PropertyCreateEditForm.module.css";
 
 export default function PropertyCreateForm() {
+  const [propertyData, setPropertyData] = useState({
+    property_name: "",
+    property_number: "",
+    street_name: "",
+    locality: "",
+    city: "",
+    postcode: "",
+    description: "",
+    price: "",
+    property_type: "",
+    tenure: "",
+    council_tax_band: "",
+    num_bedrooms: "",
+    num_bathrooms: "",
+    has_garden: false,
+    has_parking: false,
+    is_sold_stc: false,
+  });
+  const {
+    property_name,
+    property_number,
+    street_name,
+    locality,
+    city,
+    postcode,
+    description,
+    price,
+    property_type,
+    tenure,
+    council_tax_band,
+    num_bedrooms,
+    num_bathrooms,
+    has_garden,
+    has_parking,
+    is_sold_stc,
+  } = propertyData;
   const history = useHistory();
+
+  const handleChange = (event) => {
+    setPropertyData({
+      ...propertyData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleChecked = (event) =>
+    setPropertyData({
+      ...propertyData,
+      [event.target.name]: event.target.checked,
+    });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(propertyData);
+  };
 
   const formFields = (
     <div className="d-flex flex-column gap-3">
@@ -22,6 +76,8 @@ export default function PropertyCreateForm() {
           className="text-center"
           type="text"
           name="property_name"
+          value={property_name}
+          onChange={handleChange}
         />
       </Form.Group>
       <Form.Group controlId="property_number">
@@ -30,23 +86,49 @@ export default function PropertyCreateForm() {
           className="text-center"
           type="number"
           name="property_number"
+          value={property_number}
+          onChange={handleChange}
         />
       </Form.Group>
       <Form.Group controlId="street_name">
         <Form.Label>Street Name*</Form.Label>
-        <Form.Control className="text-center" type="text" name="street_name" />
+        <Form.Control
+          className="text-center"
+          type="text"
+          name="street_name"
+          value={street_name}
+          onChange={handleChange}
+        />
       </Form.Group>
       <Form.Group controlId="locality">
         <Form.Label>Locality*</Form.Label>
-        <Form.Control className="text-center" type="text" name="locality" />
+        <Form.Control
+          className="text-center"
+          type="text"
+          name="locality"
+          value={locality}
+          onChange={handleChange}
+        />
       </Form.Group>
       <Form.Group controlId="city">
         <Form.Label>City*</Form.Label>
-        <Form.Control className="text-center" type="text" name="city" />
+        <Form.Control
+          className="text-center"
+          type="text"
+          name="city"
+          value={city}
+          onChange={handleChange}
+        />
       </Form.Group>
       <Form.Group controlId="postcode">
         <Form.Label>Postcode*</Form.Label>
-        <Form.Control className="text-center" type="text" name="postcode" />
+        <Form.Control
+          className="text-center"
+          type="text"
+          name="postcode"
+          value={postcode}
+          onChange={handleChange}
+        />
       </Form.Group>
       <Form.Group controlId="description">
         <Form.Label>Description*</Form.Label>
@@ -55,6 +137,8 @@ export default function PropertyCreateForm() {
           as="textarea"
           rows={6}
           name="description"
+          value={description}
+          onChange={handleChange}
         />
       </Form.Group>
       <Form.Group controlId="price">
@@ -65,11 +149,17 @@ export default function PropertyCreateForm() {
           min="0"
           step="1.00"
           name="price"
+          value={price}
+          onChange={handleChange}
         />
       </Form.Group>
       <Form.Group controlId="property_type">
-        <Form.Label>property_type</Form.Label>
-        <Form.Select name="property_type">
+        <Form.Label>Property Type</Form.Label>
+        <Form.Select
+          name="property_type"
+          value={property_type}
+          onChange={handleChange}
+        >
           <option value="apartment">Apartment</option>
           <option value="detached">Detached</option>
           <option value="semi-detached">Semi-detached</option>
@@ -80,8 +170,8 @@ export default function PropertyCreateForm() {
         </Form.Select>
       </Form.Group>
       <Form.Group controlId="tenure">
-        <Form.Label>tenure</Form.Label>
-        <Form.Select name="tenure">
+        <Form.Label>Tenure</Form.Label>
+        <Form.Select name="tenure" value={tenure} onChange={handleChange}>
           <option value="">I don&apos;t know</option>
           <option value="freehold">Freehold</option>
           <option value="shared freehold">Shared freehold</option>
@@ -91,8 +181,12 @@ export default function PropertyCreateForm() {
         </Form.Select>
       </Form.Group>
       <Form.Group controlId="council_tax_band">
-        <Form.Label>council_tax_band</Form.Label>
-        <Form.Select name="council_tax_band">
+        <Form.Label>Council Tax Band</Form.Label>
+        <Form.Select
+          name="council_tax_band"
+          value={council_tax_band}
+          onChange={handleChange}
+        >
           <option value="">I don&apos;t know</option>
           <option value="a">A</option>
           <option value="b">B</option>
@@ -105,21 +199,25 @@ export default function PropertyCreateForm() {
         </Form.Select>
       </Form.Group>
       <Form.Group controlId="num_bedrooms">
-        <Form.Label>num_bedrooms*</Form.Label>
+        <Form.Label>Number of Bedrooms*</Form.Label>
         <Form.Control
           className="text-center"
           type="number"
           min="0"
           name="num_bedrooms"
+          value={num_bedrooms}
+          onChange={handleChange}
         />
       </Form.Group>
       <Form.Group controlId="num_bathrooms">
-        <Form.Label>num_bathrooms*</Form.Label>
+        <Form.Label>Number of Bathrooms*</Form.Label>
         <Form.Control
           className="text-center"
           type="number"
           min="0"
           name="num_bathrooms"
+          value={num_bathrooms}
+          onChange={handleChange}
         />
       </Form.Group>
 
@@ -131,6 +229,8 @@ export default function PropertyCreateForm() {
           className="pb-3 pt-2"
           label="Does it have a Garden?"
           name="has_garden"
+          value={has_garden}
+          onChange={handleChecked}
         />
       </Form.Group>
       <Form.Group
@@ -141,6 +241,8 @@ export default function PropertyCreateForm() {
           className="pb-3"
           label="Is there dedicated parking?"
           name="has_parking"
+          value={has_parking}
+          onChange={handleChecked}
         />
       </Form.Group>
       <Form.Group
@@ -151,6 +253,8 @@ export default function PropertyCreateForm() {
           className="pb-3"
           label="Is the property Sold STC?"
           name="is_sold_stc"
+          value={is_sold_stc}
+          onChange={handleChecked}
         />
       </Form.Group>
     </div>
@@ -166,7 +270,7 @@ export default function PropertyCreateForm() {
       </Button>
       <Button
         className={`${btnStyles.Button} ${btnStyles.Primary}`}
-        onClick={() => {
+        onChange={() => {
           history.goBack();
         }}
       >
@@ -179,7 +283,7 @@ export default function PropertyCreateForm() {
     <Container
       className={`${styles.FormContainer} mt-3 p-0 text-center rounded`}
     >
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Row className="d-flex flex-column flex-md-row mx-3 my-3 gap-3">
           {/* Images */}
           <Col className="px-0">
