@@ -105,7 +105,7 @@ export const loggedInDesktopNavLinksSellers = (
       to="/property/create"
     >
       <i className="fas fa-plus pe-1"></i>
-      <p className="m-0">New</p>
+      <p className="m-0">Create</p>
     </NavLink>
   </>
 );
@@ -191,7 +191,7 @@ export const loggedInMobileNavLinksSellers = (
     >
       <div className="d-flex flex-column align-items-center">
         <i className="fas fa-plus fa-2x"></i>
-        <p className="m-0">New</p>
+        <p className="m-0">Create</p>
       </div>
     </NavLink>
   </>
@@ -300,7 +300,7 @@ export const loggedInOffcanvasLinksSellers = (
       activeClassName={styles.Active}
       to="/property/create"
     >
-      <p>New Property</p>
+      <p>Create Property</p>
     </NavLink>
   </>
 );
