@@ -19,3 +19,9 @@ h3,
 h4 {
   font-family: "Montserrat", Helvetica, sans-serif;
 }
+
+.Image {
+  max-height: 200px;
+  max-width: 100%;
+  object-fit: contain;
+}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import { Image } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -7,12 +8,16 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { useHistory } from "react-router-dom";
 
+import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
 import btnStyles from "../../styles/Buttons.module.css";
 import styles from "../../styles/PropertyCreateEditForm.module.css";
 
 export default function PropertyCreateForm() {
   const [propertyData, setPropertyData] = useState({
+    image_hero: "",
+    floorplan: "",
+    epc: "",
     property_name: "",
     property_number: "",
     street_name: "",
@@ -31,6 +36,9 @@ export default function PropertyCreateForm() {
     is_sold_stc: false,
   });
   const {
+    image_hero,
+    floorplan,
+    epc,
     property_name,
     property_number,
     street_name,
@@ -63,10 +71,127 @@ export default function PropertyCreateForm() {
       [event.target.name]: event.target.checked,
     });
 
+  const handleChangeImage = (event) => {
+    if (event.target.files.length) {
+      URL.revokeObjectURL(event.target.id);
+      setPropertyData({
+        ...propertyData,
+        [event.target.id]: URL.createObjectURL(event.target.files[0]),
+      });
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(propertyData);
   };
+
+  const imageFields = (
+    <>
+      {/* Property Hero Image */}
+      <Form.Group
+        className={`${styles.AssetContainer} d-flex flex-column justify-content-center border border-2 rounded m-0 p-0`}
+      >
+        {image_hero ? (
+          <>
+            <figure>
+              <Image className={appStyles.Image} src={image_hero} rounded />
+            </figure>
+            <div>
+              <Form.Label
+                className={`${btnStyles.Button} ${btnStyles.Primary} btn`}
+                htmlFor="image_hero"
+              >
+                Change the image
+              </Form.Label>
+            </div>
+          </>
+        ) : (
+          <Form.Label
+            className="d-flex flex-column justify-content-center"
+            htmlFor="image_hero"
+          >
+            <Asset upload message="Upload a Property Image" />
+          </Form.Label>
+        )}
+        <Form.Control
+          className="d-none"
+          type="file"
+          id="image_hero"
+          accept="image/"
+          onChange={handleChangeImage}
+        />
+      </Form.Group>
+      {/* Floorplan Image */}
+      <Form.Group
+        className={`${styles.AssetContainer} d-flex flex-column justify-content-center border border-2 rounded my-3 p-0`}
+      >
+        {floorplan ? (
+          <>
+            <figure>
+              <Image className={appStyles.Image} src={floorplan} rounded />
+            </figure>
+            <div>
+              <Form.Label
+                className={`${btnStyles.Button} ${btnStyles.Primary} btn`}
+                htmlFor="floorplan"
+              >
+                Change the image
+              </Form.Label>
+            </div>
+          </>
+        ) : (
+          <Form.Label
+            className="d-flex flex-column justify-content-center"
+            htmlFor="floorplan"
+          >
+            <Asset upload message="Upload a Floorplan Image" />
+          </Form.Label>
+        )}
+        <Form.Control
+          className="d-none"
+          type="file"
+          id="floorplan"
+          accept="image/"
+          onChange={handleChangeImage}
+        />
+      </Form.Group>
+      {/* EPC Image */}
+      <Form.Group
+        className={`${styles.AssetContainer} d-flex flex-column justify-content-center border border-2 rounded m-0 p-0`}
+      >
+        {epc ? (
+          <>
+            <figure>
+              <Image className={appStyles.Image} src={epc} rounded />
+            </figure>
+            <div>
+              <Form.Label
+                className={`${btnStyles.Button} ${btnStyles.Primary} btn`}
+                htmlFor="epc"
+              >
+                Change the image
+              </Form.Label>
+            </div>
+          </>
+        ) : (
+          <Form.Label
+            className="d-flex flex-column justify-content-center"
+            htmlFor="epc"
+          >
+            <Asset upload message="Upload an EPCs Image" />
+          </Form.Label>
+        )}
+        <Form.Control
+          className="d-none"
+          type="file"
+          id="epc"
+          accept="image/"
+          onChange={handleChangeImage}
+        />
+      </Form.Group>
+    </>
+  );
 
   const formFields = (
     <div className="d-flex flex-column gap-3">
@@ -286,41 +411,7 @@ export default function PropertyCreateForm() {
       <Form onSubmit={handleSubmit}>
         <Row className="d-flex flex-column flex-md-row mx-3 my-3 gap-3">
           {/* Images */}
-          <Col className="px-0">
-            {/* Property Hero Image */}
-            <Container
-              className={`${styles.AssetContainer} d-flex flex-column justify-content-center border border-2 rounded p-0`}
-            >
-              <Form.Label
-                className="d-flex flex-column justify-content-center"
-                htmlFor="image-upload"
-              >
-                <Asset upload message="Upload a Property Image" />
-              </Form.Label>
-            </Container>
-            {/* Floorplan Image */}
-            <Container
-              className={`${styles.AssetContainer} d-flex flex-column justify-content-center border border-2 rounded p-0 my-3`}
-            >
-              <Form.Label
-                className="d-flex flex-column justify-content-center"
-                htmlFor="image-upload"
-              >
-                <Asset upload message="Upload a Floorplan" />
-              </Form.Label>
-            </Container>
-            {/* EPC Image */}
-            <Container
-              className={`${styles.AssetContainer} d-flex flex-column justify-content-center border border-2 rounded p-0`}
-            >
-              <Form.Label
-                className="d-flex flex-column justify-content-center"
-                htmlFor="image-upload"
-              >
-                <Asset upload message="Upload an EPC Cert" />
-              </Form.Label>
-            </Container>
-          </Col>
+          <Col className="px-0">{imageFields}</Col>
           {/* Form Fields */}
           <Col className="p-0">
             <Container className="border border-2 p-4">{formFields}</Container>
