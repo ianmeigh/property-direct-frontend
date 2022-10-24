@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import { Image } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -14,6 +14,10 @@ import btnStyles from "../../styles/Buttons.module.css";
 import styles from "../../styles/PropertyCreateEditForm.module.css";
 
 export default function PropertyCreateForm() {
+  const imageHeroFileInput = useRef(null);
+  const floorplanFileInput = useRef(null);
+  const epcFileInput = useRef(null);
+
   const [propertyData, setPropertyData] = useState({
     image_hero: "",
     floorplan: "",
@@ -35,6 +39,7 @@ export default function PropertyCreateForm() {
     has_parking: false,
     is_sold_stc: false,
   });
+
   const {
     image_hero,
     floorplan,
@@ -58,6 +63,9 @@ export default function PropertyCreateForm() {
   } = propertyData;
   const history = useHistory();
 
+  /**
+   * Updates propertyData if input fields are modified.
+   */
   const handleChange = (event) => {
     setPropertyData({
       ...propertyData,
@@ -65,14 +73,22 @@ export default function PropertyCreateForm() {
     });
   };
 
+  /**
+   * Updates propertyData if checkbox fields are modified.
+   */
   const handleChecked = (event) =>
     setPropertyData({
       ...propertyData,
       [event.target.name]: event.target.checked,
     });
 
+  /**
+   * If the image selection is modified by the user the existing URL will be
+   * revoked.
+   *
+   * Updates propertyData with a URL of the image from the file input.
+   */
   const handleChangeImage = (event) => {
-    console.log(image_hero);
     if (event.target.files.length) {
       URL.revokeObjectURL(event.target.id);
       setPropertyData({
@@ -82,14 +98,18 @@ export default function PropertyCreateForm() {
     }
   };
 
-  const handleClearImage = (event) => {
-    URL.revokeObjectURL(
-      propertyData[event.target.previousSibling.attributes.for.value]
-    );
+  /**
+   * Revokes image URL, sets the image variable in propertyData and the File
+   * Field elements current value to an empty string.
+   * @param {object} fileInputRef - Reference to DOM element
+   */
+  const handleClearImage = (fileInputRef) => {
+    URL.revokeObjectURL(propertyData[fileInputRef.current.id]);
     setPropertyData({
       ...propertyData,
-      [event.target.previousSibling.attributes.for.value]: "",
+      [fileInputRef.current.id]: "",
     });
+    fileInputRef.current.value = "";
   };
 
   const handleSubmit = (event) => {
@@ -117,7 +137,7 @@ export default function PropertyCreateForm() {
               </Form.Label>
               <Button
                 className={`${btnStyles.Button} ${btnStyles.Primary}`}
-                onClick={handleClearImage}
+                onClick={() => handleClearImage(imageHeroFileInput)}
               >
                 Clear Image
               </Button>
@@ -137,6 +157,7 @@ export default function PropertyCreateForm() {
           id="image_hero"
           accept="image/"
           onChange={handleChangeImage}
+          ref={imageHeroFileInput}
         />
       </Form.Group>
       {/* Floorplan Image */}
@@ -157,7 +178,7 @@ export default function PropertyCreateForm() {
               </Form.Label>
               <Button
                 className={`${btnStyles.Button} ${btnStyles.Primary}`}
-                onClick={handleClearImage}
+                onClick={() => handleClearImage(floorplanFileInput)}
               >
                 Clear Image
               </Button>
@@ -177,6 +198,7 @@ export default function PropertyCreateForm() {
           id="floorplan"
           accept="image/"
           onChange={handleChangeImage}
+          ref={floorplanFileInput}
         />
       </Form.Group>
       {/* EPC Image */}
@@ -197,7 +219,7 @@ export default function PropertyCreateForm() {
               </Form.Label>
               <Button
                 className={`${btnStyles.Button} ${btnStyles.Primary}`}
-                onClick={handleClearImage}
+                onClick={() => handleClearImage(epcFileInput)}
               >
                 Clear Image
               </Button>
@@ -217,6 +239,7 @@ export default function PropertyCreateForm() {
           id="epc"
           accept="image/"
           onChange={handleChangeImage}
+          ref={epcFileInput}
         />
       </Form.Group>
     </>
