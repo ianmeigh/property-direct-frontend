@@ -46,7 +46,7 @@ export const CurrentUserProvider = ({ children }) => {
       - If refresh_token has expired or doesn't exist, redirect to login page
         and set currentUser to null.
     */
-    axiosReq.interceptors.response.use(
+    axiosReq.interceptors.request.use(
       async (config) => {
         try {
           await axios.post("/dj-rest-auth/token/refresh/");

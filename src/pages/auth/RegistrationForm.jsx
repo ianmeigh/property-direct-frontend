@@ -102,7 +102,6 @@ export default function RegistrationForm() {
             ))}
             <Form.Group className="my-3 text-start" controlId="checkbox">
               <Form.Check
-                type="checkbox"
                 label="Are you selling property?"
                 name="is_seller"
                 value={is_seller}
