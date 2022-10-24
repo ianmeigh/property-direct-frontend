@@ -19,47 +19,47 @@ export default function PropertyCreateForm() {
   const epcFileInput = useRef(null);
 
   const [propertyData, setPropertyData] = useState({
-    image_hero: "",
+    imageHero: "",
     floorplan: "",
     epc: "",
-    property_name: "",
-    property_number: "",
-    street_name: "",
+    propertyName: "",
+    propertyNumber: "",
+    streetName: "",
     locality: "",
     city: "",
     postcode: "",
     description: "",
     price: "",
-    property_type: "",
+    propertyType: "",
     tenure: "",
-    council_tax_band: "",
-    num_bedrooms: "",
-    num_bathrooms: "",
-    has_garden: false,
-    has_parking: false,
-    is_sold_stc: false,
+    councilTaxBand: "",
+    numBedrooms: "",
+    numBathrooms: "",
+    hasGarden: false,
+    hasParking: false,
+    isSoldSTC: false,
   });
 
   const {
-    image_hero,
+    imageHero,
     floorplan,
     epc,
-    property_name,
-    property_number,
-    street_name,
+    propertyName,
+    propertyNumber,
+    streetName,
     locality,
     city,
     postcode,
     description,
     price,
-    property_type,
+    propertyType,
     tenure,
-    council_tax_band,
-    num_bedrooms,
-    num_bathrooms,
-    has_garden,
-    has_parking,
-    is_sold_stc,
+    councilTaxBand,
+    numBedrooms,
+    numBathrooms,
+    hasGarden,
+    hasParking,
+    isSoldSTC,
   } = propertyData;
   const history = useHistory();
 
@@ -123,15 +123,15 @@ export default function PropertyCreateForm() {
       <Form.Group
         className={`${styles.AssetContainer} d-flex flex-column justify-content-center border border-2 rounded m-0 p-0`}
       >
-        {image_hero ? (
+        {imageHero ? (
           <>
             <figure>
-              <Image className={appStyles.Image} src={image_hero} rounded />
+              <Image className={appStyles.Image} src={imageHero} rounded />
             </figure>
             <div className="d-flex gap-2 justify-content-center align-items-baseline">
               <Form.Label
                 className={`${btnStyles.Button} ${btnStyles.Primary} btn`}
-                htmlFor="image_hero"
+                htmlFor="imageHero"
               >
                 Change image
               </Form.Label>
@@ -146,7 +146,7 @@ export default function PropertyCreateForm() {
         ) : (
           <Form.Label
             className="d-flex flex-column justify-content-center"
-            htmlFor="image_hero"
+            htmlFor="imageHero"
           >
             <Asset upload message="Upload a Property Image" />
           </Form.Label>
@@ -154,7 +154,7 @@ export default function PropertyCreateForm() {
         <Form.Control
           className="d-none"
           type="file"
-          id="image_hero"
+          id="imageHero"
           accept="image/"
           onChange={handleChangeImage}
           ref={imageHeroFileInput}
@@ -247,33 +247,33 @@ export default function PropertyCreateForm() {
 
   const formFields = (
     <div className="d-flex flex-column gap-3">
-      <Form.Group controlId="property_name">
+      <Form.Group controlId="propertyName">
         <Form.Label>Property Name</Form.Label>
         <Form.Control
           className="text-center"
           type="text"
-          name="property_name"
-          value={property_name}
+          name="propertyName"
+          value={propertyName}
           onChange={handleChange}
         />
       </Form.Group>
-      <Form.Group controlId="property_number">
+      <Form.Group controlId="propertyNumber">
         <Form.Label>Property Number</Form.Label>
         <Form.Control
           className="text-center"
           type="number"
-          name="property_number"
-          value={property_number}
+          name="propertyNumber"
+          value={propertyNumber}
           onChange={handleChange}
         />
       </Form.Group>
-      <Form.Group controlId="street_name">
+      <Form.Group controlId="streetName">
         <Form.Label>Street Name*</Form.Label>
         <Form.Control
           className="text-center"
           type="text"
-          name="street_name"
-          value={street_name}
+          name="streetName"
+          value={streetName}
           onChange={handleChange}
         />
       </Form.Group>
@@ -330,11 +330,11 @@ export default function PropertyCreateForm() {
           onChange={handleChange}
         />
       </Form.Group>
-      <Form.Group controlId="property_type">
+      <Form.Group controlId="propertyType">
         <Form.Label>Property Type</Form.Label>
         <Form.Select
-          name="property_type"
-          value={property_type}
+          name="propertyType"
+          value={propertyType}
           onChange={handleChange}
         >
           <option value="apartment">Apartment</option>
@@ -357,11 +357,11 @@ export default function PropertyCreateForm() {
           <option value="shared ownership">Shared ownership</option>
         </Form.Select>
       </Form.Group>
-      <Form.Group controlId="council_tax_band">
+      <Form.Group controlId="councilTaxBand">
         <Form.Label>Council Tax Band</Form.Label>
         <Form.Select
-          name="council_tax_band"
-          value={council_tax_band}
+          name="councilTaxBand"
+          value={councilTaxBand}
           onChange={handleChange}
         >
           <option value="">I don&apos;t know</option>
@@ -375,62 +375,62 @@ export default function PropertyCreateForm() {
           <option value="h">H</option>
         </Form.Select>
       </Form.Group>
-      <Form.Group controlId="num_bedrooms">
+      <Form.Group controlId="numBedrooms">
         <Form.Label>Number of Bedrooms*</Form.Label>
         <Form.Control
           className="text-center"
           type="number"
           min="0"
-          name="num_bedrooms"
-          value={num_bedrooms}
+          name="numBedrooms"
+          value={numBedrooms}
           onChange={handleChange}
         />
       </Form.Group>
-      <Form.Group controlId="num_bathrooms">
+      <Form.Group controlId="numBathrooms">
         <Form.Label>Number of Bathrooms*</Form.Label>
         <Form.Control
           className="text-center"
           type="number"
           min="0"
-          name="num_bathrooms"
-          value={num_bathrooms}
+          name="numBathrooms"
+          value={numBathrooms}
           onChange={handleChange}
         />
       </Form.Group>
 
       <Form.Group
         className="align-self-center text-start"
-        controlId="has_garden"
+        controlId="hasGarden"
       >
         <Form.Check
           className="pb-3 pt-2"
           label="Does it have a Garden?"
-          name="has_garden"
-          value={has_garden}
+          name="hasGarden"
+          value={hasGarden}
           onChange={handleChecked}
         />
       </Form.Group>
       <Form.Group
         className="align-self-center text-start"
-        controlId="has_parking"
+        controlId="hasParking"
       >
         <Form.Check
           className="pb-3"
           label="Is there dedicated parking?"
-          name="has_parking"
-          value={has_parking}
+          name="hasParking"
+          value={hasParking}
           onChange={handleChecked}
         />
       </Form.Group>
       <Form.Group
         className="align-self-center text-start"
-        controlId="is_sold_stc"
+        controlId="isSoldSTC"
       >
         <Form.Check
           className="pb-3"
           label="Is the property Sold STC?"
-          name="is_sold_stc"
-          value={is_sold_stc}
+          name="isSoldSTC"
+          value={isSoldSTC}
           onChange={handleChecked}
         />
       </Form.Group>
