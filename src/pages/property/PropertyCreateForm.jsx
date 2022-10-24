@@ -30,7 +30,7 @@ export default function PropertyCreateForm() {
     postcode: "",
     description: "",
     price: "",
-    propertyType: "",
+    propertyType: "apartment",
     tenure: "",
     councilTaxBand: "",
     numBedrooms: "",
