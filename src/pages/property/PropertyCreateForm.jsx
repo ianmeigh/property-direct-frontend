@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import { Image } from "react-bootstrap";
+import { Alert, Image } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -18,6 +18,8 @@ export default function PropertyCreateForm() {
   const imageHeroFileInput = useRef(null);
   const floorplanFileInput = useRef(null);
   const epcFileInput = useRef(null);
+
+  const [errors, setErrors] = useState({});
 
   const [propertyData, setPropertyData] = useState({
     imageHero: "",
@@ -158,7 +160,9 @@ export default function PropertyCreateForm() {
       const { data } = await axiosReq.post("/property/create/", formData);
       history.push(`/property/${data.id}/`);
     } catch (err) {
-      console.log(err);
+      if (err.response?.status !== 401) {
+        setErrors(err.response?.data);
+      }
     }
   };
 
@@ -205,6 +209,11 @@ export default function PropertyCreateForm() {
           ref={imageHeroFileInput}
         />
       </Form.Group>
+      {errors.image_hero?.map((message, idx) => (
+        <Alert className="mt-3" variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
       {/* Floorplan Image */}
       <Form.Group
         className={`${styles.AssetContainer} d-flex flex-column justify-content-center border border-2 rounded my-3 p-0`}
@@ -246,6 +255,11 @@ export default function PropertyCreateForm() {
           ref={floorplanFileInput}
         />
       </Form.Group>
+      {errors.floorplan?.map((message, idx) => (
+        <Alert className="mt-3" variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
       {/* EPC Image */}
       <Form.Group
         className={`${styles.AssetContainer} d-flex flex-column justify-content-center border border-2 rounded m-0 p-0`}
@@ -287,6 +301,11 @@ export default function PropertyCreateForm() {
           ref={epcFileInput}
         />
       </Form.Group>
+      {errors.epc?.map((message, idx) => (
+        <Alert className="mt-3" variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
     </>
   );
 
@@ -312,6 +331,11 @@ export default function PropertyCreateForm() {
           onChange={handleChange}
         />
       </Form.Group>
+      {errors.property_number?.map((message, idx) => (
+        <Alert className="mt-3" variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
       <Form.Group controlId="streetName">
         <Form.Label>Street Name*</Form.Label>
         <Form.Control
@@ -322,6 +346,11 @@ export default function PropertyCreateForm() {
           onChange={handleChange}
         />
       </Form.Group>
+      {errors.street_name?.map((message, idx) => (
+        <Alert className="mt-3" variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
       <Form.Group controlId="locality">
         <Form.Label>Locality*</Form.Label>
         <Form.Control
@@ -332,6 +361,11 @@ export default function PropertyCreateForm() {
           onChange={handleChange}
         />
       </Form.Group>
+      {errors.locality?.map((message, idx) => (
+        <Alert className="mt-3" variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
       <Form.Group controlId="city">
         <Form.Label>City*</Form.Label>
         <Form.Control
@@ -342,6 +376,11 @@ export default function PropertyCreateForm() {
           onChange={handleChange}
         />
       </Form.Group>
+      {errors.city?.map((message, idx) => (
+        <Alert className="mt-3" variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
       <Form.Group controlId="postcode">
         <Form.Label>Postcode*</Form.Label>
         <Form.Control
@@ -352,6 +391,11 @@ export default function PropertyCreateForm() {
           onChange={handleChange}
         />
       </Form.Group>
+      {errors.postcode?.map((message, idx) => (
+        <Alert className="mt-3" variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
       <Form.Group controlId="description">
         <Form.Label>Description*</Form.Label>
         <Form.Control
@@ -363,6 +407,11 @@ export default function PropertyCreateForm() {
           onChange={handleChange}
         />
       </Form.Group>
+      {errors.description?.map((message, idx) => (
+        <Alert className="mt-3" variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
       <Form.Group controlId="price">
         <Form.Label>Price*</Form.Label>
         <Form.Control
@@ -375,6 +424,11 @@ export default function PropertyCreateForm() {
           onChange={handleChange}
         />
       </Form.Group>
+      {errors.price?.map((message, idx) => (
+        <Alert className="mt-3" variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
       <Form.Group controlId="propertyType">
         <Form.Label>Property Type</Form.Label>
         <Form.Select
@@ -431,6 +485,11 @@ export default function PropertyCreateForm() {
           onChange={handleChange}
         />
       </Form.Group>
+      {errors.num_bedrooms?.map((message, idx) => (
+        <Alert className="mt-3" variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
       <Form.Group controlId="numBathrooms">
         <Form.Label>Number of Bathrooms*</Form.Label>
         <Form.Control
@@ -442,6 +501,11 @@ export default function PropertyCreateForm() {
           onChange={handleChange}
         />
       </Form.Group>
+      {errors.num_bathrooms?.map((message, idx) => (
+        <Alert className="mt-3" variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
       <Form.Group
         className="align-self-center text-start"
         controlId="hasGarden"
