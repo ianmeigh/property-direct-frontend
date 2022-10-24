@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { useHistory } from "react-router-dom";
 
+import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
 import btnStyles from "../../styles/Buttons.module.css";
@@ -61,6 +62,7 @@ export default function PropertyCreateForm() {
     hasParking,
     isSoldSTC,
   } = propertyData;
+
   const history = useHistory();
 
   /**
@@ -112,9 +114,52 @@ export default function PropertyCreateForm() {
     fileInputRef.current.value = "";
   };
 
-  const handleSubmit = (event) => {
+  /**
+   * Post form data to the API
+   */
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(propertyData);
+
+    const formData = new FormData();
+    formData.append(
+      "image_hero",
+      imageHeroFileInput.current.files[0]
+        ? imageHeroFileInput.current.files[0]
+        : ""
+    );
+    formData.append(
+      "floorplan",
+      floorplanFileInput.current.files[0]
+        ? floorplanFileInput.current.files[0]
+        : ""
+    );
+    formData.append(
+      "epc",
+      epcFileInput.current.files[0] ? epcFileInput.current.files[0] : ""
+    );
+    formData.append("property_name", propertyName);
+    formData.append("property_number", propertyNumber);
+    formData.append("street_name", streetName);
+    formData.append("locality", locality);
+    formData.append("city", city);
+    formData.append("postcode", postcode);
+    formData.append("description", description);
+    formData.append("price", price);
+    formData.append("property_type", propertyType);
+    formData.append("tenure", tenure);
+    formData.append("council_tax_band", councilTaxBand);
+    formData.append("num_bedrooms", numBedrooms);
+    formData.append("num_bathrooms", numBathrooms);
+    formData.append("has_garden", hasGarden);
+    formData.append("has_parking", hasParking);
+    formData.append("is_sold_stc", isSoldSTC);
+
+    try {
+      const { data } = await axiosReq.post("/property/create/", formData);
+      history.push(`/property/${data.id}/`);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const imageFields = (
@@ -155,7 +200,7 @@ export default function PropertyCreateForm() {
           className="d-none"
           type="file"
           id="imageHero"
-          accept="image/"
+          accept="image/*"
           onChange={handleChangeImage}
           ref={imageHeroFileInput}
         />
@@ -196,7 +241,7 @@ export default function PropertyCreateForm() {
           className="d-none"
           type="file"
           id="floorplan"
-          accept="image/"
+          accept="image/*"
           onChange={handleChangeImage}
           ref={floorplanFileInput}
         />
@@ -237,7 +282,7 @@ export default function PropertyCreateForm() {
           className="d-none"
           type="file"
           id="epc"
-          accept="image/"
+          accept="image/*"
           onChange={handleChangeImage}
           ref={epcFileInput}
         />
@@ -397,7 +442,6 @@ export default function PropertyCreateForm() {
           onChange={handleChange}
         />
       </Form.Group>
-
       <Form.Group
         className="align-self-center text-start"
         controlId="hasGarden"
@@ -447,7 +491,7 @@ export default function PropertyCreateForm() {
       </Button>
       <Button
         className={`${btnStyles.Button} ${btnStyles.Primary}`}
-        onChange={() => {
+        onClick={() => {
           history.goBack();
         }}
       >
