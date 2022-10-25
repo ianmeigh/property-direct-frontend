@@ -4,12 +4,12 @@ import { Image } from "react-bootstrap";
 
 import styles from "../styles/Avatar.module.css";
 
-export default function Avatar({ src, height = 35, alt, text, isMobile }) {
+export default function Avatar({ src, height = 35, alt, text, mobile }) {
   return (
     <>
       <span
         className={`${styles.Avatar} ${
-          isMobile
+          mobile
             ? "d-flex flex-column align-items-center"
             : "d-flex flex-row align-items-center gap-1"
         }`}
