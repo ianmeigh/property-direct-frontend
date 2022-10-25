@@ -4,7 +4,9 @@ import { Button, Card, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import appStyles from "../../App.module.css";
+import Asset from "../../components/Asset";
 import Avatar from "../../components/Avatar";
+import Map from "../../components/Map";
 import btnStyles from "../../styles/Buttons.module.css";
 import styles from "../../styles/PropertyDetail.module.css";
 
@@ -35,6 +37,8 @@ export default function PropertyDetail(props) {
     has_garden,
     has_parking,
     is_sold_stc,
+    longitude,
+    latitude,
   } = props;
 
   const homes = ["detached", "semi-detached", "terraced", "end terrace"];
@@ -162,7 +166,13 @@ export default function PropertyDetail(props) {
       {/* Local Map */}
       <div className="mt-4">
         <h2>Local Map</h2>
-        <div style={{ height: "350px", width: "100%" }}></div>
+        <div style={{ height: "350px", width: "100%" }}>
+          {latitude ? (
+            <Map latitude={latitude} longitude={longitude} />
+          ) : (
+            <Asset spinner />
+          )}
+        </div>
       </div>
     </Container>
   );
