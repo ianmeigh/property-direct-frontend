@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar";
 import RegistrationForm from "./pages/auth/RegistrationForm";
 import SignInForm from "./pages/auth/SignInForm";
 import PropertyCreateForm from "./pages/property/PropertyCreateForm";
+import PropertyPage from "./pages/property/PropertyPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             path="/property/create"
             render={() => <PropertyCreateForm />}
           />
+          <Route exact path="/property/:id/" render={() => <PropertyPage />} />
           <Route render={() => <p>Page Not Found Placeholder</p>} />
         </Switch>
       </Container>

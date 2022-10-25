@@ -144,7 +144,7 @@ export function LoggedInMobileNavLinksAllUsers() {
         className={`${styles.NavMobileIcon} ${styles.NavLink} pt-1 px-0`}
         to={`/profiles/${currentUser?.profile_id}`}
       >
-        <Avatar src={currentUser?.profile_image} height={32} isMobile></Avatar>
+        <Avatar src={currentUser?.profile_image} height={32} mobile></Avatar>
         <p className="m-0">Profile</p>
       </NavLink>
       <NavLink

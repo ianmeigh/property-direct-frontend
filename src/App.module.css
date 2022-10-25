@@ -20,6 +20,13 @@ h4 {
   font-family: "Montserrat", Helvetica, sans-serif;
 }
 
+.ContentContainer {
+  background-color: #ffffff;
+  border-radius: 2px;
+  border: 1px solid #dadadf;
+  min-width: 350px;
+}
+
 .Image {
   max-height: 200px;
   max-width: 100%;

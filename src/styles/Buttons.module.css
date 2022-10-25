@@ -30,3 +30,9 @@
   background-color: var(--primary-btn-color) !important;
   border-color: var(--primary-btn-color) !important;
 }
+
+.Static {
+  font-size: 1.1rem;
+  color: #ffffff !important;
+  cursor:not-allowed !important;
+}
