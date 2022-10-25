@@ -566,7 +566,7 @@ export default function PropertyCreateForm() {
 
   return (
     <Container
-      className={`${styles.FormContainer} mt-3 p-0 text-center rounded`}
+      className={`${appStyles.ContentContainer} mt-3 p-0 text-center rounded`}
     >
       <Form onSubmit={handleSubmit}>
         <Row className="d-flex flex-column flex-md-row mx-3 my-3 gap-3">

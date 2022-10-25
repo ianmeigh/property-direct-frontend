@@ -4,6 +4,7 @@ import axios from "axios";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 
+import appStyles from "../../App.module.css";
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import styles from "../../styles/AuthForms.module.css";
 import btnStyles from "../../styles/Buttons.module.css";
@@ -42,7 +43,7 @@ export default function SignInForm() {
     <Row className={styles.Row}>
       <Col className="my-auto mx-auto py-2 p-md-2" md={8} lg={6}>
         <Container
-          className={`${styles.FormContainer} p-4 text-center rounded`}
+          className={`${appStyles.ContentContainer} p-4 text-center rounded`}
         >
           <h1>Sign In</h1>
           <p className="mt-2 mb-4">
