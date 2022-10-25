@@ -36,7 +36,7 @@ export default function PropertyPage() {
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
         <p>Popular Sellers (Mobile)</p>
-        <PropertyDetail {...property.results[0]} />
+        <PropertyDetail {...property.results[0]} setProperty={setProperty} />
         <Container>Notes</Container>
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">

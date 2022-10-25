@@ -24,6 +24,14 @@
   color: var(--secondary-text-color);
 }
 
+.CursorNotAllowed {
+  cursor: not-allowed;
+}
+
+.CursorPointer {
+  cursor: pointer;
+}
+
 @media screen {}
 
 /* X-Small devices (portrait phones, less than 576px)

@@ -1,12 +1,20 @@
 import React from "react";
 
-import { Button, Card, Container } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Container,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+import { axiosRes } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
 import Avatar from "../../components/Avatar";
 import Map from "../../components/Map";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import btnStyles from "../../styles/Buttons.module.css";
 import styles from "../../styles/PropertyDetail.module.css";
 
@@ -39,9 +47,50 @@ export default function PropertyDetail(props) {
     is_sold_stc,
     longitude,
     latitude,
+    setProperty,
   } = props;
 
+  const currentUser = useCurrentUser();
+
   const homes = ["detached", "semi-detached", "terraced", "end terrace"];
+
+  const handleBookmark = async () => {
+    try {
+      const { data } = await axiosRes.post("/bookmarks/", { property: id });
+      setProperty((prevProperty) => ({
+        ...prevProperty,
+        results: prevProperty.results.map((property) => {
+          return property.id === id
+            ? {
+                ...property,
+                bookmark_id: data.id,
+              }
+            : property;
+        }),
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleRemoveBookmark = async () => {
+    try {
+      await axiosRes.delete(`/bookmarks/${bookmark_id}/`);
+      setProperty((prevProperty) => ({
+        ...prevProperty,
+        results: prevProperty.results.map((property) => {
+          return property.id === id
+            ? {
+                ...property,
+                bookmark_id: null,
+              }
+            : property;
+        }),
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Container className={`${appStyles.ContentContainer} p-3 p-md-4 rounded`}>
@@ -87,15 +136,36 @@ export default function PropertyDetail(props) {
         </Card.Body>
       </Card>
       {/* Property Info (# beds, etc) and bookmark icon */}
-      <div className={`${styles.QuickInfo} mt-4`}>
-        <span className="me-3">
-          <i className="fas fa-bed pe-2"></i>
-          {num_bedrooms} bed
-        </span>
-        <span>
-          <i className="fas fa-bath pe-2"></i>
-          {num_bathrooms} bath
-        </span>
+      <div className="d-flex flex-row justify-content-between align-items-center px-3 mt-4">
+        <div className={`${styles.QuickInfo}`}>
+          <span className="me-3">
+            <i className="fas fa-bed pe-2"></i>
+            {num_bedrooms} bed
+          </span>
+          <span>
+            <i className="fas fa-bath pe-2"></i>
+            {num_bathrooms} bath
+          </span>
+        </div>
+        {/* Bookmark Logic */}
+        {bookmark_id ? (
+          <span onClick={handleRemoveBookmark}>
+            <i className={`fas fa-bookmark fa-2x ${styles.CursorPointer}`}></i>
+          </span>
+        ) : currentUser ? (
+          <span onClick={handleBookmark}>
+            <i className={`far fa-bookmark fa-2x ${styles.CursorPointer}`}></i>
+          </span>
+        ) : (
+          <OverlayTrigger
+            placement="left"
+            overlay={<Tooltip>Please login to bookmark properties.</Tooltip>}
+          >
+            <i
+              className={`far fa-bookmark fa-2x ${styles.CursorNotAllowed}`}
+            ></i>
+          </OverlayTrigger>
+        )}
       </div>
       {/* Other images (Floorplan and EPC) */}
       <span className="d-flex flex-row flex-wrap justify-content-start gap-2 mt-4">
