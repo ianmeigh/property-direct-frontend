@@ -32,44 +32,36 @@
   cursor: pointer;
 }
 
-@media screen {}
+.PropertyImage {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
 
-/* X-Small devices (portrait phones, less than 576px)
-No media query for `xs` since this is the default in Bootstrap */
+.Map {
+  height: 350px;
+  width: 100%;
+}
 
-/* Small devices (landscape phones, 576px and up) */
+/* Media Queries */
 @media (max-width: 576px) {
   .PropertyHeadingFont {
     font-family: "Lato", Helvetica, sans-serif;
   }
+
   .Heading {
     font-size: 1rem;
   }
+
   .Price {
     font-size: 1.4rem;
   }
+
   .SubHeading {
     font-size: 1rem
   }
-  .QuickInfo {font-size: 1rem;}
+
+  .QuickInfo {
+    font-size: 1rem;
+  }
 }
-
-/* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {}
-
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {}
-
-/* X-Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {}
-
-/* XX-Large devices (larger desktops, 1400px and up) */
-@media (min-width: 1400px) {}
-
-/* 
-xs: 0,
-sm: 576px,
-md: 768px,
-lg: 992px,
-xl: 1200px,
-xxl: 1400px */
