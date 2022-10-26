@@ -129,10 +129,16 @@ export default function PropertyDetail(props) {
           <Card>
             <Card.Img src={image_hero} variant="top" />
             <Card.Body className="d-flex flex-column flex-md-row justify-content-md-between align-items-center">
-              <Link className="d-md-none text-decoration-none text-black">
+              <Link
+                to={`/profiles/${profile_id}`}
+                className="d-md-none text-decoration-none text-black"
+              >
                 <Avatar src={profile_image} mobile text={owner} />
               </Link>
-              <Link className="d-none d-md-block text-decoration-none text-black">
+              <Link
+                to={`/profiles/${profile_id}`}
+                className="d-none d-md-block text-decoration-none text-black"
+              >
                 <Avatar src={profile_image} text={owner} />
               </Link>
               <span className="d-flex flex-row flex-wrap justify-content-center gap-2 mt-4 mt-md-0">
@@ -324,7 +330,7 @@ export default function PropertyDetail(props) {
                   {`${description.slice(0, 200).trimEnd()}...`}
                 </p>
                 <div className="mt-3 d-flex justify-content-between">
-                  <Link>More Detail...</Link>
+                  <Link to={`/property/${id}`}>More Detail...</Link>
                   <p className="mb-1 text-muted">
                     {created_at === updated_at
                       ? `Listed on ${created_at}`
@@ -334,10 +340,16 @@ export default function PropertyDetail(props) {
               </div>
               <div className="border-bottom p-4 d-xxl-none d-block">
                 <div className="d-flex flex-column flex-md-row justify-content-md-between align-items-center">
-                  <Link className="d-md-none text-decoration-none text-black">
+                  <Link
+                    to={`/profiles/${profile_id}`}
+                    className="d-md-none text-decoration-none text-black"
+                  >
                     <Avatar src={profile_image} mobile text={owner} />
                   </Link>
-                  <Link className="d-none d-md-block text-decoration-none text-black">
+                  <Link
+                    to={`/profiles/${profile_id}`}
+                    className="d-none d-md-block text-decoration-none text-black"
+                  >
                     <Avatar src={profile_image} text={owner} />
                   </Link>
                   <span className="d-flex flex-row flex-wrap justify-content-center gap-2 mt-4 mt-md-0">
@@ -357,10 +369,16 @@ export default function PropertyDetail(props) {
           </div>
           <div className="border border-top-0 p-4 d-none d-xxl-block">
             <div className="d-flex flex-column flex-md-row justify-content-md-between align-items-center">
-              <Link className="d-md-none text-decoration-none text-black">
+              <Link
+                to={`/profiles/${profile_id}`}
+                className="d-md-none text-decoration-none text-black"
+              >
                 <Avatar src={profile_image} mobile text={owner} />
               </Link>
-              <Link className="d-none d-md-block text-decoration-none text-black">
+              <Link
+                to={`/profiles/${profile_id}`}
+                className="d-none d-md-block text-decoration-none text-black"
+              >
                 <Avatar src={profile_image} text={owner} />
               </Link>
               <span className="d-flex flex-row flex-wrap justify-content-center gap-2 mt-4 mt-md-0">
