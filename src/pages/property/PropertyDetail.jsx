@@ -4,7 +4,6 @@ import {
   Button,
   Card,
   Col,
-  Container,
   Image,
   OverlayTrigger,
   Tooltip,
@@ -36,7 +35,7 @@ export default function PropertyDetail(props) {
     property_name,
     property_number,
     street_name,
-    locality,
+    locaḷity,
     city,
     postcode,
     description,
@@ -100,7 +99,7 @@ export default function PropertyDetail(props) {
   return (
     <>
       {detailView ? (
-        <>
+        <Col className={`${appStyles.ContentContainer} p-3 p-md-4 rounded`}>
           {/* Property Header */}
           <div className="d-flex flex-row justify-content-between">
             <h1 className="d-flex flex-column align-items-start align-content-start gap-2 mb-4 me-3">
@@ -264,7 +263,7 @@ export default function PropertyDetail(props) {
               )}
             </div>
           </div>
-        </>
+        </Col>
       ) : (
         <Col md={12} className="shadow mb-4">
           <div className="d-flex flex-column flex-xxl-row border rounded-top overflow-hidden position-relative">
@@ -272,9 +271,9 @@ export default function PropertyDetail(props) {
               <Image src={image_hero} className={`${styles.PropertyImage}`} />
             </Col>
             {/* Text Context and Price (below xxl breakpoint) */}
-            <div className="d-flex flex-xxl-column flex-column-reverse">
+            <Col className="d-flex flex-xxl-column flex-column-reverse">
               {/* Text Content */}
-              <Col className="p-4 d-flex flex-column position-static">
+              <div className="p-4 d-flex flex-column">
                 <div className="d-flex justify-content-between">
                   <h3 className="m-0">£{price}</h3>
                   {/* Bookmark Logic */}
@@ -320,7 +319,6 @@ export default function PropertyDetail(props) {
                 <p className="text-muted">
                   {street_name}, {city}, {postcode}
                 </p>
-
                 {/* Shortened description */}
                 <p className="mb-auto">
                   {`${description.slice(0, 200).trimEnd()}...`}
@@ -333,7 +331,7 @@ export default function PropertyDetail(props) {
                       : `Last updated on ${updated_at}`}
                   </p>
                 </div>
-              </Col>
+              </div>
               <div className="border-bottom p-4 d-xxl-none d-block">
                 <div className="d-flex flex-column flex-md-row justify-content-md-between align-items-center">
                   <Link className="d-md-none text-decoration-none text-black">
@@ -355,7 +353,7 @@ export default function PropertyDetail(props) {
                   </span>
                 </div>
               </div>
-            </div>
+            </Col>
           </div>
           <div className="border border-top-0 p-4 d-none d-xxl-block">
             <div className="d-flex flex-column flex-md-row justify-content-md-between align-items-center">
