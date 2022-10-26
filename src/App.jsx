@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar";
 import RegistrationForm from "./pages/auth/RegistrationForm";
 import SignInForm from "./pages/auth/SignInForm";
 import PropertyCreateForm from "./pages/property/PropertyCreateForm";
+import PropertyListPage from "./pages/property/PropertyListPage";
 import PropertyPage from "./pages/property/PropertyPage";
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
       <NavBar />
       <Container className={styles.Main}>
         <Switch>
-          <Route exact path="/" render={() => <h1>Home Page Placeholder</h1>} />
+          <Route exact path="/" render={() => <PropertyListPage />} />
           <Route exact path="/login" render={() => <SignInForm />} />
           <Route exact path="/register" render={() => <RegistrationForm />} />
           <Route
