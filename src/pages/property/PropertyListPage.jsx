@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { useLocation } from "react-router-dom";
 
 import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
+import { fetchMoreData } from "../../utils/utils";
 import PropertyDetail from "./PropertyDetail";
 
 // CREDIT: Adapted from Code Institute Moments Tutorial Project
@@ -42,13 +44,22 @@ export default function PropertyListPage() {
           className={`${appStyles.ContentContainer} pt-4 px-3 px-md-4 rounded`}
         >
           {hasLoaded ? (
-            properties.results.map((property) => (
-              <PropertyDetail
-                key={property.id}
-                {...property}
-                setProperties={setProperties}
-              />
-            ))
+            <InfiniteScroll
+              dataLength={properties.results.length}
+              loader={<Asset spinner />}
+              hasMore={!!properties.next}
+              next={() => {
+                fetchMoreData(properties, setProperties);
+              }}
+            >
+              {properties.results.map((property) => (
+                <PropertyDetail
+                  key={property.id}
+                  {...property}
+                  setProperties={setProperties}
+                />
+              ))}
+            </InfiniteScroll>
           ) : (
             <Asset spinner />
           )}
