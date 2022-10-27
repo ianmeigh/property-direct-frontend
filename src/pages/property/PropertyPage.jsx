@@ -39,7 +39,7 @@ export default function PropertyPage() {
         <PropertyDetail
           detailView
           {...property.results[0]}
-          setProperty={setProperty}
+          setProperties={setProperty}
         />
         <Container>Notes</Container>
       </Col>

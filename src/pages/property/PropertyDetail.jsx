@@ -50,7 +50,7 @@ export default function PropertyDetail(props) {
     is_sold_stc,
     longitude,
     latitude,
-    setProperty,
+    setProperties,
     detailView,
   } = props;
 
@@ -61,7 +61,7 @@ export default function PropertyDetail(props) {
   const handleBookmark = async () => {
     try {
       const { data } = await axiosRes.post("/bookmarks/", { property: id });
-      setProperty((prevProperty) => ({
+      setProperties((prevProperty) => ({
         ...prevProperty,
         results: prevProperty.results.map((property) => {
           return property.id === id
@@ -80,7 +80,7 @@ export default function PropertyDetail(props) {
   const handleRemoveBookmark = async () => {
     try {
       await axiosRes.delete(`/bookmarks/${bookmark_id}/`);
-      setProperty((prevProperty) => ({
+      setProperties((prevProperty) => ({
         ...prevProperty,
         results: prevProperty.results.map((property) => {
           return property.id === id
