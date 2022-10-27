@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { useLocation } from "react-router-dom";
 
 import { axiosReq } from "../../api/axiosDefaults";
