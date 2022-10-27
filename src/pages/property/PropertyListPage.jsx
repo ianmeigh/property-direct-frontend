@@ -2,18 +2,20 @@ import React, { useEffect, useState } from "react";
 
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { useLocation } from "react-router-dom";
 
 import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
+import { fetchMoreData } from "../../utils/utils";
 import PropertyDetail from "./PropertyDetail";
 
 // CREDIT: Adapted from Code Institute Moments Tutorial Project
 // URL:    https://github.com/Code-Institute-Solutions/moments
 
 export default function PropertyListPage() {
-  const [property, setProperty] = useState({ results: [] });
+  const [properties, setProperties] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
 
@@ -24,7 +26,7 @@ export default function PropertyListPage() {
     const fetchPosts = async () => {
       try {
         const { data } = await axiosReq.get(`/property/`);
-        setProperty(data);
+        setProperties(data);
         setHasLoaded(true);
       } catch (err) {
         console.log(err);
@@ -42,13 +44,22 @@ export default function PropertyListPage() {
           className={`${appStyles.ContentContainer} pt-4 px-3 px-md-4 rounded`}
         >
           {hasLoaded ? (
-            property.results.map((property) => (
-              <PropertyDetail
-                key={property.id}
-                {...property}
-                setProperty={setProperty}
-              />
-            ))
+            <InfiniteScroll
+              dataLength={properties.results.length}
+              loader={<Asset spinner />}
+              hasMore={!!properties.next}
+              next={() => {
+                fetchMoreData(properties, setProperties);
+              }}
+            >
+              {properties.results.map((property) => (
+                <PropertyDetail
+                  key={property.id}
+                  {...property}
+                  setProperties={setProperties}
+                />
+              ))}
+            </InfiniteScroll>
           ) : (
             <Asset spinner />
           )}
