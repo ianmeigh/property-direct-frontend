@@ -8,9 +8,9 @@ import {
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
-import { axiosRes } from "../../api/axiosDefaults";
+import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
 import Avatar from "../../components/Avatar";
@@ -59,6 +59,26 @@ export default function PropertyDetail(props) {
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
+  const history = useHistory();
+
+  /**
+   * Redirects user to the property edit page
+   */
+  const handleEdit = () => {
+    history.push(`/property/${id}/edit`);
+  };
+
+  /**
+   * Deletes property and redirects user to previous page in history
+   */
+  const handleDelete = async () => {
+    try {
+      await axiosRes.delete(`/property/${id}/`);
+      history.goBack();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleBookmark = async () => {
     try {
@@ -105,7 +125,10 @@ export default function PropertyDetail(props) {
           {/* Edit Menu */}
           {is_owner && detailView && (
             <div className="d-flex justify-content-end pb-3">
-              <MoreActionsDropdown />
+              <MoreActionsDropdown
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
             </div>
           )}
           {/* Property Header */}

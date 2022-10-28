@@ -20,20 +20,16 @@ const MoreActions = React.forwardRef(({ onClick }, ref) => (
 ));
 MoreActions.displayName = "MoreActionsIcon";
 
-export default function MoreActionsDropdown() {
+export default function MoreActionsDropdown({ handleEdit, handleDelete }) {
   return (
     <Dropdown className="ml-auto" drop="left">
-      <Dropdown.Toggle
-        as={MoreActions}
-        id="dropdown-custom-components"
-        aria-label="More Actions Menu"
-      />
+      <Dropdown.Toggle as={MoreActions} aria-label="More Actions Menu" />
 
       <Dropdown.Menu>
         <div className="d-flex align-content-center">
           <Dropdown.Item
             className="d-flex flex-column align-items-center"
-            onClick={() => {}}
+            onClick={handleEdit}
             aria-label="Edit Property"
           >
             <i className="fas fa-edit fa-2x mb-1" />
@@ -41,7 +37,7 @@ export default function MoreActionsDropdown() {
           </Dropdown.Item>
           <Dropdown.Item
             className="d-flex flex-column align-items-center"
-            onClick={() => {}}
+            onClick={handleDelete}
             aria-label="Delete Property"
           >
             <i className="fas fa-trash-alt fa-2x mb-1" />
