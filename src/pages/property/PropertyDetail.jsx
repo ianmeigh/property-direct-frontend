@@ -55,7 +55,6 @@ export default function PropertyDetail(props) {
   } = props;
 
   const currentUser = useCurrentUser();
-
   const homes = ["detached", "semi-detached", "terraced", "end terrace"];
 
   const handleBookmark = async () => {
@@ -279,7 +278,7 @@ export default function PropertyDetail(props) {
             {/* Text Context and Price (below xxl breakpoint) */}
             <Col className="d-flex flex-xxl-column flex-column-reverse">
               {/* Text Content */}
-              <div className="p-4 d-flex flex-column">
+              <div className="p-4 d-flex flex-column h-100">
                 <div className="d-flex justify-content-between">
                   <h3 className="m-0">£{price}</h3>
                   {/* Bookmark Logic */}
@@ -326,7 +325,7 @@ export default function PropertyDetail(props) {
                   {street_name}, {city}, {postcode}
                 </p>
                 {/* Shortened description */}
-                <p className="mb-auto">
+                <p className="flex-grow-1">
                   {`${description.slice(0, 200).trimEnd()}...`}
                 </p>
                 <div className="mt-3 d-flex justify-content-between">
