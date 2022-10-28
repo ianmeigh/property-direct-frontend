@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 
 import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { useHistory, useParams } from "react-router-dom";
 
 import { axiosReq } from "../../api/axiosDefaults";
+import appStyles from "../../App.module.css";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import NoteForm from "../notes/NoteForm";
 import PropertyDetail from "./PropertyDetail";
 
 // CREDIT: Adapted from Code Institute Moments Tutorial Project
@@ -14,7 +16,9 @@ import PropertyDetail from "./PropertyDetail";
 export default function PropertyPage() {
   const { id } = useParams();
   const [property, setProperty] = useState({ results: [] });
+  const [notes, setNotes] = useState({ results: [] });
   const history = useHistory();
+  const currentUser = useCurrentUser();
 
   /**
    * Retrieve property data on component mount
@@ -45,7 +49,16 @@ export default function PropertyPage() {
           {...property.results[0]}
           setProperties={setProperty}
         />
-        <Container>Notes</Container>
+        <Col
+          className={`${appStyles.ContentContainer} p-3 p-md-4 rounded mt-3`}
+        >
+          <NoteForm
+            profileId={currentUser.profile_id}
+            profileImage={currentUser.profile_image}
+            property={id}
+            setNotes={setNotes}
+          />
+        </Col>
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
         Popular Seller (Desktop)
