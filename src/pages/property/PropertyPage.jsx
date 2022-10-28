@@ -7,6 +7,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import Note from "../notes/Note";
 import NoteForm from "../notes/NoteForm";
 import PropertyDetail from "./PropertyDetail";
 
@@ -66,11 +67,7 @@ export default function PropertyPage() {
             "Notes"
           ) : null}
           {notes.results.length ? (
-            notes.results.map((note) => (
-              <p key={note.id}>
-                {notes.results.length} {note.owner}: {note.content}
-              </p>
-            ))
+            notes.results.map((note) => <Note key={note.id} {...note} />)
           ) : currentUser ? (
             <span>
               Leave notes about your viewing or anything really, these notes are
