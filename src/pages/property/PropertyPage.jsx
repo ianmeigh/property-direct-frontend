@@ -24,12 +24,15 @@ export default function PropertyPage() {
    * Retrieve property data on component mount
    */
   useEffect(() => {
+    setNotes({ results: [] });
     const handleMount = async () => {
       try {
-        const [{ data: property }] = await Promise.all([
+        const [{ data: property }, { data: notes }] = await Promise.all([
           axiosReq.get(`/property/${id}`),
+          axiosReq.get(`/notes/?property=${id}`),
         ]);
         setProperty({ results: [property] });
+        setNotes(notes);
       } catch (err) {
         if (err.response.status === 404) {
           history.push("/404");
@@ -52,12 +55,30 @@ export default function PropertyPage() {
         <Col
           className={`${appStyles.ContentContainer} p-3 p-md-4 rounded mt-3`}
         >
-          <NoteForm
-            profileId={currentUser.profile_id}
-            profileImage={currentUser.profile_image}
-            property={id}
-            setNotes={setNotes}
-          />
+          {currentUser ? (
+            <NoteForm
+              profile_id={currentUser.profile_id}
+              profileImage={currentUser.profile_image}
+              property={id}
+              setNotes={setNotes}
+            />
+          ) : notes.results.length ? (
+            "Notes"
+          ) : null}
+          {notes.results.length ? (
+            notes.results.map((note) => (
+              <p key={note.id}>
+                {notes.results.length} {note.owner}: {note.content}
+              </p>
+            ))
+          ) : currentUser ? (
+            <span>
+              Leave notes about your viewing or anything really, these notes are
+              private to you!
+            </span>
+          ) : (
+            <span>Log in to create private notes about this property.</span>
+          )}
         </Col>
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
