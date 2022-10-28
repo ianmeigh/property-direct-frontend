@@ -55,10 +55,10 @@ export default function PropertyDetail(props) {
     detailView,
   } = props;
 
+  const houseTypes = ["detached", "semi-detached", "terraced", "end terrace"];
+
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
-
-  const homes = ["detached", "semi-detached", "terraced", "end terrace"];
 
   const handleBookmark = async () => {
     try {
@@ -115,7 +115,7 @@ export default function PropertyDetail(props) {
                 className={`${styles.PropertyHeadingFont} ${styles.Heading}`}
               >
                 {num_bedrooms} bedroom {property_type}
-                {homes.includes(property_type) ? " house" : ""}
+                {houseTypes.includes(property_type) ? " house" : ""}
               </span>
               <span
                 className={`${styles.PropertyHeadingFont} ${styles.SubHeading}`}
@@ -244,7 +244,7 @@ export default function PropertyDetail(props) {
             <h2>Key Information</h2>
             <ul>
               <li className="text-capitalize">
-                {homes.includes(property_type)
+                {houseTypes.includes(property_type)
                   ? `${property_type} house`
                   : property_type}
               </li>
@@ -328,7 +328,7 @@ export default function PropertyDetail(props) {
                 </div>
                 <p className="mb-0">
                   {num_bedrooms} bedroom {property_type}
-                  {homes.includes(property_type) ? " house" : ""}
+                  {houseTypes.includes(property_type) ? " house" : ""}
                 </p>
                 <p className="text-muted">
                   {street_name}, {city}, {postcode}
