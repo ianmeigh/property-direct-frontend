@@ -6,7 +6,7 @@ import styles from "./App.module.css";
 import NavBar from "./components/NavBar";
 import RegistrationForm from "./pages/auth/RegistrationForm";
 import SignInForm from "./pages/auth/SignInForm";
-import PropertyCreateForm from "./pages/property/PropertyCreateForm";
+import PropertyForm from "./pages/property/PropertyForm";
 import PropertyListPage from "./pages/property/PropertyListPage";
 import PropertyPage from "./pages/property/PropertyPage";
 
@@ -22,13 +22,13 @@ function App() {
           <Route
             exact
             path="/property/create"
-            render={() => <PropertyCreateForm />}
+            render={() => <PropertyForm />}
           />
           <Route exact path="/property/:id/" render={() => <PropertyPage />} />
           <Route
             exact
             path="/property/:id/edit"
-            render={() => <PropertyCreateForm />}
+            render={() => <PropertyForm />}
           />
           <Route
             exact

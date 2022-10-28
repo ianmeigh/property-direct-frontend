@@ -12,9 +12,9 @@ import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
 import btnStyles from "../../styles/Buttons.module.css";
-import styles from "../../styles/PropertyCreateEditForm.module.css";
+import styles from "../../styles/PropertyForm.module.css";
 
-export default function PropertyCreateForm() {
+export default function PropertyForm() {
   const imageHeroFileInput = useRef(null);
   const floorplanFileInput = useRef(null);
   const epcFileInput = useRef(null);
