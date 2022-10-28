@@ -8,13 +8,14 @@ import {
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
-import { axiosRes } from "../../api/axiosDefaults";
+import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
 import Avatar from "../../components/Avatar";
 import Map from "../../components/Map";
+import MoreActionsDropdown from "../../components/MoreActionsDropdown";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import btnStyles from "../../styles/Buttons.module.css";
 import styles from "../../styles/PropertyDetail.module.css";
@@ -54,9 +55,30 @@ export default function PropertyDetail(props) {
     detailView,
   } = props;
 
-  const currentUser = useCurrentUser();
+  const houseTypes = ["detached", "semi-detached", "terraced", "end terrace"];
 
-  const homes = ["detached", "semi-detached", "terraced", "end terrace"];
+  const currentUser = useCurrentUser();
+  const is_owner = currentUser?.username === owner;
+  const history = useHistory();
+
+  /**
+   * Redirects user to the property edit page
+   */
+  const handleEdit = () => {
+    history.push(`/property/${id}/edit`);
+  };
+
+  /**
+   * Deletes property and redirects user to previous page in history
+   */
+  const handleDelete = async () => {
+    try {
+      await axiosRes.delete(`/property/${id}/`);
+      history.goBack();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleBookmark = async () => {
     try {
@@ -100,6 +122,15 @@ export default function PropertyDetail(props) {
     <>
       {detailView ? (
         <Col className={`${appStyles.ContentContainer} p-3 p-md-4 rounded`}>
+          {/* Edit Menu */}
+          {is_owner && detailView && (
+            <div className="d-flex justify-content-end pb-3">
+              <MoreActionsDropdown
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
+            </div>
+          )}
           {/* Property Header */}
           <div className="d-flex flex-row justify-content-between">
             <h1 className="d-flex flex-column align-items-start align-content-start gap-2 mb-4 me-3">
@@ -107,7 +138,7 @@ export default function PropertyDetail(props) {
                 className={`${styles.PropertyHeadingFont} ${styles.Heading}`}
               >
                 {num_bedrooms} bedroom {property_type}
-                {homes.includes(property_type) ? " house" : ""}
+                {houseTypes.includes(property_type) ? " house" : ""}
               </span>
               <span
                 className={`${styles.PropertyHeadingFont} ${styles.SubHeading}`}
@@ -236,7 +267,7 @@ export default function PropertyDetail(props) {
             <h2>Key Information</h2>
             <ul>
               <li className="text-capitalize">
-                {homes.includes(property_type)
+                {houseTypes.includes(property_type)
                   ? `${property_type} house`
                   : property_type}
               </li>
@@ -279,7 +310,7 @@ export default function PropertyDetail(props) {
             {/* Text Context and Price (below xxl breakpoint) */}
             <Col className="d-flex flex-xxl-column flex-column-reverse">
               {/* Text Content */}
-              <div className="p-4 d-flex flex-column">
+              <div className="p-4 d-flex flex-column h-100">
                 <div className="d-flex justify-content-between">
                   <h3 className="m-0">£{price}</h3>
                   {/* Bookmark Logic */}
@@ -320,13 +351,13 @@ export default function PropertyDetail(props) {
                 </div>
                 <p className="mb-0">
                   {num_bedrooms} bedroom {property_type}
-                  {homes.includes(property_type) ? " house" : ""}
+                  {houseTypes.includes(property_type) ? " house" : ""}
                 </p>
                 <p className="text-muted">
                   {street_name}, {city}, {postcode}
                 </p>
                 {/* Shortened description */}
-                <p className="mb-auto">
+                <p className="flex-grow-1">
                   {`${description.slice(0, 200).trimEnd()}...`}
                 </p>
                 <div className="mt-3 d-flex justify-content-between">
