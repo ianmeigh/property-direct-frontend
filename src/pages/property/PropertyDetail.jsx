@@ -15,6 +15,7 @@ import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
 import Avatar from "../../components/Avatar";
 import Map from "../../components/Map";
+import MoreActionsDropdown from "../../components/MoreActionsDropdown";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import btnStyles from "../../styles/Buttons.module.css";
 import styles from "../../styles/PropertyDetail.module.css";
@@ -55,6 +56,8 @@ export default function PropertyDetail(props) {
   } = props;
 
   const currentUser = useCurrentUser();
+  const is_owner = currentUser?.username === owner;
+
   const homes = ["detached", "semi-detached", "terraced", "end terrace"];
 
   const handleBookmark = async () => {
@@ -99,6 +102,12 @@ export default function PropertyDetail(props) {
     <>
       {detailView ? (
         <Col className={`${appStyles.ContentContainer} p-3 p-md-4 rounded`}>
+          {/* Edit Menu */}
+          {is_owner && detailView && (
+            <div className="d-flex justify-content-end pb-3">
+              <MoreActionsDropdown />
+            </div>
+          )}
           {/* Property Header */}
           <div className="d-flex flex-row justify-content-between">
             <h1 className="d-flex flex-column align-items-start align-content-start gap-2 mb-4 me-3">
