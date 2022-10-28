@@ -25,6 +25,11 @@ function App() {
             render={() => <PropertyCreateForm />}
           />
           <Route exact path="/property/:id/" render={() => <PropertyPage />} />
+          <Route
+            exact
+            path="/404"
+            render={() => <p>Page Not Found Placeholder (404)</p>}
+          />
           <Route render={() => <p>Page Not Found Placeholder</p>} />
         </Switch>
       </Container>

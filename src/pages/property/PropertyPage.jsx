@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import { axiosReq } from "../../api/axiosDefaults";
 import PropertyDetail from "./PropertyDetail";
@@ -14,6 +14,7 @@ import PropertyDetail from "./PropertyDetail";
 export default function PropertyPage() {
   const { id } = useParams();
   const [property, setProperty] = useState({ results: [] });
+  const history = useHistory();
 
   /**
    * Retrieve property data on component mount
@@ -26,11 +27,14 @@ export default function PropertyPage() {
         ]);
         setProperty({ results: [property] });
       } catch (err) {
+        if (err.response.status === 404) {
+          history.push("/404");
+        }
         console.log(err);
       }
     };
     handleMount();
-  }, [id]);
+  }, [id, history]);
 
   return (
     <Row className="h-100">
