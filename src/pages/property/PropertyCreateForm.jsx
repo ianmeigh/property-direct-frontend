@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { Alert, Image } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -6,7 +6,7 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
@@ -18,6 +18,13 @@ export default function PropertyCreateForm() {
   const imageHeroFileInput = useRef(null);
   const floorplanFileInput = useRef(null);
   const epcFileInput = useRef(null);
+
+  // If an 'id' is supplied as a parameter in the route path then set
+  // 'isEditing' to true. This variable is used to determine if the property
+  // information should be retrieved and used to populate the propertyData object
+  // and therefore the form fields.
+  const { id } = useParams();
+  const isEditing = !!id;
 
   const [errors, setErrors] = useState({});
 
@@ -66,6 +73,78 @@ export default function PropertyCreateForm() {
   } = propertyData;
 
   const history = useHistory();
+
+  // When the component mounts, set the all propertyData fields to their
+  // blank/undefined state. This handles the scenario where a user can navigate
+  // from editing a property directly to creating a new one.
+  //
+  // If the form is being used for editing a property, fetch the property data
+  // and display it the forms fields.
+  useEffect(() => {
+    setPropertyData({
+      imageHero: "",
+      floorplan: "",
+      epc: "",
+      propertyName: "",
+      propertyNumber: "",
+      streetName: "",
+      locality: "",
+      city: "",
+      postcode: "",
+      description: "",
+      price: "",
+      propertyType: "apartment",
+      tenure: "",
+      councilTaxBand: "",
+      numBedrooms: "",
+      numBathrooms: "",
+      hasGarden: false,
+      hasParking: false,
+      isSoldSTC: false,
+    });
+    if (isEditing) {
+      const handleMount = async () => {
+        try {
+          const { data } = await axiosReq.get(`/property/${id}`);
+          const {
+            image_hero,
+            property_name,
+            property_number,
+            street_name,
+            property_type,
+            council_tax_band,
+            num_bedrooms,
+            num_bathrooms,
+            has_garden,
+            has_parking,
+            is_sold_stc,
+            is_owner,
+          } = data;
+          // If current user is not the owner of the property, redirect them
+          // back to the home page.
+          is_owner
+            ? setPropertyData({
+                ...data,
+                imageHero: image_hero,
+                propertyName: property_name,
+                propertyNumber: property_number,
+                streetName: street_name,
+                propertyType: property_type,
+                councilTaxBand: council_tax_band,
+                numBedrooms: num_bedrooms,
+                numBathrooms: num_bathrooms,
+                hasGarden: has_garden,
+                hasParking: has_parking,
+                isSoldSTC: is_sold_stc,
+              })
+            : history.push("/");
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      handleMount();
+    }
+  }, [isEditing, id, history]);
 
   /**
    * Updates propertyData if input fields are modified.
@@ -157,8 +236,13 @@ export default function PropertyCreateForm() {
     formData.append("is_sold_stc", isSoldSTC);
 
     try {
-      const { data } = await axiosReq.post("/property/create/", formData);
-      history.push(`/property/${data.id}/`);
+      let response = {};
+      if (isEditing) {
+        response = await axiosReq.put(`/property/${id}/`, formData);
+      } else {
+        response = await axiosReq.post("/property/create/", formData);
+      }
+      history.push(`/property/${response.data.id}/`);
     } catch (err) {
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
@@ -184,12 +268,15 @@ export default function PropertyCreateForm() {
               >
                 Change image
               </Form.Label>
-              <Button
-                className={`${btnStyles.Button} ${btnStyles.Primary}`}
-                onClick={() => handleClearImage(imageHeroFileInput)}
-              >
-                Clear Image
-              </Button>
+              {/* Only allow images to be cleared during property creation */}
+              {!isEditing && (
+                <Button
+                  className={`${btnStyles.Button} ${btnStyles.Primary}`}
+                  onClick={() => handleClearImage(imageHeroFileInput)}
+                >
+                  Clear Image
+                </Button>
+              )}
             </div>
           </>
         ) : (
@@ -230,12 +317,15 @@ export default function PropertyCreateForm() {
               >
                 Change the image
               </Form.Label>
-              <Button
-                className={`${btnStyles.Button} ${btnStyles.Primary}`}
-                onClick={() => handleClearImage(floorplanFileInput)}
-              >
-                Clear Image
-              </Button>
+              {/* Only allow images to be cleared during property creation */}
+              {!isEditing && (
+                <Button
+                  className={`${btnStyles.Button} ${btnStyles.Primary}`}
+                  onClick={() => handleClearImage(floorplanFileInput)}
+                >
+                  Clear Image
+                </Button>
+              )}
             </div>
           </>
         ) : (
@@ -276,12 +366,15 @@ export default function PropertyCreateForm() {
               >
                 Change the image
               </Form.Label>
-              <Button
-                className={`${btnStyles.Button} ${btnStyles.Primary}`}
-                onClick={() => handleClearImage(epcFileInput)}
-              >
-                Clear Image
-              </Button>
+              {/* Only allow images to be cleared during property creation */}
+              {!isEditing && (
+                <Button
+                  className={`${btnStyles.Button} ${btnStyles.Primary}`}
+                  onClick={() => handleClearImage(epcFileInput)}
+                >
+                  Clear Image
+                </Button>
+              )}
             </div>
           </>
         ) : (
@@ -514,7 +607,7 @@ export default function PropertyCreateForm() {
           className="pb-3 pt-2"
           label="Does it have a Garden?"
           name="hasGarden"
-          value={hasGarden}
+          checked={hasGarden}
           onChange={handleChecked}
         />
       </Form.Group>
@@ -526,7 +619,7 @@ export default function PropertyCreateForm() {
           className="pb-3"
           label="Is there dedicated parking?"
           name="hasParking"
-          value={hasParking}
+          checked={hasParking}
           onChange={handleChecked}
         />
       </Form.Group>
@@ -538,7 +631,7 @@ export default function PropertyCreateForm() {
           className="pb-3"
           label="Is the property Sold STC?"
           name="isSoldSTC"
-          value={isSoldSTC}
+          checked={isSoldSTC}
           onChange={handleChecked}
         />
       </Form.Group>
@@ -551,7 +644,7 @@ export default function PropertyCreateForm() {
         className={`${btnStyles.Button} ${btnStyles.Primary} me-3`}
         type="submit"
       >
-        Create
+        {isEditing ? "Save" : "Create"}
       </Button>
       <Button
         className={`${btnStyles.Button} ${btnStyles.Primary}`}
