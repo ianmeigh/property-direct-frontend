@@ -67,7 +67,9 @@ export default function PropertyPage() {
             "Notes"
           ) : null}
           {notes.results.length ? (
-            notes.results.map((note) => <Note key={note.id} {...note} />)
+            notes.results.map((note) => (
+              <Note key={note.id} setNotes={setNotes} {...note} />
+            ))
           ) : currentUser ? (
             <span>
               Leave notes about your viewing or anything really, these notes are
