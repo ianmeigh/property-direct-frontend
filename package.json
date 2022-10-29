@@ -1,6 +1,7 @@
 {
   "name": "property_direct",
   "version": "0.1.0",
+  "engines": {"node": "16.13.0"},
   "private": true,
   "dependencies": {
     "@react-google-maps/api": "^2.13.1",
