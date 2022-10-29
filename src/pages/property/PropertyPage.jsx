@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { useHistory, useParams } from "react-router-dom";
 
 import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
+import Asset from "../../components/Asset";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { fetchMoreData } from "../../utils/utils";
 import Note from "../notes/Note";
 import NoteForm from "../notes/NoteForm";
 import PropertyDetail from "./PropertyDetail";
@@ -67,9 +70,18 @@ export default function PropertyPage() {
             "Notes"
           ) : null}
           {notes.results.length ? (
-            notes.results.map((note) => (
-              <Note key={note.id} setNotes={setNotes} {...note} />
-            ))
+            <InfiniteScroll
+              dataLength={notes.results.length}
+              loader={<Asset spinner />}
+              hasMore={!!notes.next}
+              next={() => {
+                fetchMoreData(notes, setNotes);
+              }}
+            >
+              {notes.results.map((note) => (
+                <Note key={note.id} setNotes={setNotes} {...note} />
+              ))}
+            </InfiniteScroll>
           ) : currentUser ? (
             <span>
               Leave notes about your viewing or anything really, these notes are
