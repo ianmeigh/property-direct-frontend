@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { Container } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -7,6 +8,7 @@ import { useLocation } from "react-router-dom";
 
 import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
+import NoResults from "../../assets/no-results.png";
 import Asset from "../../components/Asset";
 import { fetchMoreData } from "../../utils/utils";
 import PropertyDetail from "./PropertyDetail";
@@ -14,7 +16,7 @@ import PropertyDetail from "./PropertyDetail";
 // CREDIT: Adapted from Code Institute Moments Tutorial Project
 // URL:    https://github.com/Code-Institute-Solutions/moments
 
-export default function PropertyListPage() {
+export default function PropertyListPage({ message, filter = "" }) {
   const [properties, setProperties] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
@@ -25,7 +27,7 @@ export default function PropertyListPage() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const { data } = await axiosReq.get(`/property/`);
+        const { data } = await axiosReq.get(`/property/?${filter}`);
         setProperties(data);
         setHasLoaded(true);
       } catch (err) {
@@ -34,7 +36,7 @@ export default function PropertyListPage() {
     };
     setHasLoaded(false);
     fetchPosts();
-  }, [pathname]);
+  }, [pathname, filter]);
 
   return (
     <Row className="h-100">
@@ -44,22 +46,30 @@ export default function PropertyListPage() {
           className={`${appStyles.ContentContainer} pt-4 px-3 px-md-4 rounded`}
         >
           {hasLoaded ? (
-            <InfiniteScroll
-              dataLength={properties.results.length}
-              loader={<Asset spinner />}
-              hasMore={!!properties.next}
-              next={() => {
-                fetchMoreData(properties, setProperties);
-              }}
-            >
-              {properties.results.map((property) => (
-                <PropertyDetail
-                  key={property.id}
-                  {...property}
-                  setProperties={setProperties}
-                />
-              ))}
-            </InfiniteScroll>
+            <>
+              {properties.results.length ? (
+                <InfiniteScroll
+                  dataLength={properties.results.length}
+                  loader={<Asset spinner />}
+                  hasMore={!!properties.next}
+                  next={() => {
+                    fetchMoreData(properties, setProperties);
+                  }}
+                >
+                  {properties.results.map((property) => (
+                    <PropertyDetail
+                      key={property.id}
+                      {...property}
+                      setProperties={setProperties}
+                    />
+                  ))}
+                </InfiniteScroll>
+              ) : (
+                <Container className={appStyles.Content}>
+                  <Asset src={NoResults} message={message} />
+                </Container>
+              )}
+            </>
           ) : (
             <Asset spinner />
           )}
