@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import "./api/axiosDefaults";
 import styles from "./App.module.css";
 import NavBar from "./components/NavBar";
+import { useCurrentUser } from "./contexts/CurrentUserContext";
 import RegistrationForm from "./pages/auth/RegistrationForm";
 import SignInForm from "./pages/auth/SignInForm";
 import PropertyForm from "./pages/property/PropertyForm";
@@ -11,12 +12,25 @@ import PropertyListPage from "./pages/property/PropertyListPage";
 import PropertyPage from "./pages/property/PropertyPage";
 
 function App() {
+  const currentUser = useCurrentUser();
+  const profile_id = currentUser?.profile_id || "";
+
   return (
     <div className={styles.App}>
       <NavBar />
       <Container className={styles.Main}>
         <Switch>
           <Route exact path="/" render={() => <PropertyListPage />} />
+          <Route
+            exact
+            path="/bookmarks"
+            render={() => (
+              <PropertyListPage
+                message="No results found, any properties you bookmark will be listed here."
+                filter={`bookmarked_properties_for_profile=${profile_id}`}
+              />
+            )}
+          />
           <Route exact path="/login" render={() => <SignInForm />} />
           <Route exact path="/register" render={() => <RegistrationForm />} />
           <Route
