@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Alert, Button, Container, Form } from "react-bootstrap";
+import { Alert, Button, Container, Form, Offcanvas } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -26,6 +26,22 @@ export default function PropertyListPage({ message, filter = "" }) {
   const [postcode, setPostcode] = useState("");
   const [radius, setRadius] = useState(0.5);
   const [errors, setErrors] = useState({});
+  const [show, setShow] = useState(false);
+
+  // Search Filter State Variables
+  const [searchFilters, setSearchFilters] = useState("");
+  const [minPrice, setMinPrice] = useState();
+
+  // Offcanvas functions handleClose and handleShow
+
+  /**
+   * Update the search filters and close the offCanvas element
+   */
+  const handleClose = () => {
+    setSearchFilters(`price_min=${minPrice}`);
+    setShow(false);
+  };
+  const handleShow = () => setShow(true);
 
   /**
    * Fetch properties within the supplied radius (miles) from a point of origin
@@ -39,7 +55,7 @@ export default function PropertyListPage({ message, filter = "" }) {
     setErrors({});
     try {
       const { data } = await axiosReq.get(
-        `/property/?postcode=${postcode}&radius=${radius}&${filter}`
+        `/property/?postcode=${postcode}&radius=${radius}&${filter}&${searchFilters}`
       );
       setProperties(data);
       setHasLoaded(true);
@@ -55,7 +71,6 @@ export default function PropertyListPage({ message, filter = "" }) {
    * @param {Object} event - onClick event for form submit button
    */
   const handleSubmit = (event) => {
-    console.log(event);
     event.preventDefault();
     setHasLoaded(false);
     fetchProperties(postcode, radius);
@@ -127,15 +142,42 @@ export default function PropertyListPage({ message, filter = "" }) {
               </Alert>
             ))}
             <div className="d-flex d-column flex-sm-row justify-content-between">
-              {/* Filter Button */}
+              {/* Filter Button and Offcanvas element */}
               <Button
                 className={`${btnStyles.Button} ${btnStyles.Primary} btn`}
                 type="button"
-                onClick={() => {}}
+                onClick={handleShow}
               >
                 <i className="fas fa-filter"></i>
                 <span className="d-none d-sm-inline ms-2">Show Filters</span>
               </Button>
+              <Offcanvas
+                className="h-75"
+                show={show}
+                onHide={handleClose}
+                placement="bottom"
+              >
+                <Offcanvas.Header closeButton>
+                  <Offcanvas.Title>Filters</Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                  <Form onSubmit={handleClose}>
+                    <div>
+                      {/* Min and Max Price Filter */}
+                      <Form.Group controlId="minPrice">
+                        <Form.Label className="me-2">Min Price</Form.Label>
+                        <Form.Control
+                          required
+                          type="number"
+                          name="minPrice"
+                          value={minPrice}
+                          onChange={(event) => setMinPrice(event.target.value)}
+                        />
+                      </Form.Group>
+                    </div>
+                  </Form>
+                </Offcanvas.Body>
+              </Offcanvas>
               {/* Search submission and Clear buttons */}
               <div>
                 <Button
@@ -148,9 +190,7 @@ export default function PropertyListPage({ message, filter = "" }) {
                 <Button
                   className={`${btnStyles.Button} ${btnStyles.Primary} btn`}
                   type="button"
-                  onClick={() => {
-                    fetchProperties();
-                  }}
+                  onClick={() => {}}
                 >
                   <i className="fas fa-eraser"></i>
                   <span className="d-none d-sm-inline ms-2">Clear Search</span>
