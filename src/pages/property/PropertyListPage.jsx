@@ -85,6 +85,16 @@ export default function PropertyListPage({ message, filter = "" }) {
   };
 
   /**
+   * Reset Postcode, Radius and all Search filters to default values.
+   */
+  const clearSearch = () => {
+    setPostcode("");
+    setRadius(0.5);
+    setMinPrice(0);
+    setSearchFilters("");
+  };
+
+  /**
    * Retrieve property data matching filter prop on component mount
    */
   useEffect(() => {
@@ -198,7 +208,7 @@ export default function PropertyListPage({ message, filter = "" }) {
                 <Button
                   className={`${btnStyles.Button} ${btnStyles.Primary} btn`}
                   type="button"
-                  onClick={() => {}}
+                  onClick={clearSearch}
                 >
                   <i className="fas fa-eraser"></i>
                   <span className="d-none d-sm-inline ms-2">Clear Search</span>
