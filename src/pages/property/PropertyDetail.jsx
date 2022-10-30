@@ -53,6 +53,7 @@ export default function PropertyDetail(props) {
     latitude,
     setProperties,
     detailView,
+    distance,
   } = props;
 
   const houseTypes = ["detached", "semi-detached", "terraced", "end terrace"];
@@ -353,9 +354,14 @@ export default function PropertyDetail(props) {
                   {num_bedrooms} bedroom {property_type}
                   {houseTypes.includes(property_type) ? " house" : ""}
                 </p>
-                <p className="text-muted">
+                <p className="mb-0 text-muted">
                   {street_name}, {city}, {postcode}
                 </p>
+                {distance != null && (
+                  <p className="text-muted">
+                    Distance from origin - {distance.toFixed(1)} miles
+                  </p>
+                )}
                 {/* Shortened description */}
                 <p className="flex-grow-1">
                   {`${description.slice(0, 200).trimEnd()}...`}
