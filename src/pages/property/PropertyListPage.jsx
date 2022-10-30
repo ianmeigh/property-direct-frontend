@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Button, Container, Form } from "react-bootstrap";
+import { Alert, Button, Container, Form } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -25,6 +25,7 @@ export default function PropertyListPage({ message, filter = "" }) {
   // Search State Variables
   const [postcode, setPostcode] = useState("");
   const [radius, setRadius] = useState(0.5);
+  const [errors, setErrors] = useState({});
 
   /**
    * Fetch properties within the supplied radius (miles) from a point of origin
@@ -34,6 +35,8 @@ export default function PropertyListPage({ message, filter = "" }) {
    * @param {Float} radius - Float representing distance in miles
    */
   const fetchProperties = async (postcode = "", radius = "") => {
+    // Clear any previous errors before attempting another search
+    setErrors({});
     try {
       const { data } = await axiosReq.get(
         `/property/?postcode=${postcode}&radius=${radius}&${filter}`
@@ -41,6 +44,8 @@ export default function PropertyListPage({ message, filter = "" }) {
       setProperties(data);
       setHasLoaded(true);
     } catch (err) {
+      setErrors(err.response?.data);
+      setHasLoaded(true);
       console.log(err.response?.data);
     }
   };
@@ -115,6 +120,12 @@ export default function PropertyListPage({ message, filter = "" }) {
                 </Form.Select>
               </Form.Group>
             </div>
+            {/* Postcode error Feedback */}
+            {errors.postcode?.map((detail) => (
+              <Alert className="text-center" key={detail} variant="warning">
+                {detail}
+              </Alert>
+            ))}
             <div className="d-flex d-column flex-sm-row justify-content-between">
               {/* Filter Button */}
               <Button
