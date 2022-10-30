@@ -30,7 +30,7 @@ export default function PropertyListPage({ message, filter = "" }) {
 
   // Search Filter State Variables
   const [searchFilters, setSearchFilters] = useState("");
-  const [minPrice, setMinPrice] = useState();
+  const [minPrice, setMinPrice] = useState(0);
 
   // Offcanvas functions handleClose and handleShow
 
@@ -42,6 +42,14 @@ export default function PropertyListPage({ message, filter = "" }) {
     setShow(false);
   };
   const handleShow = () => setShow(true);
+
+  /**
+   * Update search results when search filters have been updated
+   */
+  useEffect(() => {
+    fetchProperties();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchFilters]);
 
   /**
    * Fetch properties within the supplied radius (miles) from a point of origin
