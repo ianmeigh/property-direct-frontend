@@ -31,6 +31,13 @@ export default function PropertyListPage({ message, filter = "" }) {
   // Search Filter State Variables
   const [searchFilters, setSearchFilters] = useState("");
   const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState("");
+  const [minBedrooms, setMinBedrooms] = useState(0);
+  const [maxBedrooms, setMaxBedrooms] = useState("");
+  const [propertyType, setPropertyType] = useState("");
+  const [hasGarden, setHasGarden] = useState("");
+  const [hasParking, setHasParking] = useState("");
+  const [isSoldSTC, setIsSoldSTC] = useState("");
 
   // Offcanvas functions handleClose and handleShow
 
@@ -38,7 +45,16 @@ export default function PropertyListPage({ message, filter = "" }) {
    * Update the search filters and close the offCanvas element
    */
   const handleClose = () => {
-    setSearchFilters(`price_min=${minPrice}`);
+    setSearchFilters(
+      `price_min=${minPrice}` +
+        `&price_max=${maxPrice}` +
+        `&property_type=${propertyType}` +
+        `&bedrooms_min=${minBedrooms}` +
+        `&bedrooms_max=${maxBedrooms}` +
+        `&has_garden=${hasGarden}` +
+        `&has_parking=${hasParking}` +
+        `&is_sold_stc=${isSoldSTC ? false : ""}`
+    );
     setShow(false);
   };
   const handleShow = () => setShow(true);
@@ -47,7 +63,7 @@ export default function PropertyListPage({ message, filter = "" }) {
    * Update search results when search filters have been updated
    */
   useEffect(() => {
-    fetchProperties();
+    fetchProperties(postcode, radius);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchFilters]);
 
@@ -88,9 +104,23 @@ export default function PropertyListPage({ message, filter = "" }) {
    * Reset Postcode, Radius and all Search filters to default values.
    */
   const clearSearch = () => {
-    setPostcode("");
-    setRadius(0.5);
+    if (postcode) {
+      setPostcode("");
+      setRadius(0.5);
+      fetchProperties();
+    }
+    clearSearchFilters();
+  };
+
+  const clearSearchFilters = () => {
     setMinPrice(0);
+    setMaxPrice("");
+    setMinBedrooms(0);
+    setMaxBedrooms("");
+    setPropertyType("");
+    setHasGarden("");
+    setHasParking("");
+    setIsSoldSTC("");
     setSearchFilters("");
   };
 
@@ -169,29 +199,176 @@ export default function PropertyListPage({ message, filter = "" }) {
                 <i className="fas fa-filter"></i>
                 <span className="d-none d-sm-inline ms-2">Show Filters</span>
               </Button>
-              <Offcanvas
-                className="h-75"
-                show={show}
-                onHide={handleClose}
-                placement="bottom"
-              >
+              <Offcanvas show={show} onHide={handleClose} placement="end">
                 <Offcanvas.Header closeButton>
                   <Offcanvas.Title>Filters</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                   <Form onSubmit={handleClose}>
-                    <div>
-                      {/* Min and Max Price Filter */}
-                      <Form.Group controlId="minPrice">
+                    {/* Min and Max Price Filter */}
+                    <div className="d-flex gap-3 mb-4">
+                      <Form.Group
+                        className="text-center w-50"
+                        controlId="minPrice"
+                      >
                         <Form.Label className="me-2">Min Price</Form.Label>
                         <Form.Control
-                          required
+                          className="text-center"
                           type="number"
                           name="minPrice"
                           value={minPrice}
                           onChange={(event) => setMinPrice(event.target.value)}
+                          min={0}
+                          step={50000}
                         />
                       </Form.Group>
+                      <Form.Group
+                        className="text-center w-50"
+                        controlId="maxPrice"
+                      >
+                        <Form.Label className="me-2">Max Price</Form.Label>
+                        <Form.Control
+                          className="text-center"
+                          type="number"
+                          name="maxPrice"
+                          value={maxPrice}
+                          onChange={(event) => setMaxPrice(event.target.value)}
+                          min={0}
+                          step={50000}
+                        />
+                      </Form.Group>
+                    </div>
+                    <hr />
+                    {/* Min and Max Bedrooms Filter */}
+                    <div className="d-flex gap-3 mb-4">
+                      <Form.Group
+                        className="text-center w-50"
+                        controlId="minBedrooms"
+                      >
+                        <Form.Label className="me-2">Min Bedrooms</Form.Label>
+                        <Form.Control
+                          className="text-center"
+                          type="number"
+                          name="minBedrooms"
+                          value={minBedrooms}
+                          onChange={(event) =>
+                            setMinBedrooms(event.target.value)
+                          }
+                          min={0}
+                          step={1}
+                        />
+                      </Form.Group>
+                      <Form.Group
+                        className="text-center w-50"
+                        controlId="maxBedrooms"
+                      >
+                        <Form.Label className="me-2">Max Bedrooms</Form.Label>
+                        <Form.Control
+                          className="text-center"
+                          type="number"
+                          name="maxBedrooms"
+                          value={maxBedrooms}
+                          onChange={(event) =>
+                            setMaxBedrooms(event.target.value)
+                          }
+                          min={0}
+                          step={1}
+                        />
+                      </Form.Group>
+                    </div>
+                    <hr />
+                    {/* Property Type */}
+                    <Form.Group
+                      className="text-center mb-4"
+                      controlId="propertyType"
+                    >
+                      <Form.Label>Property Type</Form.Label>
+                      <Form.Select
+                        className="text-center"
+                        name="propertyType"
+                        value={propertyType}
+                        onChange={(event) => {
+                          setPropertyType(event.target.value);
+                        }}
+                      >
+                        <option value="">All Types</option>
+                        <option value="apartment">Apartment</option>
+                        <option value="detached">Detached</option>
+                        <option value="semi-detached">Semi-detached</option>
+                        <option value="terraced">Terraced</option>
+                        <option value="end terrace">End Terrace</option>
+                        <option value="cottage">Cottage</option>
+                        <option value="bungalows">Bungalows</option>
+                      </Form.Select>
+                    </Form.Group>
+                    <hr />
+                    {/* Property must have a Garden */}
+                    <Form.Group
+                      className="align-self-center text-start"
+                      controlId="hasGarden"
+                    >
+                      <Form.Check
+                        className="pb-3 pt-2"
+                        label="Must have a Garden?"
+                        name="hasGarden"
+                        checked={hasGarden}
+                        onChange={(event) => {
+                          event.target.checked === false
+                            ? setHasGarden("")
+                            : setHasGarden(event.target.checked);
+                        }}
+                      />
+                    </Form.Group>
+                    {/* Property must have Parking */}
+                    <Form.Group
+                      className="align-self-center text-start"
+                      controlId="hasParking"
+                    >
+                      <Form.Check
+                        className="pb-3"
+                        label="Must have dedicated parking?"
+                        name="hasParking"
+                        checked={hasParking}
+                        onChange={(event) => {
+                          event.target.checked === false
+                            ? setHasParking("")
+                            : setHasParking(event.target.checked);
+                        }}
+                      />
+                    </Form.Group>
+                    {/* Exclude properties Sold STC */}
+                    <Form.Group
+                      className="align-self-center text-start mb-4"
+                      controlId="isSoldSTC"
+                    >
+                      <Form.Check
+                        className=""
+                        label="Hide properties that are Sold STC?"
+                        name="isSoldSTC"
+                        checked={isSoldSTC}
+                        onChange={(event) => {
+                          setIsSoldSTC(event.target.checked);
+                        }}
+                      />
+                    </Form.Group>
+                    <hr />
+                    <div className="text-center mt-4">
+                      <Button
+                        className={`${btnStyles.Button} ${btnStyles.Primary} btn me-3`}
+                        type="button"
+                        onClick={handleClose}
+                      >
+                        <i className="fas fa-search"></i>
+                        <span className="ms-2">Save Filters</span>
+                      </Button>
+                      <Button
+                        className={`${btnStyles.Button} ${btnStyles.Primary} btn`}
+                        type="button"
+                        onClick={clearSearchFilters}
+                      >
+                        <i className="fas fa-eraser"></i>
+                        <span className="ms-2">Clear Filters</span>
+                      </Button>
                     </div>
                   </Form>
                 </Offcanvas.Body>
