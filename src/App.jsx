@@ -20,7 +20,13 @@ function App() {
       <NavBar />
       <Container className={styles.Main}>
         <Switch>
-          <Route exact path="/" render={() => <PropertyListPage />} />
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <PropertyListPage message="No results found, please try adjusting your search postcode, radius and/or filters." />
+            )}
+          />
           <Route
             exact
             path="/bookmarks"

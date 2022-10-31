@@ -9,7 +9,7 @@ import styles from "../styles/Asset.module.css";
 
 const Asset = ({ spinner, upload, src, message }) => {
   return (
-    <div className={`${styles.Asset} p-4`}>
+    <div className={`${styles.Asset} p-4 text-center`}>
       {spinner && <Spinner animation="border" />}
       {upload && (
         <span className="d-flex flex-column justify-content-center">
