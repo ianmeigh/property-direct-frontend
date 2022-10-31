@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Container } from "react-bootstrap";
+import { Accordion, Container } from "react-bootstrap";
 
 import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
@@ -10,7 +10,7 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 // CREDIT: Code Institute Moments Tutorial Project
 // URL:    https://github.com/Code-Institute-Solutions/moments
 
-export default function PopularProfiles() {
+export default function PopularProfiles({ mobile }) {
   const [profileData, setProfileData] = useState({
     // pageProfile: { results: [] },
     popularProfiles: { results: [] },
@@ -36,14 +36,30 @@ export default function PopularProfiles() {
   }, [currentUser]);
 
   return (
-    <Container className={`${appStyles.ContentContainer} p-3 p-md-4 rounded`}>
+    <Container className={`${appStyles.ContentContainer} p-0 border-0 rounded`}>
       {popularProfiles.results.length ? (
-        <>
-          <p className="text-center">Most Followed Sellers</p>
-          {popularProfiles.results.map((profile) => (
-            <p key={profile.id}>{profile.owner}</p>
-          ))}
-        </>
+        <Accordion
+          className={`${mobile && "d-lg-none"} mb-4`}
+          defaultActiveKey={!mobile && ["0"]}
+          alwaysOpen={!mobile && true}
+        >
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>Most Followed Sellers</Accordion.Header>
+            {mobile ? (
+              <Accordion.Body className="d-flex justify-content-between">
+                {popularProfiles.results.slice(0, 4).map((profile) => (
+                  <p key={profile.id}>{profile.owner}</p>
+                ))}
+              </Accordion.Body>
+            ) : (
+              <Accordion.Body>
+                {popularProfiles.results.map((profile) => (
+                  <p key={profile.id}>{profile.owner}</p>
+                ))}
+              </Accordion.Body>
+            )}
+          </Accordion.Item>
+        </Accordion>
       ) : (
         <Asset spinner />
       )}

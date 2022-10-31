@@ -141,7 +141,7 @@ export default function PropertyListPage({ message, filter = "" }) {
   return (
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
-        <p>Popular Sellers (Mobile)</p>
+        <PopularProfiles mobile />
         <Col
           className={`${appStyles.ContentContainer} p-3 p-md-4 rounded mb-4`}
         >
