@@ -36,10 +36,13 @@ export default function PopularProfiles({ mobile }) {
   }, [currentUser]);
 
   return (
-    <Container className={`${appStyles.ContentContainer} p-0 border-0 rounded`}>
+    <Container
+      className={`${appStyles.ContentContainer} ${
+        mobile && "d-lg-none"
+      } p-0 border-0 rounded mb-4`}
+    >
       {popularProfiles.results.length ? (
         <Accordion
-          className={`${mobile && "d-lg-none"} mb-4`}
           defaultActiveKey={!mobile && ["0"]}
           alwaysOpen={!mobile && true}
         >
