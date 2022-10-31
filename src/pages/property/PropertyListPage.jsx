@@ -21,13 +21,11 @@ export default function PropertyListPage({ message, filter = "" }) {
   const [properties, setProperties] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
-
   // Search State Variables
   const [postcode, setPostcode] = useState("");
   const [radius, setRadius] = useState(0.5);
   const [errors, setErrors] = useState({});
   const [show, setShow] = useState(false);
-
   // Search Filter State Variables
   const [searchFilters, setSearchFilters] = useState("");
   const [minPrice, setMinPrice] = useState(0);
@@ -39,30 +37,20 @@ export default function PropertyListPage({ message, filter = "" }) {
   const [hasParking, setHasParking] = useState("");
   const [isSoldSTC, setIsSoldSTC] = useState("");
 
-  // Offcanvas functions handleClose and handleShow
-
   /**
-   * Update the search filters and close the offCanvas element
-   */
-  const handleClose = () => {
-    setSearchFilters(
-      `price_min=${minPrice}` +
-        `&price_max=${maxPrice}` +
-        `&property_type=${propertyType}` +
-        `&bedrooms_min=${minBedrooms}` +
-        `&bedrooms_max=${maxBedrooms}` +
-        `&has_garden=${hasGarden}` +
-        `&has_parking=${hasParking}` +
-        `&is_sold_stc=${isSoldSTC ? false : ""}`
-    );
-    setShow(false);
-  };
-  const handleShow = () => setShow(true);
-
-  /**
-   * Update search results when search filters have been updated
+   * Retrieve property data matching filter prop on component mount and when
+   * either the pathname, filter change
    */
   useEffect(() => {
+    clearSearch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname, filter]);
+
+  /**
+   * Retrieve property data when the searchFilters change
+   */
+  useEffect(() => {
+    setHasLoaded(false);
     fetchProperties(postcode, radius);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchFilters]);
@@ -104,14 +92,20 @@ export default function PropertyListPage({ message, filter = "" }) {
    * Reset Postcode, Radius and all Search filters to default values.
    */
   const clearSearch = () => {
-    if (postcode) {
+    if (postcode !== "") {
       setPostcode("");
       setRadius(0.5);
       fetchProperties();
     }
-    clearSearchFilters();
+    if (searchFilters !== "") {
+      clearSearchFilters();
+      setSearchFilters("");
+    } else {
+      fetchProperties();
+    }
   };
 
+  /** Set searchFilters to initial values */
   const clearSearchFilters = () => {
     setMinPrice(0);
     setMaxPrice("");
@@ -121,25 +115,27 @@ export default function PropertyListPage({ message, filter = "" }) {
     setHasGarden("");
     setHasParking("");
     setIsSoldSTC("");
-    setSearchFilters("");
   };
 
   /**
-   * Retrieve property data matching filter prop on component mount
+   * Update the search filters and close the offCanvas element
    */
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const { data } = await axiosReq.get(`/property/?${filter}`);
-        setProperties(data);
-        setHasLoaded(true);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    setHasLoaded(false);
-    fetchPosts();
-  }, [pathname, filter]);
+  const handleClose = () => {
+    setSearchFilters(
+      `price_min=${minPrice}` +
+        `&price_max=${maxPrice}` +
+        `&property_type=${propertyType}` +
+        `&bedrooms_min=${minBedrooms}` +
+        `&bedrooms_max=${maxBedrooms}` +
+        `&has_garden=${hasGarden}` +
+        `&has_parking=${hasParking}` +
+        `&is_sold_stc=${isSoldSTC ? false : ""}`
+    );
+    setShow(false);
+  };
+
+  /** Show the offCanvas element */
+  const handleShow = () => setShow(true);
 
   return (
     <Row className="h-100">
