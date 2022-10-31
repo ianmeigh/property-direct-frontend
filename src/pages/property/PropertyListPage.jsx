@@ -12,6 +12,7 @@ import NoResults from "../../assets/no-results.png";
 import Asset from "../../components/Asset";
 import btnStyles from "../../styles/Buttons.module.css";
 import { fetchMoreData } from "../../utils/utils";
+import PopularProfiles from "../profiles/PopularProfiles";
 import PropertyDetail from "./PropertyDetail";
 
 // CREDIT: Adapted from Code Institute Moments Tutorial Project
@@ -429,7 +430,7 @@ export default function PropertyListPage({ message, filter = "" }) {
         </Col>
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
-        Popular Seller (Desktop)
+        <PopularProfiles />
       </Col>
     </Row>
   );
