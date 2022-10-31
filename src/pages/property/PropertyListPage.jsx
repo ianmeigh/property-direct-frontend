@@ -395,6 +395,11 @@ export default function PropertyListPage({ message, filter = "" }) {
         >
           {hasLoaded ? (
             <>
+              <div className="text-center mb-4">
+                {pathname === "/" && properties.count !== 0 && (
+                  <h4>{properties.count} Properties Available</h4>
+                )}
+              </div>
               {properties.results.length ? (
                 <InfiniteScroll
                   dataLength={properties.results.length}
