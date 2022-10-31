@@ -1,4 +1,6 @@
 :root {
+  --white: #ffffff;
+  --black: #000000;
   --primary-btn-color: #0e6ba8;
   --secondary-btn-color: #000000;
 }
@@ -33,6 +35,28 @@
 
 .Static {
   font-size: 1.1rem;
-  color: #ffffff !important;
-  cursor:not-allowed !important;
+  color: var(--white) !important;
+  cursor: not-allowed !important;
+}
+
+.Secondary {
+  background-color: var(--secondary-btn-color);
+  border-color: transparent !important;
+}
+
+.Secondary:hover {
+  background-color: var(--secondary-btn-color);
+  opacity: 70%;
+}
+
+.SecondaryOutline {
+  color: var(--black) !important;
+  background-color: var(--white);
+  border-color: var(--black) !important;
+}
+
+.SecondaryOutline:hover {
+  background-color: var(--white);
+  background-image: none;
+  border-color: var(--black) !important;
 }
