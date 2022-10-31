@@ -19,6 +19,7 @@ import PropertyDetail from "./PropertyDetail";
 
 export default function PropertyPage() {
   const { id } = useParams();
+  const [hasLoaded, setHasLoaded] = useState(false);
   const [property, setProperty] = useState({ results: [] });
   const [notes, setNotes] = useState({ results: [] });
   const history = useHistory();
@@ -28,6 +29,7 @@ export default function PropertyPage() {
    * Retrieve property data on component mount
    */
   useEffect(() => {
+    setHasLoaded(false);
     setNotes({ results: [] });
     const handleMount = async () => {
       try {
@@ -37,6 +39,7 @@ export default function PropertyPage() {
         ]);
         setProperty({ results: [property] });
         setNotes(notes);
+        setHasLoaded(true);
       } catch (err) {
         if (err.response.status === 404) {
           history.push("/404");
@@ -51,46 +54,56 @@ export default function PropertyPage() {
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
         <p>Popular Sellers (Mobile)</p>
-        <PropertyDetail
-          detailView
-          {...property.results[0]}
-          setProperties={setProperty}
-        />
-        <Col
-          className={`${appStyles.ContentContainer} p-3 p-md-4 rounded mt-3`}
-        >
-          {currentUser ? (
-            <NoteForm
-              profile_id={currentUser.profile_id}
-              profileImage={currentUser.profile_image}
-              property={id}
-              setNotes={setNotes}
+        {hasLoaded ? (
+          <>
+            <PropertyDetail
+              detailView
+              {...property.results[0]}
+              setProperties={setProperty}
             />
-          ) : notes.results.length ? (
-            "Notes"
-          ) : null}
-          {notes.results.length ? (
-            <InfiniteScroll
-              dataLength={notes.results.length}
-              loader={<Asset spinner />}
-              hasMore={!!notes.next}
-              next={() => {
-                fetchMoreData(notes, setNotes);
-              }}
+            <Col
+              className={`${appStyles.ContentContainer} p-3 p-md-4 rounded mt-3`}
             >
-              {notes.results.map((note) => (
-                <Note key={note.id} setNotes={setNotes} {...note} />
-              ))}
-            </InfiniteScroll>
-          ) : currentUser ? (
-            <span>
-              Leave notes about your viewing or anything really, these notes are
-              private to you!
-            </span>
-          ) : (
-            <span>Log in to create private notes about this property.</span>
-          )}
-        </Col>
+              {currentUser ? (
+                <NoteForm
+                  profile_id={currentUser.profile_id}
+                  profileImage={currentUser.profile_image}
+                  property={id}
+                  setNotes={setNotes}
+                />
+              ) : notes.results.length ? (
+                "Notes"
+              ) : null}
+              {notes.results.length ? (
+                <InfiniteScroll
+                  dataLength={notes.results.length}
+                  loader={<Asset spinner />}
+                  hasMore={!!notes.next}
+                  next={() => {
+                    fetchMoreData(notes, setNotes);
+                  }}
+                >
+                  {notes.results.map((note) => (
+                    <Note key={note.id} setNotes={setNotes} {...note} />
+                  ))}
+                </InfiniteScroll>
+              ) : currentUser ? (
+                <span>
+                  Leave notes about your viewing or anything really, these notes
+                  are private to you!
+                </span>
+              ) : (
+                <span>Log in to create private notes about this property.</span>
+              )}
+            </Col>
+          </>
+        ) : (
+          <Col
+            className={`${appStyles.ContentContainer} p-3 p-md-4 rounded mt-3`}
+          >
+            <Asset spinner />
+          </Col>
+        )}
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
         Popular Seller (Desktop)
