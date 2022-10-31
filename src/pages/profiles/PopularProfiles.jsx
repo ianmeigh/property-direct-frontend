@@ -6,6 +6,7 @@ import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import Profile from "./Profile";
 
 // CREDIT: Code Institute Moments Tutorial Project
 // URL:    https://github.com/Code-Institute-Solutions/moments
@@ -37,9 +38,7 @@ export default function PopularProfiles({ mobile }) {
 
   return (
     <Container
-      className={`${appStyles.ContentContainer} ${
-        mobile && "d-lg-none"
-      } p-0 border-0 rounded mb-4`}
+      className={`${appStyles.ContentContainer}  p-0 border-0 rounded mb-4`}
     >
       {popularProfiles.results.length ? (
         <Accordion
@@ -49,15 +48,15 @@ export default function PopularProfiles({ mobile }) {
           <Accordion.Item eventKey="0">
             <Accordion.Header>Most Followed Sellers</Accordion.Header>
             {mobile ? (
-              <Accordion.Body className="d-flex justify-content-between">
+              <Accordion.Body className="d-flex justify-content-around">
                 {popularProfiles.results.slice(0, 4).map((profile) => (
-                  <p key={profile.id}>{profile.owner}</p>
+                  <Profile key={profile.id} profile={profile} mobile />
                 ))}
               </Accordion.Body>
             ) : (
               <Accordion.Body>
                 {popularProfiles.results.map((profile) => (
-                  <p key={profile.id}>{profile.owner}</p>
+                  <Profile key={profile.id} profile={profile} />
                 ))}
               </Accordion.Body>
             )}
