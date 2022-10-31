@@ -160,7 +160,7 @@ export default function PropertyDetail(props) {
             <Card.Img src={image_hero} variant="top" />
             {is_sold_stc && (
               <Card.ImgOverlay
-                className={`${styles.Banner} rounded border border-2 border-dark text-white bg-danger p-3`}
+                className={`${styles.Banner} rounded border border-2 border-dark text-white bg-danger p-3 user-select-none`}
               >
                 <p className="mb-0">Sold STC</p>
               </Card.ImgOverlay>
@@ -314,7 +314,7 @@ export default function PropertyDetail(props) {
               <Image src={image_hero} className={`${styles.PropertyImage}`} />
               {is_sold_stc && (
                 <Card.ImgOverlay
-                  className={`${styles.Banner} rounded border border-2 border-dark text-white bg-danger p-3`}
+                  className={`${styles.Banner} rounded border border-2 border-dark text-white bg-danger p-3 user-select-none`}
                 >
                   <p className="mb-0">Sold STC</p>
                 </Card.ImgOverlay>
