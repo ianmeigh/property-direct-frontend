@@ -67,7 +67,7 @@ export default function PropertyPage() {
               {currentUser ? (
                 <NoteForm
                   profile_id={currentUser.profile_id}
-                  profileImage={currentUser.profile_image}
+                  profile_image={currentUser.profile_image}
                   property={id}
                   setNotes={setNotes}
                 />
