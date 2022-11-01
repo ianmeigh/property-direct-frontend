@@ -14,6 +14,7 @@ import { axiosRes } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
 import Avatar from "../../components/Avatar";
+import ContactInformationBtn from "../../components/ContactInfoBtn";
 import Map from "../../components/Map";
 import MoreActionsDropdown from "../../components/MoreActionsDropdown";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -26,6 +27,9 @@ export default function PropertyDetail(props) {
     owner,
     profile_id,
     profile_image,
+    profile_telephone_mobile,
+    profile_telephone_landline,
+    profile_email,
     bookmark_id,
     created_at,
     updated_at,
@@ -179,15 +183,13 @@ export default function PropertyDetail(props) {
                 <Avatar src={profile_image} text={owner} />
               </Link>
               <span className="d-flex flex-row flex-wrap justify-content-center gap-2 mt-4 mt-md-0">
-                {/* TODO: Property Contact Information */}
-                <Button className="" variant="primary" onClick={() => {}}>
-                  <i className="fas fa-phone-alt pe-2"></i>
-                  Reveal Phone
-                </Button>
-                <Button variant="primary" onClick={() => {}}>
-                  <i className="fas fa-envelope pe-2"></i>
-                  Reveal Email
-                </Button>
+                {/* Property Contact Information */}
+                <ContactInformationBtn
+                  telephone_landline={profile_telephone_landline}
+                  telephone_mobile={profile_telephone_mobile}
+                  type="phone"
+                />
+                <ContactInformationBtn email={profile_email} type="email" />
               </span>
             </Card.Body>
           </Card>
@@ -402,15 +404,13 @@ export default function PropertyDetail(props) {
                     <Avatar src={profile_image} text={owner} />
                   </Link>
                   <span className="d-flex flex-row flex-wrap justify-content-center gap-2 mt-4 mt-md-0">
-                    {/* TODO: Property Contact Information */}
-                    <Button className="" variant="primary" onClick={() => {}}>
-                      <i className="fas fa-phone-alt pe-2"></i>
-                      Reveal Phone
-                    </Button>
-                    <Button variant="primary" onClick={() => {}}>
-                      <i className="fas fa-envelope pe-2"></i>
-                      Reveal Email
-                    </Button>
+                    {/* Property Contact Information */}
+                    <ContactInformationBtn
+                      telephone_landline={profile_telephone_landline}
+                      telephone_mobile={profile_telephone_mobile}
+                      type="phone"
+                    />
+                    <ContactInformationBtn email={profile_email} type="email" />
                   </span>
                 </div>
               </div>
@@ -431,15 +431,13 @@ export default function PropertyDetail(props) {
                 <Avatar src={profile_image} text={owner} />
               </Link>
               <span className="d-flex flex-row flex-wrap justify-content-center gap-2 mt-4 mt-md-0">
-                {/* TODO: Property Contact Information */}
-                <Button className="" variant="primary" onClick={() => {}}>
-                  <i className="fas fa-phone-alt pe-2"></i>
-                  Reveal Phone
-                </Button>
-                <Button variant="primary" onClick={() => {}}>
-                  <i className="fas fa-envelope pe-2"></i>
-                  Reveal Email
-                </Button>
+                {/* Property Contact Information */}
+                <ContactInformationBtn
+                  telephone_landline={profile_telephone_landline}
+                  telephone_mobile={profile_telephone_mobile}
+                  type="phone"
+                />
+                <ContactInformationBtn email={profile_email} type="email" />
               </span>
             </div>
           </div>
