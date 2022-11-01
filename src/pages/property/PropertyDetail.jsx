@@ -10,10 +10,11 @@ import {
 } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 
-import { axiosReq, axiosRes } from "../../api/axiosDefaults";
+import { axiosRes } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
 import Avatar from "../../components/Avatar";
+import ContactInformationBtn from "../../components/ContactInfoBtn";
 import Map from "../../components/Map";
 import MoreActionsDropdown from "../../components/MoreActionsDropdown";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -26,8 +27,10 @@ export default function PropertyDetail(props) {
     owner,
     profile_id,
     profile_image,
+    profile_telephone_mobile,
+    profile_telephone_landline,
+    profile_email,
     bookmark_id,
-    bookmarks_count,
     created_at,
     updated_at,
     image_hero,
@@ -36,7 +39,6 @@ export default function PropertyDetail(props) {
     property_name,
     property_number,
     street_name,
-    locaḷity,
     city,
     postcode,
     description,
@@ -160,6 +162,13 @@ export default function PropertyDetail(props) {
           {/* Image and contact info */}
           <Card>
             <Card.Img src={image_hero} variant="top" />
+            {is_sold_stc && (
+              <Card.ImgOverlay
+                className={`${styles.Banner} rounded border border-2 border-dark text-white bg-danger p-3 user-select-none`}
+              >
+                <p className="mb-0">Sold STC</p>
+              </Card.ImgOverlay>
+            )}
             <Card.Body className="d-flex flex-column flex-md-row justify-content-md-between align-items-center">
               <Link
                 to={`/profiles/${profile_id}`}
@@ -174,15 +183,13 @@ export default function PropertyDetail(props) {
                 <Avatar src={profile_image} text={owner} />
               </Link>
               <span className="d-flex flex-row flex-wrap justify-content-center gap-2 mt-4 mt-md-0">
-                {/* TODO: Property Contact Information */}
-                <Button className="" variant="primary" onClick={() => {}}>
-                  <i className="fas fa-phone-alt pe-2"></i>
-                  Reveal Phone
-                </Button>
-                <Button variant="primary" onClick={() => {}}>
-                  <i className="fas fa-envelope pe-2"></i>
-                  Reveal Email
-                </Button>
+                {/* Property Contact Information */}
+                <ContactInformationBtn
+                  telephone_landline={profile_telephone_landline}
+                  telephone_mobile={profile_telephone_mobile}
+                  type="phone"
+                />
+                <ContactInformationBtn email={profile_email} type="email" />
               </span>
             </Card.Body>
           </Card>
@@ -307,6 +314,13 @@ export default function PropertyDetail(props) {
           <div className="d-flex flex-column flex-xxl-row border rounded-top overflow-hidden position-relative">
             <Col xxl={6}>
               <Image src={image_hero} className={`${styles.PropertyImage}`} />
+              {is_sold_stc && (
+                <Card.ImgOverlay
+                  className={`${styles.Banner} rounded border border-2 border-dark text-white bg-danger p-3 user-select-none`}
+                >
+                  <p className="mb-0">Sold STC</p>
+                </Card.ImgOverlay>
+              )}
             </Col>
             {/* Text Context and Price (below xxl breakpoint) */}
             <Col className="d-flex flex-xxl-column flex-column-reverse">
@@ -390,15 +404,13 @@ export default function PropertyDetail(props) {
                     <Avatar src={profile_image} text={owner} />
                   </Link>
                   <span className="d-flex flex-row flex-wrap justify-content-center gap-2 mt-4 mt-md-0">
-                    {/* TODO: Property Contact Information */}
-                    <Button className="" variant="primary" onClick={() => {}}>
-                      <i className="fas fa-phone-alt pe-2"></i>
-                      Reveal Phone
-                    </Button>
-                    <Button variant="primary" onClick={() => {}}>
-                      <i className="fas fa-envelope pe-2"></i>
-                      Reveal Email
-                    </Button>
+                    {/* Property Contact Information */}
+                    <ContactInformationBtn
+                      telephone_landline={profile_telephone_landline}
+                      telephone_mobile={profile_telephone_mobile}
+                      type="phone"
+                    />
+                    <ContactInformationBtn email={profile_email} type="email" />
                   </span>
                 </div>
               </div>
@@ -419,15 +431,13 @@ export default function PropertyDetail(props) {
                 <Avatar src={profile_image} text={owner} />
               </Link>
               <span className="d-flex flex-row flex-wrap justify-content-center gap-2 mt-4 mt-md-0">
-                {/* TODO: Property Contact Information */}
-                <Button className="" variant="primary" onClick={() => {}}>
-                  <i className="fas fa-phone-alt pe-2"></i>
-                  Reveal Phone
-                </Button>
-                <Button variant="primary" onClick={() => {}}>
-                  <i className="fas fa-envelope pe-2"></i>
-                  Reveal Email
-                </Button>
+                {/* Property Contact Information */}
+                <ContactInformationBtn
+                  telephone_landline={profile_telephone_landline}
+                  telephone_mobile={profile_telephone_mobile}
+                  type="phone"
+                />
+                <ContactInformationBtn email={profile_email} type="email" />
               </span>
             </div>
           </div>

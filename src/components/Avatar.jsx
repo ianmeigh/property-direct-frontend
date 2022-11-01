@@ -4,7 +4,15 @@ import { Image } from "react-bootstrap";
 
 import styles from "../styles/Avatar.module.css";
 
-export default function Avatar({ src, height = 35, alt, text, mobile }) {
+export default function Avatar({
+  src,
+  height = 35,
+  alt,
+  text,
+  mobile,
+  strong,
+  textBreak,
+}) {
   return (
     <>
       <span
@@ -21,7 +29,9 @@ export default function Avatar({ src, height = 35, alt, text, mobile }) {
           alt={alt}
           roundedCircle
         />
-        {text}
+        <span className={`${strong && "fw-bold"} ${textBreak && "text-break"}`}>
+          {text}
+        </span>
       </span>
     </>
   );

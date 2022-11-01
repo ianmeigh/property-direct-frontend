@@ -17,8 +17,8 @@ export default function NoteForm({
   setShowEditForm,
   property,
   setNotes,
-  profileImage,
-  profileId,
+  profile_image,
+  profile_id,
 }) {
   const [content, setContent] = useState("");
 
@@ -90,8 +90,8 @@ export default function NoteForm({
     <Form className="w-100 d-flex flex-column" onSubmit={handleSubmit}>
       <Form.Group className="d-flex flex-row align-items-center">
         {!isEditing && (
-          <Link className="me-3" to={`/profiles/${profileId}`}>
-            <Avatar height={50} src={profileImage} />
+          <Link className="me-3" to={`/profiles/${profile_id}`}>
+            <Avatar height={50} src={profile_image} />
           </Link>
         )}
         <TextareaAutosize

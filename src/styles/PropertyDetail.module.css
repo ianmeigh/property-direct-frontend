@@ -43,6 +43,18 @@
   width: 100%;
 }
 
+.Banner {
+  top: 15px;
+  left: 15px;
+  height: min-content;
+  width: max-content;
+}
+
+.Banner p {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
 /* Media Queries */
 @media (max-width: 576px) {
   .PropertyHeadingFont {
