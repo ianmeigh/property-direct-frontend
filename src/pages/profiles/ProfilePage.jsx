@@ -40,6 +40,9 @@ export default function ProfilePage() {
         }));
         setHasLoaded(true);
       } catch (err) {
+        if (err.response.status === 403 || err.response.status === 404) {
+          history.push("/404");
+        }
         console.log(err);
       }
     };
