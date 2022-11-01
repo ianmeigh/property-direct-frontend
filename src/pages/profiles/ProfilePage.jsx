@@ -10,6 +10,7 @@ import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
 import Avatar from "../../components/Avatar";
+import ContactInformationBtn from "../../components/ContactInfoBtn";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import {
   useProfileData,
@@ -54,7 +55,7 @@ export default function ProfilePage() {
 
   const mainProfile = (
     <>
-      <Row noGutters className="px-3 text-center">
+      <Row className="px-3 text-center">
         <Col
           lg={3}
           className="d-flex justify-content-center justify-content-lg-start"
@@ -127,19 +128,22 @@ export default function ProfilePage() {
               className={`${appStyles.ContentContainer} rounded shadow mb-4 d-flex flex-column`}
             >
               <div className="p-4 d-flex flex-column">{mainProfile}</div>
-              <div className="p-4 border-top">
-                <span className="d-flex flex-row flex-wrap justify-content-around gap-2 mt-4 mt-md-0">
-                  {/* TODO: Property Contact Information */}
-                  <Button className="" variant="primary" onClick={() => {}}>
-                    <i className="fas fa-phone-alt pe-2"></i>
-                    Reveal Phone
-                  </Button>
-                  <Button variant="primary" onClick={() => {}}>
-                    <i className="fas fa-envelope pe-2"></i>
-                    Reveal Email
-                  </Button>
-                </span>
-              </div>
+              {profile.is_seller && (
+                <div className="p-4 border-top">
+                  <span className="d-flex flex-row flex-wrap justify-content-around gap-2 mt-4 mt-md-0">
+                    {/* Property Contact Information */}
+                    <ContactInformationBtn
+                      telephone_landline={profile?.telephone_landline}
+                      telephone_mobile={profile?.telephone_mobile}
+                      type="phone"
+                    />
+                    <ContactInformationBtn
+                      email={profile?.email}
+                      type="email"
+                    />
+                  </span>
+                </div>
+              )}
             </Col>
 
             <Container
