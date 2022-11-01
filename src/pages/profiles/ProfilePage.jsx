@@ -4,10 +4,16 @@ import { Button } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import { useHistory, useParams } from "react-router-dom";
 
+import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import {
+  useProfileData,
+  useSetProfileData,
+} from "../../contexts/ProfileDataContext";
 import PopularProfiles from "./PopularProfiles";
 
 // CREDIT: Adapted from Code Institute Moments Tutorial Project
@@ -16,10 +22,29 @@ import PopularProfiles from "./PopularProfiles";
 export default function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
   const currentUser = useCurrentUser();
+  const { id } = useParams();
+  const { setProfileData } = useSetProfileData();
+  const { pageProfile } = useProfileData();
+  const [profile] = pageProfile.results;
+  const history = useHistory();
 
   useEffect(() => {
-    setHasLoaded(true);
-  }, []);
+    const fetchData = async () => {
+      try {
+        const [{ data: pageProfile }] = await Promise.all([
+          axiosReq(`/profiles/${id}/`),
+        ]);
+        setProfileData((prevState) => ({
+          ...prevState,
+          pageProfile: { results: [pageProfile] },
+        }));
+        setHasLoaded(true);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, [id, setProfileData, history]);
 
   const mainProfile = (
     <>
@@ -28,7 +53,7 @@ export default function ProfilePage() {
           <p>Image</p>
         </Col>
         <Col lg={6}>
-          <h3 className="m-2">Profile username</h3>
+          <h3 className="m-2">{profile?.owner}</h3>
           <p>Profile stats</p>
         </Col>
         <Col lg={3} className="text-lg-right">
