@@ -9,11 +9,13 @@ import { useHistory, useParams } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
+import Avatar from "../../components/Avatar";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import {
   useProfileData,
   useSetProfileData,
 } from "../../contexts/ProfileDataContext";
+import btnStyles from "../../styles/Buttons.module.css";
 import PopularProfiles from "./PopularProfiles";
 
 // CREDIT: Adapted from Code Institute Moments Tutorial Project
@@ -27,6 +29,7 @@ export default function ProfilePage() {
   const { pageProfile } = useProfileData();
   const [profile] = pageProfile.results;
   const history = useHistory();
+  const isOwner = currentUser?.username === profile?.owner;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,17 +55,55 @@ export default function ProfilePage() {
   const mainProfile = (
     <>
       <Row noGutters className="px-3 text-center">
-        <Col lg={3} className="text-lg-left">
-          <p>Image</p>
+        <Col
+          lg={3}
+          className="d-flex justify-content-center justify-content-lg-start"
+        >
+          <Avatar src={profile?.image} height={120} />
         </Col>
         <Col lg={6}>
-          <h3 className="m-2">{profile?.owner}</h3>
-          <p>Profile stats</p>
+          <h3 className="m-2 text-break">{profile?.owner}</h3>
+          <div className="d-flex justify-content-center gap-4">
+            {profile?.is_seller && (
+              <>
+                <div className="my-2 text-center">
+                  <div>{profile?.property_count}</div>
+                  <div>Posts</div>
+                </div>
+                <div className="my-2 text-center">
+                  <div>{profile?.followers_count}</div>
+                  <div>Followers</div>
+                </div>
+              </>
+            )}
+            <div className="my-2">
+              <div>{profile?.following_count}</div>
+              <div>Following</div>
+            </div>
+          </div>
         </Col>
         <Col lg={3} className="text-lg-right">
-          <p>Follow button</p>
+          {currentUser &&
+            !isOwner &&
+            (profile?.following_id ? (
+              <Button
+                className={`${btnStyles.Button} ${btnStyles.SecondaryOutline}`}
+                onClick={() => {}}
+              >
+                Unfollow
+              </Button>
+            ) : (
+              <Button
+                className={`${btnStyles.Button} ${btnStyles.Secondary}`}
+                onClick={() => {}}
+              >
+                Follow
+              </Button>
+            ))}
         </Col>
-        <Col className="p-3">Profile content</Col>
+        {profile?.description && (
+          <Col className="p-3">{profile.description}</Col>
+        )}
       </Row>
     </>
   );
