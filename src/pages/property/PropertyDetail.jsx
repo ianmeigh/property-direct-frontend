@@ -169,7 +169,8 @@ export default function PropertyDetail(props) {
                 <p className="mb-0">Sold STC</p>
               </Card.ImgOverlay>
             )}
-            <Card.Body className="d-flex flex-column flex-md-row justify-content-md-between align-items-center">
+            {/* Contact Information */}
+            <Card.Body className="d-flex flex-column flex-md-row justify-content-md-between align-items-center border-top">
               <Link
                 to={`/profiles/${profile_id}`}
                 className="d-md-none text-decoration-none text-black"
@@ -389,7 +390,8 @@ export default function PropertyDetail(props) {
                   </p>
                 </div>
               </div>
-              <div className="border-bottom p-4 d-xxl-none d-block">
+              {/* Contact Information */}
+              <div className="border-bottom p-4 d-xxl-none d-block border-top">
                 <div className="d-flex flex-column flex-md-row justify-content-md-between align-items-center">
                   <Link
                     to={`/profiles/${profile_id}`}
