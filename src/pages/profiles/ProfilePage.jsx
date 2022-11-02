@@ -31,7 +31,7 @@ export default function ProfilePage() {
   const [profileProperties, setProfileProperties] = useState({ results: [] });
   const currentUser = useCurrentUser();
   const { id } = useParams();
-  const { setProfileData } = useSetProfileData();
+  const { setProfileData, handleFollow } = useSetProfileData();
   const { pageProfile } = useProfileData();
   const [profile] = pageProfile.results;
   const history = useHistory();
@@ -106,7 +106,7 @@ export default function ProfilePage() {
             ) : (
               <Button
                 className={`${btnStyles.Button} ${btnStyles.Secondary}`}
-                onClick={() => {}}
+                onClick={() => handleFollow(profile)}
               >
                 Follow
               </Button>
