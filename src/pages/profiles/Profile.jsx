@@ -5,12 +5,15 @@ import { Link } from "react-router-dom";
 
 import Avatar from "../../components/Avatar";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { useSetProfileData } from "../../contexts/ProfileDataContext";
 import btnStyles from "../../styles/Buttons.module.css";
 
 export default function Profile({ profile, mobile, imageSize = 55 }) {
   const { id, following_id, image, owner } = profile;
   const currentUser = useCurrentUser();
   const isOwner = currentUser?.username === owner;
+
+  const { handleFollow } = useSetProfileData();
 
   return (
     <div
@@ -45,7 +48,7 @@ export default function Profile({ profile, mobile, imageSize = 55 }) {
           ) : (
             <Button
               className={`${btnStyles.Button} ${btnStyles.Secondary}`}
-              onClick={() => {}}
+              onClick={() => handleFollow(profile)}
             >
               Follow
             </Button>

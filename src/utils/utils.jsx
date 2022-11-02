@@ -24,3 +24,27 @@ export const fetchMoreData = async (resource, setResource) => {
     console.log(err);
   }
 };
+
+/**
+ * Conditional logic to determine if the profile passed as a parameter has been
+ * followed, and update the profileData necessary to reflect this action to the
+ * authenticated user.
+ * @param {Object} profile - User profile.
+ * @param {Object} clickedProfile - Profile of the user that is being followed.
+ * @param {Int} following_id - ID of the follower record from the API.
+ * @returns {Object} - User profile object that has been updated if it was followed.
+ */
+export const followHelper = (profile, clickedProfile, following_id) => {
+  return profile.id === clickedProfile.id
+    ? {
+        ...profile,
+        followers_count: profile.followers_count + 1,
+        following_id,
+      }
+    : profile.is_owner
+    ? {
+        ...profile,
+        following_count: profile.following_count + 1,
+      }
+    : profile;
+};

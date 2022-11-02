@@ -12,6 +12,7 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { fetchMoreData } from "../../utils/utils";
 import Note from "../notes/Note";
 import NoteForm from "../notes/NoteForm";
+import PopularProfiles from "../profiles/PopularProfiles";
 import PropertyDetail from "./PropertyDetail";
 
 // CREDIT: Adapted from Code Institute Moments Tutorial Project
@@ -53,7 +54,7 @@ export default function PropertyPage() {
   return (
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
-        <p>Popular Sellers (Mobile)</p>
+        <PopularProfiles mobile />
         {hasLoaded ? (
           <>
             <PropertyDetail
@@ -106,7 +107,7 @@ export default function PropertyPage() {
         )}
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
-        Popular Seller (Desktop)
+        <PopularProfiles />
       </Col>
     </Row>
   );
