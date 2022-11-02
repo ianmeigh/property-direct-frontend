@@ -4,10 +4,12 @@ import { Button } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { useHistory, useParams } from "react-router-dom";
 
 import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
+import NoResults from "../../assets/no-results.png";
 import Asset from "../../components/Asset";
 import Avatar from "../../components/Avatar";
 import ContactInformationBtn from "../../components/ContactInfoBtn";
@@ -17,6 +19,8 @@ import {
   useSetProfileData,
 } from "../../contexts/ProfileDataContext";
 import btnStyles from "../../styles/Buttons.module.css";
+import { fetchMoreData } from "../../utils/utils";
+import PropertyDetail from "../property/PropertyDetail";
 import PopularProfiles from "./PopularProfiles";
 
 // CREDIT: Adapted from Code Institute Moments Tutorial Project
@@ -24,6 +28,7 @@ import PopularProfiles from "./PopularProfiles";
 
 export default function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
+  const [profileProperties, setProfileProperties] = useState({ results: [] });
   const currentUser = useCurrentUser();
   const { id } = useParams();
   const { setProfileData } = useSetProfileData();
@@ -35,13 +40,16 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [{ data: pageProfile }] = await Promise.all([
-          axiosReq(`/profiles/${id}/`),
-        ]);
+        const [{ data: pageProfile }, { data: profileProperties }] =
+          await Promise.all([
+            axiosReq(`/profiles/${id}/`),
+            axiosReq(`/property/?properties_listed_by_profile=${id}`),
+          ]);
         setProfileData((prevState) => ({
           ...prevState,
           pageProfile: { results: [pageProfile] },
         }));
+        setProfileProperties(profileProperties);
         setHasLoaded(true);
       } catch (err) {
         if (err.response.status === 401) {
@@ -71,7 +79,7 @@ export default function ProfilePage() {
               <>
                 <div className="my-2 text-center">
                   <div>{profile?.property_count}</div>
-                  <div>Posts</div>
+                  <div>Properties</div>
                 </div>
                 <div className="my-2 text-center">
                   <div>{profile?.followers_count}</div>
@@ -114,8 +122,31 @@ export default function ProfilePage() {
   const mainProfilePosts = (
     <>
       <hr />
-      <p className="text-center">Profile owners posts</p>
+      <p className="text-center">Profile owners properties</p>
       <hr />
+      {profileProperties.results.length ? (
+        <InfiniteScroll
+          dataLength={profileProperties.results.length}
+          loader={<Asset spinner />}
+          hasMore={!!profileProperties.next}
+          next={() => {
+            fetchMoreData(profileProperties, setProfileProperties);
+          }}
+        >
+          {profileProperties.results.map((property) => (
+            <PropertyDetail
+              key={property.id}
+              {...property}
+              setProperty={setProfileProperties}
+            />
+          ))}
+        </InfiniteScroll>
+      ) : (
+        <Asset
+          src={NoResults}
+          message={`No results found, ${profile?.owner} seller hasn't listed any properties yet.`}
+        />
+      )}
     </>
   );
 
@@ -123,7 +154,6 @@ export default function ProfilePage() {
     <Row>
       <Col className="py-2 p-0 p-lg-2" lg={8}>
         <PopularProfiles mobile />
-
         {hasLoaded ? (
           <>
             <Col
@@ -147,12 +177,13 @@ export default function ProfilePage() {
                 </div>
               )}
             </Col>
-
-            <Container
-              className={`${appStyles.ContentContainer} shadow rounded`}
-            >
-              {mainProfilePosts}
-            </Container>
+            {profile?.is_seller && (
+              <Container
+                className={`${appStyles.ContentContainer} shadow rounded`}
+              >
+                {mainProfilePosts}
+              </Container>
+            )}
           </>
         ) : (
           <Asset spinner />
