@@ -41,6 +41,16 @@ function App() {
               />
             )}
           />
+          <Route
+            exact
+            path="/feed"
+            render={() => (
+              <PropertyListPage
+                message="No results found, any properties you bookmark will be listed here."
+                filter={`property_feed_for_profile=${profile_id}`}
+              />
+            )}
+          />
           <Route exact path="/login" render={() => <SignInForm />} />
           <Route exact path="/register" render={() => <RegistrationForm />} />
           <Route
