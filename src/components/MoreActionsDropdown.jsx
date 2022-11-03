@@ -23,7 +23,7 @@ MoreActions.displayName = "MoreActionsIcon";
 
 export default function MoreActionsDropdown({ handleEdit, handleDelete }) {
   return (
-    <Dropdown className="ml-auto" drop="left">
+    <Dropdown className="ml-auto" drop="start">
       <Dropdown.Toggle as={MoreActions} aria-label="More Actions Menu" />
 
       <Dropdown.Menu>
