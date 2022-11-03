@@ -9,6 +9,7 @@ import RegistrationForm from "./pages/auth/RegistrationForm";
 import SignInForm from "./pages/auth/SignInForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 import ProfilePage from "./pages/profiles/ProfilePage";
+import UsernameForm from "./pages/profiles/UsernameForm";
 import PropertyForm from "./pages/property/PropertyForm";
 import PropertyListPage from "./pages/property/PropertyListPage";
 import PropertyPage from "./pages/property/PropertyPage";
@@ -53,6 +54,11 @@ function App() {
             render={() => <PropertyForm />}
           />
           <Route exact path="/profiles/:id" render={() => <ProfilePage />} />
+          <Route
+            exact
+            path="/profiles/:id/edit/username"
+            render={() => <UsernameForm />}
+          />
           <Route
             exact
             path="/profiles/:id/edit"
