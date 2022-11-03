@@ -49,7 +49,6 @@ export default function ProfileEditForm() {
           const { data } = await axiosReq.get(`/profiles/${id}/`);
           const { name, description, image } = data;
           setProfileData({ name, description, image });
-          console.log(data);
         } catch (err) {
           console.log(err);
           history.push("/");
@@ -60,7 +59,8 @@ export default function ProfileEditForm() {
     };
 
     handleMount();
-  }, [currentUser, history, id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history, id]);
 
   /**
    * Updates profileData state object element change (form field).
