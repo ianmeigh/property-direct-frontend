@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar";
 import { useCurrentUser } from "./contexts/CurrentUserContext";
 import RegistrationForm from "./pages/auth/RegistrationForm";
 import SignInForm from "./pages/auth/SignInForm";
+import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 import ProfilePage from "./pages/profiles/ProfilePage";
 import PropertyForm from "./pages/property/PropertyForm";
 import PropertyListPage from "./pages/property/PropertyListPage";
@@ -52,6 +53,11 @@ function App() {
             render={() => <PropertyForm />}
           />
           <Route exact path="/profiles/:id" render={() => <ProfilePage />} />
+          <Route
+            exact
+            path="/profiles/:id/edit"
+            render={() => <ProfileEditForm />}
+          />
           <Route
             exact
             path="/404"
