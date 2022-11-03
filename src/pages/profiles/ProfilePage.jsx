@@ -52,9 +52,12 @@ export default function ProfilePage() {
         setProfileProperties(profileProperties);
         setHasLoaded(true);
       } catch (err) {
-        if (err.response.status === 401) {
+        if (err.response?.status === 401) {
           history.push("/login");
-        } else if (err.response.status === 403 || err.response.status === 404) {
+        } else if (
+          err.response?.status === 403 ||
+          err.response?.status === 404
+        ) {
           history.push("/404");
         }
         console.log(err);

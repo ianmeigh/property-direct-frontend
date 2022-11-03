@@ -42,7 +42,7 @@ export default function PropertyPage() {
         setNotes(notes);
         setHasLoaded(true);
       } catch (err) {
-        if (err.response.status === 404) {
+        if (err.response?.status === 404) {
           history.push("/404");
         }
         console.log(err);

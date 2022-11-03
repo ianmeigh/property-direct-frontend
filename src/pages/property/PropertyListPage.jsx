@@ -181,7 +181,7 @@ export default function PropertyListPage({ message, filter = "" }) {
               </Form.Group>
             </div>
             {/* Postcode error Feedback */}
-            {errors.postcode?.map((detail) => (
+            {errors?.postcode?.map((detail) => (
               <Alert className="text-center" key={detail} variant="warning">
                 {detail}
               </Alert>
