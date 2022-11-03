@@ -484,7 +484,7 @@ export default function PropertyForm() {
           onChange={handleChange}
         />
       </Form.Group>
-      {errors.postcode?.map((message, idx) => (
+      {errors?.postcode?.map((message, idx) => (
         <Alert className="mt-3" variant="warning" key={idx}>
           {message}
         </Alert>

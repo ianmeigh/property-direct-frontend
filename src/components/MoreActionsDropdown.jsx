@@ -1,6 +1,7 @@
 import React from "react";
 
 import Dropdown from "react-bootstrap/Dropdown";
+import { useHistory } from "react-router-dom";
 
 // CREDIT: Adapted from Bootstrap Custom Dropdown Component
 // URL:    https://react-bootstrap.github.io/components/dropdowns/#custom-dropdown-components
@@ -22,7 +23,7 @@ MoreActions.displayName = "MoreActionsIcon";
 
 export default function MoreActionsDropdown({ handleEdit, handleDelete }) {
   return (
-    <Dropdown className="ml-auto" drop="left">
+    <Dropdown className="ml-auto" drop="start">
       <Dropdown.Toggle as={MoreActions} aria-label="More Actions Menu" />
 
       <Dropdown.Menu>
@@ -44,6 +45,45 @@ export default function MoreActionsDropdown({ handleEdit, handleDelete }) {
             <span>Delete</span>
           </Dropdown.Item>
         </div>
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+}
+
+/**
+ * More actions dropdown for Profile. Redirects users to Profile Edit, Change
+ * Username and Change Password routes.
+ * @param {Int} id - Id of User profile to be edited.
+ */
+export function ProfileEditDropdown({ id }) {
+  const history = useHistory();
+  return (
+    <Dropdown className="ms-auto float-end" drop="start">
+      <Dropdown.Toggle as={MoreActions} aria-label="More Actions Menu" />
+      <Dropdown.Menu>
+        <Dropdown.Item
+          className="d-flex flex-column align-items-center mb-2"
+          aria-label="Edit Profile"
+          onClick={() => history.push(`/profiles/${id}/edit`)}
+        >
+          <i className="fas fa-edit fa-2x mb-1" /> Edit Profile
+        </Dropdown.Item>
+        <Dropdown.Item
+          className="d-flex flex-column align-items-center mb-2"
+          aria-label="Edit Username"
+          onClick={() => history.push(`/profiles/${id}/edit/username`)}
+        >
+          <i className="far fa-id-card fa-2x mb-1" />
+          Change Username
+        </Dropdown.Item>
+        <Dropdown.Item
+          className="d-flex flex-column align-items-center"
+          aria-label="Edit Password"
+          onClick={() => history.push(`/profiles/${id}/edit/password`)}
+        >
+          <i className="fas fa-key fa-2x mb-1" />
+          Change Password
+        </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );
