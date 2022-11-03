@@ -13,6 +13,7 @@ import NoResults from "../../assets/no-results.png";
 import Asset from "../../components/Asset";
 import Avatar from "../../components/Avatar";
 import ContactInformationBtn from "../../components/ContactInfoBtn";
+import { ProfileEditDropdown } from "../../components/MoreActionsDropdown";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import {
   useProfileData,
@@ -68,6 +69,7 @@ export default function ProfilePage() {
 
   const mainProfile = (
     <>
+      {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
       <Row className="px-3 text-center">
         <Col
           lg={3}
