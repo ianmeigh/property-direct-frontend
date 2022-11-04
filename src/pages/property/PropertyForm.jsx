@@ -17,6 +17,7 @@ import styles from "../../styles/PropertyForm.module.css";
 
 export default function PropertyForm() {
   useRedirect("isAnonymous");
+  useRedirect("isNotSeller");
 
   const imageHeroFileInput = useRef(null);
   const floorplanFileInput = useRef(null);

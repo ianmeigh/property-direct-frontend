@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 
 /**
  * Checks authentication status and redirects users based on passed parameter.
- * @param {"isAuthenticated" | "isAnonymous"} userAuthStatus - Scenario in we want to redirect users.
+ * @param {"isAuthenticated" | "isAnonymous" | "isNotSeller"} userAuthStatus - Scenario in we want to redirect users.
  */
 export const useRedirect = (userAuthStatus) => {
   const history = useHistory();
@@ -18,13 +18,19 @@ export const useRedirect = (userAuthStatus) => {
     // authenticated otherwise they are not.
     const handleMount = async () => {
       try {
-        console.log("fetch");
-        await axios.post("/dj-rest-auth/token/refresh/");
+        const { data: currentUser } = await axios.get("/dj-rest-auth/user/");
         // Redirect if authenticated
         if (userAuthStatus === "isAuthenticated") {
           history.push("/");
         }
+        // Redirect if authenticated user is not seller
+        else if (userAuthStatus === "isNotSeller") {
+          if (!currentUser.is_seller) {
+            history.push("/");
+          }
+        }
       } catch (err) {
+        console.log(err);
         // Redirect if anonymous
         if (userAuthStatus === "isAnonymous") {
           history.push("/");
