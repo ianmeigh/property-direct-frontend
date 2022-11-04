@@ -6,12 +6,13 @@ import { Link, useHistory } from "react-router-dom";
 
 import appStyles from "../../App.module.css";
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import { useRedirect } from "../../hooks/useRedirect";
 import styles from "../../styles/AuthForms.module.css";
 import btnStyles from "../../styles/Buttons.module.css";
 
 export default function SignInForm() {
+  useRedirect("isAuthenticated");
   const setCurrentUser = useSetCurrentUser();
-
   const [signInData, setSignInData] = useState({
     username: "",
     password: "",
@@ -33,7 +34,7 @@ export default function SignInForm() {
     try {
       const { data } = await axios.post("/dj-rest-auth/login/", signInData);
       setCurrentUser(data.user);
-      history.push("/");
+      history.goBack();
     } catch (err) {
       setErrors(err.response?.data);
     }
