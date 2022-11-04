@@ -1,6 +1,7 @@
 import React from "react";
 
-import { Accordion, Container } from "react-bootstrap";
+import Accordion from "react-bootstrap/Accordion";
+import Container from "react-bootstrap/Container";
 
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";

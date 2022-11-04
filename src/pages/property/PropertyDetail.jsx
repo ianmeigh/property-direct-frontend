@@ -1,13 +1,11 @@
 import React from "react";
 
-import {
-  Button,
-  Card,
-  Col,
-  Image,
-  OverlayTrigger,
-  Tooltip,
-} from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Image from "react-bootstrap/Image";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import { Link, useHistory } from "react-router-dom";
 
 import { axiosRes } from "../../api/axiosDefaults";

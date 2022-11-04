@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Image } from "react-bootstrap";
+import Image from "react-bootstrap/Image";
 
 import styles from "../styles/Avatar.module.css";
 

@@ -74,7 +74,8 @@ export default function ProfileEditForm() {
   };
 
   /**
-   * Adds form field values to FormData object and updates the API
+   * Adds form field values to FormData object, updates the API and the current
+   * user context.
    * @param {Object} event - Event Submit Object
    */
   const handleSubmit = async (event) => {

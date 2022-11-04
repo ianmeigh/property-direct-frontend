@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import { useLocation } from "react-router-dom";
 
 import { useCurrentUser } from "../contexts/CurrentUserContext";

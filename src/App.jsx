@@ -1,4 +1,4 @@
-import { Container } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
 import { Route, Switch } from "react-router-dom";
 
 import "./api/axiosDefaults";

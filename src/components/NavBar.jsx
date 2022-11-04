@@ -1,6 +1,10 @@
 import React from "react";
 
-import { Col, Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import Offcanvas from "react-bootstrap/Offcanvas";
 import { NavLink } from "react-router-dom";
 
 import logo from "../assets/logo.png";
