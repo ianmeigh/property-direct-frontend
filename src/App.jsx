@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import "./api/axiosDefaults";
 import styles from "./App.module.css";
 import NavBar from "./components/NavBar";
+import NotFound from "./components/NotFound";
 import { useCurrentUser } from "./contexts/CurrentUserContext";
 import RegistrationForm from "./pages/auth/RegistrationForm";
 import SignInForm from "./pages/auth/SignInForm";
@@ -80,12 +81,8 @@ function App() {
             path="/profiles/:id/edit"
             render={() => <ProfileEditForm />}
           />
-          <Route
-            exact
-            path="/404"
-            render={() => <p>Page Not Found Placeholder (404)</p>}
-          />
-          <Route render={() => <p>Page Not Found Placeholder</p>} />
+          <Route exact path="/404" render={() => <NotFound />} />
+          <Route render={() => <NotFound />} />
         </Switch>
       </Container>
     </div>
