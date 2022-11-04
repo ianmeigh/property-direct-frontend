@@ -86,3 +86,16 @@ export const setTokenTimestamp = (data) => {
   const refreshTokenTimestamp = jwtDecode(data?.refresh_token).exp;
   localStorage.setItem("refreshTokenTimestamp", refreshTokenTimestamp);
 };
+
+/**
+ * Checks if the refreshTokenTimestamp exists in localStorage
+ * @returns {Boolean}
+ */
+export const shouldRefreshToken = () => {
+  return !!localStorage.getItem("refreshTokenTimestamp");
+};
+
+/** Removes the refreshTokenTimestamp from localStorage */
+export const removeTokenTimestamp = () => {
+  localStorage.removeItem("refreshTokenTimestamp");
+};
