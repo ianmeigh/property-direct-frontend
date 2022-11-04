@@ -56,6 +56,16 @@ export default function ProfilePage() {
         if (err.response?.status === 401) {
           history.push("/login");
         } else if (
+          // Redirect users if they request a profile that doesn't exist or they
+          // don't have permission to view (only sellers profiles are visible)
+          //
+          // As promises can be returned in any order, the error checking below
+          // accounts for rejection of the profile not being found (404) and the
+          // filter id not being valid (400).
+          (err.response?.status === 400 &&
+            (err.response?.data?.properties_listed_by_profile[0]).includes(
+              "Select a valid choice"
+            )) ||
           err.response?.status === 403 ||
           err.response?.status === 404
         ) {
