@@ -14,6 +14,7 @@ import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import NoResults from "../../assets/no-results.png";
 import Asset from "../../components/Asset";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import btnStyles from "../../styles/Buttons.module.css";
 import { fetchMoreData } from "../../utils/utils";
 import PopularProfiles from "../profiles/PopularProfiles";
@@ -26,6 +27,7 @@ export default function PropertyListPage({ message, filter = "" }) {
   const [properties, setProperties] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
+  const currentUser = useCurrentUser();
   // Search State Variables
   const [postcode, setPostcode] = useState("");
   const [radius, setRadius] = useState(0.5);
@@ -58,7 +60,7 @@ export default function PropertyListPage({ message, filter = "" }) {
     setHasLoaded(false);
     fetchProperties(postcode, radius);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchFilters]);
+  }, [currentUser, searchFilters]);
 
   /**
    * Fetch properties within the supplied radius (miles) from a point of origin
