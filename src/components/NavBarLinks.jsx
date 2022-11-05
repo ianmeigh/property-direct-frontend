@@ -71,7 +71,7 @@ export function LoggedInDesktopNavLinksAllUsers() {
       >
         <Avatar
           src={currentUser?.profile_image}
-          text={currentUser?.username}
+          text={currentUser?.username.slice(0, 10).trimEnd().concat("...")}
         ></Avatar>
       </NavLink>
       {/* Logout */}
