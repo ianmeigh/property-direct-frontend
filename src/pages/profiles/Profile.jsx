@@ -40,14 +40,14 @@ export default function Profile({ profile, mobile, imageSize = 55 }) {
           !isOwner &&
           (following_id ? (
             <Button
-              className={`${btnStyles.Button} ${btnStyles.SecondaryOutline}`}
+              className={`${btnStyles.Button} ${btnStyles.Secondary}`}
               onClick={() => handleUnfollow(profile)}
             >
               Unfollow
             </Button>
           ) : (
             <Button
-              className={`${btnStyles.Button} ${btnStyles.Secondary}`}
+              className={`${btnStyles.Button} ${btnStyles.Primary}`}
               onClick={() => handleFollow(profile)}
             >
               Follow
