@@ -38,7 +38,7 @@ export default function PropertyForm() {
     floorplan: "",
     epc: "",
     propertyName: "",
-    propertyNumber: "",
+    propertyNumber: 0,
     streetName: "",
     locality: "",
     city: "",
@@ -91,7 +91,7 @@ export default function PropertyForm() {
       floorplan: "",
       epc: "",
       propertyName: "",
-      propertyNumber: "",
+      propertyNumber: 0,
       streetName: "",
       locality: "",
       city: "",
@@ -425,7 +425,8 @@ export default function PropertyForm() {
           className="text-center"
           type="number"
           name="propertyNumber"
-          value={propertyNumber}
+          min="0"
+          value={propertyNumber || 0}
           onChange={handleChange}
         />
       </Form.Group>
@@ -672,7 +673,7 @@ export default function PropertyForm() {
           <Col className="px-0">{imageFields}</Col>
           {/* Form Fields */}
           <Col className="p-0">
-            <Container className="border border-2 p-4">{formFields}</Container>
+            <Container className="p-4">{formFields}</Container>
           </Col>
         </Row>
         {/* Buttons */}

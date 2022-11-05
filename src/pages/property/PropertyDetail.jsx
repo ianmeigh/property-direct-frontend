@@ -144,12 +144,16 @@ export default function PropertyDetail(props) {
               <span
                 className={`${styles.PropertyHeadingFont} ${styles.SubHeading}`}
               >
-                {property_number ? property_number : property_name},{" "}
-                {street_name}, {city}, {postcode}
+                {property_number !== 0 && property_number !== null
+                  ? property_number + ", "
+                  : property_name !== ""
+                  ? property_name + ", "
+                  : ""}
+                {street_name}, {city}, {postcode.toUpperCase()}
               </span>
             </h1>
             <p className={`${styles.PropertyHeadingFont} ${styles.Price}`}>
-              £{price}
+              £{price.toLocaleString()}
             </p>
           </div>
           <p className="text-muted">
@@ -326,7 +330,7 @@ export default function PropertyDetail(props) {
               {/* Text Content */}
               <div className="p-4 d-flex flex-column h-100">
                 <div className="d-flex justify-content-between">
-                  <h3 className="m-0">£{price}</h3>
+                  <h3 className="m-0">£{price.toLocaleString()}</h3>
                   {/* Bookmark Logic */}
                   {bookmark_id ? (
                     <span onClick={handleRemoveBookmark}>
@@ -368,7 +372,12 @@ export default function PropertyDetail(props) {
                   {houseTypes.includes(property_type) ? " house" : ""}
                 </p>
                 <p className="mb-0 text-muted">
-                  {street_name}, {city}, {postcode}
+                  {property_number !== 0 && property_number !== null
+                    ? property_number + ", "
+                    : property_name !== ""
+                    ? property_name + ", "
+                    : ""}
+                  {street_name}, {city}, {postcode.toUpperCase()}
                 </p>
                 {distance != null && (
                   <p className="text-muted">
@@ -376,7 +385,7 @@ export default function PropertyDetail(props) {
                   </p>
                 )}
                 {/* Shortened description */}
-                <p className="flex-grow-1">
+                <p className="flex-grow-1 mt-3">
                   {`${description.slice(0, 200).trimEnd()}...`}
                 </p>
                 <div className="mt-3 d-flex justify-content-between">
