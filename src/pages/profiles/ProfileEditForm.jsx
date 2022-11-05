@@ -32,8 +32,18 @@ export default function ProfileEditForm() {
     name: "",
     description: "",
     image: "",
+    email: "",
+    telephone_landline: "",
+    telephone_mobile: "",
   });
-  const { name, description, image } = profileData;
+  const {
+    name,
+    description,
+    image,
+    email,
+    telephone_landline,
+    telephone_mobile,
+  } = profileData;
 
   const [errors, setErrors] = useState({});
 
@@ -47,10 +57,23 @@ export default function ProfileEditForm() {
       if (currentUser?.profile_id?.toString() === id) {
         try {
           const { data } = await axiosReq.get(`/profiles/${id}/`);
-          const { name, description, image } = data;
-          setProfileData({ name, description, image });
+          const {
+            name,
+            description,
+            image,
+            email,
+            telephone_landline,
+            telephone_mobile,
+          } = data;
+          setProfileData({
+            name,
+            description,
+            image,
+            email,
+            telephone_landline,
+            telephone_mobile,
+          });
         } catch (err) {
-          console.log(err);
           history.push("/");
         }
       } else {
@@ -82,6 +105,9 @@ export default function ProfileEditForm() {
     event.preventDefault();
     const formData = new FormData();
     formData.append("name", name);
+    formData.append("telephone_landline", telephone_landline);
+    formData.append("telephone_mobile", telephone_mobile);
+    formData.append("email", email);
     formData.append("description", description);
 
     if (imageFile?.current?.files[0]) {
@@ -149,8 +175,23 @@ export default function ProfileEditForm() {
           </Col>
           {/* Form Fields */}
           <Col className="p-0">
-            <Container className="p-4 h-100">
-              <Form.Group>
+            <Container className="px-4 h-100">
+              <Form.Group className="mb-3" controlId="name">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  className="text-center"
+                  type="text"
+                  name="name"
+                  value={name}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              {errors?.name?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                  {message}
+                </Alert>
+              ))}
+              <Form.Group className="my-3">
                 <Form.Label>Bio</Form.Label>
                 <Form.Control
                   as="textarea"
@@ -161,6 +202,51 @@ export default function ProfileEditForm() {
                 />
               </Form.Group>
               {errors?.description?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                  {message}
+                </Alert>
+              ))}
+              <Form.Group className="my-3" controlId="telephone_landline">
+                <Form.Label>telephone_landline</Form.Label>
+                <Form.Control
+                  className="text-center"
+                  type="text"
+                  name="telephone_landline"
+                  value={telephone_landline}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              {errors?.telephone_landline?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                  {message}
+                </Alert>
+              ))}
+              <Form.Group className="my-3" controlId="telephone_mobile">
+                <Form.Label>telephone_mobile</Form.Label>
+                <Form.Control
+                  className="text-center"
+                  type="text"
+                  name="telephone_mobile"
+                  value={telephone_mobile}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              {errors?.telephone_mobile?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                  {message}
+                </Alert>
+              ))}
+              <Form.Group className="my-3" controlId="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  className="text-center"
+                  type="text"
+                  name="email"
+                  value={email}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              {errors?.email?.map((message, idx) => (
                 <Alert variant="warning" key={idx}>
                   {message}
                 </Alert>
