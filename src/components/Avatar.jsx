@@ -23,6 +23,7 @@ export default function Avatar({
         }`}
       >
         <Image
+          className="border border-2"
           src={src}
           height={height}
           width={height}

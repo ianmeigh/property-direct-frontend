@@ -103,7 +103,7 @@ export default function NavBar() {
           - Branding for mobile viewport (visible below md breakpoint)
           - Variable column sizing to maintain logo centering
         */}
-        <Col xs={3} md={1}>
+        <Col xs={3} className="d-md-none">
           <NavLink
             exact
             className={`${styles.NavLink} d-flex flex-row align-items-center justify-content-center d-md-none`}

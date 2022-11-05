@@ -106,10 +106,10 @@ export default function PropertyPage() {
                   ))}
                 </InfiniteScroll>
               ) : currentUser ? (
-                <span>
+                <div className="text-center w-100 mt-3">
                   Leave notes about your viewing or anything really, these notes
                   are private to you!
-                </span>
+                </div>
               ) : (
                 <span>Log in to create private notes about this property.</span>
               )}
