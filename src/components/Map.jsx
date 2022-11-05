@@ -19,7 +19,7 @@ export default function Map(props) {
   };
 
   return (
-    <LoadScript googleMapsApiKey="API_KEY">
+    <LoadScript googleMapsApiKey={process.env.REACT_APP_MAPS_API}>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
