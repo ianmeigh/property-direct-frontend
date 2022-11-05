@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Image } from "react-bootstrap";
+import Image from "react-bootstrap/Image";
 
 import styles from "../styles/Avatar.module.css";
 
@@ -23,6 +23,7 @@ export default function Avatar({
         }`}
       >
         <Image
+          className="border border-2"
           src={src}
           height={height}
           width={height}

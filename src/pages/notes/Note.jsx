@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Card } from "react-bootstrap";
+import Card from "react-bootstrap/Card";
 
 import { axiosRes } from "../../api/axiosDefaults";
 import MoreActionsDropdown from "../../components/MoreActionsDropdown";

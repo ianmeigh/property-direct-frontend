@@ -1,3 +1,5 @@
+import jwtDecode from "jwt-decode";
+
 import { axiosReq } from "../api/axiosDefaults";
 
 // CREDIT: Code Institute Moments Tutorial Project
@@ -73,4 +75,27 @@ export const unfollowHelper = (profile, clickedProfile) => {
         following_count: profile.following_count - 1,
       }
     : profile;
+};
+
+/**
+ * Store authenticated users refresh token expiry timestamp in localStorage
+ * @param {Object} data - Response from API when logging in using the
+ * '/dj-rest-auth/login/' endpoint.
+ */
+export const setTokenTimestamp = (data) => {
+  const refreshTokenTimestamp = jwtDecode(data?.refresh_token).exp;
+  localStorage.setItem("refreshTokenTimestamp", refreshTokenTimestamp);
+};
+
+/**
+ * Checks if the refreshTokenTimestamp exists in localStorage
+ * @returns {Boolean}
+ */
+export const shouldRefreshToken = () => {
+  return !!localStorage.getItem("refreshTokenTimestamp");
+};
+
+/** Removes the refreshTokenTimestamp from localStorage */
+export const removeTokenTimestamp = () => {
+  localStorage.removeItem("refreshTokenTimestamp");
 };

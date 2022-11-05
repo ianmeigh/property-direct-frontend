@@ -31,9 +31,8 @@ export default function UsernameForm() {
 
   useEffect(() => {
     // Determines if the currently authenticated user is the profile owner and
-    // fetches sets the state variable used as the value of the form field.
-    // Redirects user to home page if user not authenticated or not profile
-    // owner.
+    // sets the state variable used as the value of the form field. Redirects
+    // user to home page if user not authenticated or not profile owner.
     if (currentUser?.profile_id?.toString() === id) {
       setUsername(currentUser.username);
     } else {
@@ -42,7 +41,7 @@ export default function UsernameForm() {
   }, [currentUser, history, id]);
 
   /**
-   * Updates the username on the API and updates the current user context.
+   * Updates the username on the API and in the current user context.
    * @param {Object} event - Event Submit Object
    */
   const handleSubmit = async (event) => {
@@ -70,7 +69,7 @@ export default function UsernameForm() {
         <Col className="py-2 mx-auto text-center" md={6}>
           <Container>
             <Form onSubmit={handleSubmit} className="my-3">
-              {/* Username */}
+              {/* Username Form Fields */}
               <Form.Group className="mb-3">
                 <Form.Label className="mb-4">Change username</Form.Label>
                 <Form.Control

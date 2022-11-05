@@ -1,20 +1,25 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { Alert, Image } from "react-bootstrap";
+import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
+import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import { useHistory, useParams } from "react-router-dom";
 
 import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
+import { useRedirect } from "../../hooks/useRedirect";
 import btnStyles from "../../styles/Buttons.module.css";
 import styles from "../../styles/PropertyForm.module.css";
 
 export default function PropertyForm() {
+  useRedirect("isAnonymous");
+  useRedirect("isNotSeller");
+
   const imageHeroFileInput = useRef(null);
   const floorplanFileInput = useRef(null);
   const epcFileInput = useRef(null);
@@ -33,7 +38,7 @@ export default function PropertyForm() {
     floorplan: "",
     epc: "",
     propertyName: "",
-    propertyNumber: "",
+    propertyNumber: 0,
     streetName: "",
     locality: "",
     city: "",
@@ -86,7 +91,7 @@ export default function PropertyForm() {
       floorplan: "",
       epc: "",
       propertyName: "",
-      propertyNumber: "",
+      propertyNumber: 0,
       streetName: "",
       locality: "",
       city: "",
@@ -420,7 +425,8 @@ export default function PropertyForm() {
           className="text-center"
           type="number"
           name="propertyNumber"
-          value={propertyNumber}
+          min="0"
+          value={propertyNumber || 0}
           onChange={handleChange}
         />
       </Form.Group>
@@ -667,7 +673,7 @@ export default function PropertyForm() {
           <Col className="px-0">{imageFields}</Col>
           {/* Form Fields */}
           <Col className="p-0">
-            <Container className="border border-2 p-4">{formFields}</Container>
+            <Container className="p-4">{formFields}</Container>
           </Col>
         </Row>
         {/* Buttons */}

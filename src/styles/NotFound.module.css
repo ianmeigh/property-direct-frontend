@@ -1,0 +1,8 @@
+.Container {
+  margin-top: 25vh;
+}
+
+.Container p {
+  font-size: 1.5rem;
+  font-family: "Montserrat", Helvetica, sans-serif;
+}

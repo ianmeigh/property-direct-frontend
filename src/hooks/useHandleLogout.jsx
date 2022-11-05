@@ -1,5 +1,6 @@
 import { axiosReq } from "../api/axiosDefaults";
 import { useSetCurrentUser } from "../contexts/CurrentUserContext";
+import { removeTokenTimestamp } from "../utils/utils";
 
 /**
  * Custom Hook to manage user logout.
@@ -12,6 +13,7 @@ export const useHandleLogout = () => {
     try {
       await axiosReq.post("/dj-rest-auth/logout/");
       setCurrentUser(null);
+      removeTokenTimestamp();
     } catch (err) {
       console.log(err);
     }

@@ -48,15 +48,3 @@
   background-color: var(--secondary-btn-color);
   opacity: 70%;
 }
-
-.SecondaryOutline {
-  color: var(--black) !important;
-  background-color: var(--white);
-  border-color: var(--black) !important;
-}
-
-.SecondaryOutline:hover {
-  background-color: var(--white);
-  background-image: none;
-  border-color: var(--black) !important;
-}

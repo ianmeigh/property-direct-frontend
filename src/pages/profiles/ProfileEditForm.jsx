@@ -74,7 +74,8 @@ export default function ProfileEditForm() {
   };
 
   /**
-   * Adds form field values to FormData object and updates the API
+   * Adds form field values to FormData object, updates the API and the current
+   * user context.
    * @param {Object} event - Event Submit Object
    */
   const handleSubmit = async (event) => {
@@ -148,7 +149,7 @@ export default function ProfileEditForm() {
           </Col>
           {/* Form Fields */}
           <Col className="p-0">
-            <Container className="border border-2 rounded p-4 h-100">
+            <Container className="p-4 h-100">
               <Form.Group>
                 <Form.Label>Bio</Form.Label>
                 <Form.Control

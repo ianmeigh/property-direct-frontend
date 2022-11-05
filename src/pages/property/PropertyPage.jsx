@@ -42,10 +42,27 @@ export default function PropertyPage() {
         setNotes(notes);
         setHasLoaded(true);
       } catch (err) {
-        if (err.response?.status === 404) {
+        console.log(err);
+        /* 
+        As the promises can be returned in any order, the error checking
+        below accounts for rejection of both requests:
+        
+        - A response when fetching and property that doesn't exist will
+          return a 404 Not Found Error.
+        - A response when fetching notes using the property filter with an id
+          that doesn't exist returns a 400 Bad Request Error with the message
+          "Select a valid choice. That choice is not one of the available
+          choices."
+         */
+        if (
+          (err.response?.status === 400 &&
+            (err.response?.data?.property[0]).includes(
+              "Select a valid choice"
+            )) ||
+          err.response?.status === 404
+        ) {
           history.push("/404");
         }
-        console.log(err);
       }
     };
     handleMount();
@@ -89,10 +106,10 @@ export default function PropertyPage() {
                   ))}
                 </InfiniteScroll>
               ) : currentUser ? (
-                <span>
+                <div className="text-center w-100 mt-3">
                   Leave notes about your viewing or anything really, these notes
                   are private to you!
-                </span>
+                </div>
               ) : (
                 <span>Log in to create private notes about this property.</span>
               )}

@@ -48,7 +48,7 @@ export function LoggedInDesktopNavLinksAllUsers() {
     <>
       {/* Bookmarks */}
       <NavLink
-        className={`${styles.NavLink} ${styles.NavIcon} d-flex flex-row align-items-center p-1`}
+        className={`${styles.NavLink} ${styles.NavIcon} d-flex flex-row align-items-center px-2`}
         activeClassName={styles.Active}
         to="/bookmarks"
       >
@@ -57,7 +57,7 @@ export function LoggedInDesktopNavLinksAllUsers() {
       </NavLink>
       {/* Feed */}
       <NavLink
-        className={`${styles.NavLink} ${styles.NavIcon} d-flex flex-row align-items-center p-1`}
+        className={`${styles.NavLink} ${styles.NavIcon} d-flex flex-row align-items-center px-2`}
         activeClassName={styles.Active}
         to="/feed"
       >
@@ -71,12 +71,12 @@ export function LoggedInDesktopNavLinksAllUsers() {
       >
         <Avatar
           src={currentUser?.profile_image}
-          text={currentUser?.username}
+          text={currentUser?.username.slice(0, 10).trimEnd().concat("...")}
         ></Avatar>
       </NavLink>
       {/* Logout */}
       <NavLink
-        className={`${styles.NavLink} ${styles.NavIcon} d-flex flex-row align-items-center p-1`}
+        className={`${styles.NavLink} ${styles.NavIcon} d-flex flex-row align-items-center px-2`}
         to="/"
         onClick={handleLogout}
       >
@@ -141,7 +141,7 @@ export function LoggedInMobileNavLinksAllUsers() {
   return (
     <>
       <NavLink
-        className={`${styles.NavMobileIcon} ${styles.NavLink} pt-1 px-0`}
+        className={`${styles.NavMobileIcon} ${styles.NavLink} pt-1 pe-2`}
         to={`/profiles/${currentUser?.profile_id}`}
       >
         <Avatar src={currentUser?.profile_image} height={32} mobile></Avatar>
@@ -167,7 +167,7 @@ export const loggedInMobileNavLinksStandardUsers = (
    */
   <>
     <NavLink
-      className={`${styles.NavMobileIcon} ${styles.NavLink} pt-1 pe-1`}
+      className={`${styles.NavMobileIcon} ${styles.NavLink} pt-1 pe-2`}
       activeClassName={styles.Active}
       to="/bookmarks"
     >
@@ -185,7 +185,7 @@ export const loggedInMobileNavLinksSellers = (
    */
   <>
     <NavLink
-      className={`${styles.NavMobileIcon} ${styles.NavLink} pt-1 pe-1`}
+      className={`${styles.NavMobileIcon} ${styles.NavLink} pt-1 pe-2`}
       activeClassName={styles.Active}
       to="/property/create"
     >
