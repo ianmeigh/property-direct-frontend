@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 
-import axios from "axios";
 import { useHistory } from "react-router-dom";
+
+import { axiosReq } from "../api/axiosDefaults";
 
 // CREDIT: Code Institute Moments Tutorial Project
 // URL:    https://github.com/Code-Institute-Solutions/moments
@@ -18,7 +19,7 @@ export const useRedirect = (userAuthStatus) => {
     // authenticated otherwise they are not.
     const handleMount = async () => {
       try {
-        const { data: currentUser } = await axios.get("/dj-rest-auth/user/");
+        const { data: currentUser } = await axiosReq.get("/dj-rest-auth/user/");
         // Redirect if authenticated
         if (userAuthStatus === "isAuthenticated") {
           history.push("/");
