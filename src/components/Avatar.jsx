@@ -7,10 +7,9 @@ import styles from "../styles/Avatar.module.css";
 export default function Avatar({
   src,
   height = 35,
-  alt,
   text,
   mobile,
-  strong,
+  bold,
   textBreak,
 }) {
   return (
@@ -27,10 +26,10 @@ export default function Avatar({
           src={src}
           height={height}
           width={height}
-          alt={alt}
+          alt="User Profile Picture (Avatar)"
           roundedCircle
         />
-        <span className={`${strong && "fw-bold"} ${textBreak && "text-break"}`}>
+        <span className={`${bold && "fw-bold"} ${textBreak && "text-break"}`}>
           {text}
         </span>
       </span>

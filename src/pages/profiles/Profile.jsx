@@ -30,7 +30,7 @@ export default function Profile({ profile, mobile, imageSize = 55 }) {
           height={imageSize}
           text={owner}
           mobile={mobile ? true : false}
-          strong={mobile ? false : true}
+          bold={mobile ? false : true}
           textBreak
         />
       </Link>
