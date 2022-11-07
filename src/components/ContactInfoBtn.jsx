@@ -64,13 +64,19 @@ export default function ContactInformationBtn({
       {type === "phone" &&
         (currentUser ? (
           !telephone_mobile && !telephone_landline ? (
-            <Button
-              className={`${btnStyles.Static} ${btnStyles.Primary}`}
-              disabled
+            <OverlayTrigger
+              placement="bottom"
+              overlay={
+                <Tooltip>
+                  The seller has not added a telephone number to their profile.
+                </Tooltip>
+              }
             >
-              <i className="fas fa-phone-alt pe-2"></i>
-              {btnText}
-            </Button>
+              <Button className={`${btnStyles.Static} ${btnStyles.Primary}`}>
+                <i className="fas fa-phone-alt pe-2"></i>
+                {btnText}
+              </Button>
+            </OverlayTrigger>
           ) : (
             <Button
               className={`${btnStyles.Button} ${btnStyles.Primary}`}
@@ -115,13 +121,19 @@ export default function ContactInformationBtn({
       {type === "email" &&
         (currentUser ? (
           !email ? (
-            <Button
-              className={`${btnStyles.Static} ${btnStyles.Primary}`}
-              disabled
+            <OverlayTrigger
+              placement="bottom"
+              overlay={
+                <Tooltip>
+                  The seller has not added an email address to their profile.
+                </Tooltip>
+              }
             >
-              <i className="fas fa-envelope pe-2"></i>
-              {btnText}
-            </Button>
+              <Button className={`${btnStyles.Static} ${btnStyles.Primary}`}>
+                <i className="fas fa-envelope pe-2"></i>
+                {btnText}
+              </Button>
+            </OverlayTrigger>
           ) : (
             <Button
               className={`${btnStyles.Button} ${btnStyles.Primary}`}
