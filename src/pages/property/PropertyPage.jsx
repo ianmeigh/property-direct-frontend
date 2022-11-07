@@ -116,7 +116,9 @@ export default function PropertyPage() {
                   are private to you!
                 </div>
               ) : (
-                <span>Log in to create private notes about this property.</span>
+                <div className="text-center w-100">
+                  Log in to create private notes about this property.
+                </div>
               )}
             </Col>
           </>
