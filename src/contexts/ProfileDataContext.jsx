@@ -13,6 +13,13 @@ export const SetProfileDataContext = createContext();
 export const useProfileData = () => useContext(ProfileDataContext);
 export const useSetProfileData = () => useContext(SetProfileDataContext);
 
+/**
+ * Context Provider for profile data.
+ * @param {object} params
+ * @param {object} params.children content included between the opening and
+ * closing tags of component
+ * @returns
+ */
 export const ProfileDataProvider = ({ children }) => {
   const [profileData, setProfileData] = useState({
     pageProfile: { results: [] },
@@ -24,7 +31,7 @@ export const ProfileDataProvider = ({ children }) => {
   /**
    * Send request to API to create follower record and update the profileData
    * state variable.
-   * @param {Object} clickedProfile - Profile information for user who should be
+   * @param {object} clickedProfile - Profile information for user who should be
    * followed.
    */
   const handleFollow = async (clickedProfile) => {
@@ -53,7 +60,7 @@ export const ProfileDataProvider = ({ children }) => {
 
   /**
    * Send request to API to delete a follower record.
-   * @param {Object} clickedProfile - Profile information for user who should be
+   * @param {object} clickedProfile - Profile information for user who should be
    * un-followed.
    */
   const handleUnfollow = async (clickedProfile) => {
@@ -78,6 +85,9 @@ export const ProfileDataProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Fetch profiles in descending order of the number of followers they has.
+   */
   useEffect(() => {
     const handleMount = async () => {
       try {

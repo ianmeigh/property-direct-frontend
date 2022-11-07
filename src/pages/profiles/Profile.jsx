@@ -8,13 +8,20 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { useSetProfileData } from "../../contexts/ProfileDataContext";
 import btnStyles from "../../styles/Buttons.module.css";
 
+/**
+ * Component to display the user profile information in the popular profiles
+ * component.
+ * @param {object} props
+ * @param {object} props.profile user profile object from the api
+ * @param {boolean} props.mobile alter layout of component for mobile viewports
+ * @param {number} props.imageSize height and width of the image (default value is 55)
+ * @returns
+ */
 export default function Profile({ profile, mobile, imageSize = 55 }) {
   const { id, following_id, image, owner } = profile;
   const currentUser = useCurrentUser();
   const isOwner = currentUser?.username === owner;
-
   const { handleFollow, handleUnfollow } = useSetProfileData();
-
   return (
     <div
       className={`d-flex ${

@@ -4,6 +4,17 @@ import Image from "react-bootstrap/Image";
 
 import styles from "../styles/Avatar.module.css";
 
+/**
+ * Component to display the user profile picture and text.
+ * @param {object} props
+ * @param {string} props.src url of the image to be displayed
+ * @param {number} props.height height and width of the image (default value is 35)
+ * @param {boolean} props.mobile alter layout of component for mobile viewports
+ * @param {boolean} props.bold embolden displayed text
+ * @param {boolean} props.textBreak add text style ('text-break') to displayed
+ * text
+ * @returns
+ */
 export default function Avatar({
   src,
   height = 35,

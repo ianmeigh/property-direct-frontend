@@ -7,12 +7,13 @@ import { useHandleLogout } from "../hooks/useHandleLogout";
 import styles from "../styles/NavBar.module.css";
 import Avatar from "./Avatar";
 
-// Desktop Links
-
+/**
+ * Logged out desktop navigation links - Anonymous Users
+ */
 export const loggedOutDesktopNavLinks = (
   /* 
     - Login
-    - Sign Up (TODO: Remove Sign Up)
+    - Sign Up
    */
   <>
     <NavLink
@@ -34,12 +35,17 @@ export const loggedOutDesktopNavLinks = (
   </>
 );
 
+/**
+ * Component - Navigation links for all authenticated users
+ * @returns
+ */
 export function LoggedInDesktopNavLinksAllUsers() {
   /*
+    Contains links for the following:
     - Bookmarks
     - Feed
     - Profile
-    - Logout (TODO: Move to Profile Page)
+    - Logout
    */
   const currentUser = useCurrentUser();
   const handleLogout = useHandleLogout();
@@ -87,15 +93,12 @@ export function LoggedInDesktopNavLinksAllUsers() {
   );
 }
 
-export const loggedInDesktopNavLinksStandardUsers = (
-  /*
-    Placeholder for future layout alterations
-   */
-  <></>
-);
-
+/**
+ * Navigation links for authenticated users with the role of seller
+ */
 export const loggedInDesktopNavLinksSellers = (
   /*
+    Contains links for the following:
     - Add Property
    */
   <>
@@ -110,10 +113,12 @@ export const loggedInDesktopNavLinksSellers = (
   </>
 );
 
-// Mobile links
-
+/**
+ * Mobile navigation links for Anonymous Users
+ */
 export const loggedOutMobileNavLinks = (
   /* 
+    Contains links for the following:
     - Login (display on the right)
    */
   <>
@@ -130,10 +135,14 @@ export const loggedOutMobileNavLinks = (
   </>
 );
 
+/**
+ * Mobile navigation links for Authenticated Users
+ */
 export function LoggedInMobileNavLinksAllUsers() {
   /*
-  - Profile (display on the right)
-  - Logout (TODO: Move to Profile Page)
+    Contains links for the following:
+    - Profile (display on the right)
+    - Logout
    */
   const currentUser = useCurrentUser();
   const handleLogout = useHandleLogout();
@@ -161,8 +170,12 @@ export function LoggedInMobileNavLinksAllUsers() {
   );
 }
 
+/**
+ * Mobile navigation links for authenticated users without the seller role
+ */
 export const loggedInMobileNavLinksStandardUsers = (
   /*
+    Contains links for the following:
     - Saved
    */
   <>
@@ -179,8 +192,12 @@ export const loggedInMobileNavLinksStandardUsers = (
   </>
 );
 
+/**
+ * Mobile navigation links for authenticated users with the seller role
+ */
 export const loggedInMobileNavLinksSellers = (
   /*
+    Contains links for the following:
     - Add Property
    */
   <>
@@ -197,10 +214,12 @@ export const loggedInMobileNavLinksSellers = (
   </>
 );
 
-// Offcanvas Links
-
+/**
+ * Responsive Offcanvas navigation links for anonymous users
+ */
 export const loggedOutOffcanvasLinks = (
   /*
+    Contains links for the following:
     - Home
     - Login
     - Register
@@ -233,8 +252,12 @@ export const loggedOutOffcanvasLinks = (
   </>
 );
 
+/**
+ * Responsive Offcanvas navigation links for all authenticated users
+ */
 export function LoggedInOffcanvasLinksAllUsers() {
   /*
+    Contains links for the following:
     - Home
     - Saved
     - Feed
@@ -289,8 +312,13 @@ export function LoggedInOffcanvasLinksAllUsers() {
   );
 }
 
+/**
+ * Responsive Offcanvas navigation links for all authenticated users with a
+ * seller role.
+ */
 export const loggedInOffcanvasLinksSellers = (
   /*
+    Contains links for the following:
     - Add Property
    */
   <>

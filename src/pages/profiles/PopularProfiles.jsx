@@ -11,6 +11,13 @@ import Profile from "./Profile";
 // CREDIT: Adapted from Code Institute Moments Tutorial Project
 // URL:    https://github.com/Code-Institute-Solutions/moments
 
+/**
+ * Component to display the popular profiles
+ * @param {object} props
+ * @param {boolean} props.mobile used to alter the accordion display for mobile
+ * viewports
+ * @returns
+ */
 export default function PopularProfiles({ mobile }) {
   const { popularProfiles } = useProfileData();
 

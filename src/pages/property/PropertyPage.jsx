@@ -18,6 +18,11 @@ import PropertyDetail from "./PropertyDetail";
 // CREDIT: Adapted from Code Institute Moments Tutorial Project
 // URL:    https://github.com/Code-Institute-Solutions/moments
 
+/**
+ * Component used to display individual property components using the expanded
+ * detail view.
+ * @returns
+ */
 export default function PropertyPage() {
   const { id } = useParams();
   const [hasLoaded, setHasLoaded] = useState(false);

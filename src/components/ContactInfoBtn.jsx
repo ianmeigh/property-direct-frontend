@@ -8,6 +8,14 @@ import { useLocation } from "react-router-dom";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
 import btnStyles from "../styles/Buttons.module.css";
 
+/**
+ * Component to display seller contact information.
+ * @param {object} props
+ * @param {string} props.telephone_mobile sellers mobile contact information
+ * @param {string} props.telephone_landline sellers landline contact information
+ * @param {string} props.email sellers email contact information
+ * @returns
+ */
 export default function ContactInformationBtn({
   telephone_mobile = "",
   telephone_landline = "",

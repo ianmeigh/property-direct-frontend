@@ -16,6 +16,10 @@ import { useRedirect } from "../../hooks/useRedirect";
 import btnStyles from "../../styles/Buttons.module.css";
 import styles from "../../styles/PropertyForm.module.css";
 
+/**
+ * Component to display property creation/edit form and submit data to the API.
+ * @returns
+ */
 export default function PropertyForm() {
   useRedirect("isAnonymous");
   useRedirect("isNotSeller");

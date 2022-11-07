@@ -14,6 +14,11 @@ import { useRedirect } from "../../hooks/useRedirect";
 import styles from "../../styles/AuthForms.module.css";
 import btnStyles from "../../styles/Buttons.module.css";
 
+/**
+ * Component to display user account registration form and submit data to the
+ * API.
+ * @returns
+ */
 export default function RegistrationForm() {
   useRedirect("isAuthenticated");
 

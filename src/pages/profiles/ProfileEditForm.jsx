@@ -21,6 +21,10 @@ import styles from "../../styles/ProfileEditForm.module.css";
 // CREDIT: Adapted from Code Institute Moments Tutorial Project
 // URL:    https://github.com/Code-Institute-Solutions/moments
 
+/**
+ * Component to display the profile edit form and submit data to the API.
+ * @returns
+ */
 export default function ProfileEditForm() {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
@@ -80,14 +84,13 @@ export default function ProfileEditForm() {
         history.push("/");
       }
     };
-
     handleMount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history, id]);
 
   /**
    * Updates profileData state object element change (form field).
-   * @param {Object} event - Event Change Object
+   * @param {object} event - Event Change Object
    */
   const handleChange = (event) => {
     setProfileData({
@@ -99,7 +102,7 @@ export default function ProfileEditForm() {
   /**
    * Adds form field values to FormData object, updates the API and the current
    * user context.
-   * @param {Object} event - Event Submit Object
+   * @param {object} event - Event Submit Object
    */
   const handleSubmit = async (event) => {
     event.preventDefault();

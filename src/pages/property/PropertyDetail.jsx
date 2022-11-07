@@ -19,6 +19,20 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import btnStyles from "../../styles/Buttons.module.css";
 import styles from "../../styles/PropertyDetail.module.css";
 
+/**
+ * Component used to display the details of an individual property in a
+ * condensed or expanded detail view.
+ *
+ * All property details are spread as they are passed in to this component and
+ * destructured for before use.
+ * @param {object} props
+ * @param {function} props.setProperties function to update the notes state
+ * variable
+ * @param {boolean} props.detailView used to specify that the full property
+ * detail html layout should be returned, if not supplied the html for the
+ * condensed list view will be used
+ * @returns
+ */
 export default function PropertyDetail(props) {
   const {
     id,

@@ -21,6 +21,15 @@ const MoreActions = React.forwardRef(({ onClick }, ref) => (
 ));
 MoreActions.displayName = "MoreActionsIcon";
 
+/**
+ * Component to display more actions dropdown Property and Note editing and
+ * deletion action.
+ * @param {object} props
+ * @param {function} props.handleEdit function to handle edit btn onClick event
+ * @param {function} props.handleDelete function to handle delete btn onClick
+ * event
+ * @returns
+ */
 export default function MoreActionsDropdown({ handleEdit, handleDelete }) {
   return (
     <Dropdown className="ml-auto" drop="start">
@@ -53,7 +62,8 @@ export default function MoreActionsDropdown({ handleEdit, handleDelete }) {
 /**
  * More actions dropdown for Profile. Redirects users to Profile Edit, Change
  * Username and Change Password routes.
- * @param {Int} id - Id of User profile to be edited.
+ * @param {object} props
+ * @param {number} props.id id of user profile to be edited
  */
 export function ProfileEditDropdown({ id }) {
   const history = useHistory();

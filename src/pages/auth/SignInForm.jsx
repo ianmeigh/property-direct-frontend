@@ -16,6 +16,10 @@ import styles from "../../styles/AuthForms.module.css";
 import btnStyles from "../../styles/Buttons.module.css";
 import { setTokenTimestamp } from "../../utils/utils";
 
+/**
+ * Component to display user account login form and submit data to the API.
+ * @returns
+ */
 export default function SignInForm() {
   useRedirect("isAuthenticated");
   const setCurrentUser = useSetCurrentUser();
