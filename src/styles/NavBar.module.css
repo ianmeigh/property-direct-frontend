@@ -18,6 +18,7 @@
   font-family: "Montserrat", Helvetica, sans-serif;
 }
 
+/* Navigation Elements Hover Styles */
 .NavLink:hover {
   color: #000000;
   opacity: 0.5;
@@ -32,6 +33,7 @@
   text-decoration: underline;
 }
 
+/* Icon Style for Smaller Viewports*/
 .NavMobileIcon i {
   font-size: 2rem;
   color: var(--icon-color)
@@ -41,12 +43,14 @@
   font-size: 0.8rem;
 }
 
+/* Icon Style for Larger Viewports */
 .NavIcon i {
   font-size: 1.5rem;
   text-decoration: none;
   color: var(--icon-color);
 }
 
+/* Style for the Navigation Bar Brand Text */
 .BrandText {
   font-size: 1.5rem;
   font-family: "Montserrat", Helvetica, sans-serif;

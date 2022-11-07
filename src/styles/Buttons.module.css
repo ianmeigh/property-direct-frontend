@@ -1,3 +1,4 @@
+/* root variables */
 :root {
   --white: #ffffff;
   --black: #000000;
@@ -5,6 +6,7 @@
   --secondary-btn-color: #000000;
 }
 
+/* Universal Button Styles */
 .Button {
   font-size: 1.1rem;
   transition: all 0.2s;
@@ -24,10 +26,12 @@
   transform: none;
 }
 
+/* Login/Register Button Width */
 .Wide {
   width: 200px;
 }
 
+/* Styles for various Button Types */
 .Primary {
   background-color: var(--primary-btn-color) !important;
   border-color: var(--primary-btn-color) !important;
