@@ -330,14 +330,16 @@ export default function PropertyDetail(props) {
         <Col md={12} className="shadow mb-4">
           <div className="d-flex flex-column flex-xxl-row border rounded-top overflow-hidden position-relative">
             <Col xxl={6}>
-              <Image src={image_hero} className={`${styles.PropertyImage}`} />
-              {is_sold_stc && (
-                <Card.ImgOverlay
-                  className={`${styles.Banner} rounded border border-2 border-dark text-white bg-danger p-3 user-select-none`}
-                >
-                  <p className="mb-0">Sold STC</p>
-                </Card.ImgOverlay>
-              )}
+              <Link to={`/property/${id}`}>
+                <Image src={image_hero} className={`${styles.PropertyImage}`} />
+                {is_sold_stc && (
+                  <Card.ImgOverlay
+                    className={`${styles.Banner} rounded border border-2 border-dark text-white bg-danger p-3 user-select-none`}
+                  >
+                    <p className="mb-0">Sold STC</p>
+                  </Card.ImgOverlay>
+                )}
+              </Link>
             </Col>
             {/* Text Context and Price (below xxl breakpoint) */}
             <Col className="d-flex flex-xxl-column flex-column-reverse">
@@ -403,7 +405,9 @@ export default function PropertyDetail(props) {
                   {`${description.slice(0, 200).trimEnd()}...`}
                 </p>
                 <div className="mt-3 d-flex justify-content-between">
-                  <Link to={`/property/${id}`}>More Detail...</Link>
+                  <Link to={`/property/${id}`}>
+                    <p className={`${styles.MoreDetail} m-0`}>More Detail...</p>
+                  </Link>
                   <p className="mb-1 text-muted">
                     {created_at === updated_at
                       ? `Listed on ${created_at}`

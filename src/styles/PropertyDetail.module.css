@@ -38,6 +38,11 @@
   width: 100%;
 }
 
+.MoreDetail {
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
 .Map {
   height: 350px;
   width: 100%;
