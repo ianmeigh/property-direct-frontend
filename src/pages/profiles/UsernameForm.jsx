@@ -19,6 +19,10 @@ import btnStyles from "../../styles/Buttons.module.css";
 // CREDIT: Adapted from Code Institute Moments Tutorial Project
 // URL:    https://github.com/Code-Institute-Solutions/moments
 
+/**
+ * Component to display username edit form and submit data to the API.
+ * @returns
+ */
 export default function UsernameForm() {
   const [username, setUsername] = useState("");
   const [errors, setErrors] = useState({});
@@ -42,7 +46,7 @@ export default function UsernameForm() {
 
   /**
    * Updates the username on the API and in the current user context.
-   * @param {Object} event - Event Submit Object
+   * @param {object} event - Event Submit Object
    */
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -56,7 +60,6 @@ export default function UsernameForm() {
       }));
       history.goBack();
     } catch (err) {
-      console.log(err);
       setErrors(err.response?.data);
     }
   };

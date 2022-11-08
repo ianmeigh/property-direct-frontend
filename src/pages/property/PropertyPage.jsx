@@ -18,6 +18,11 @@ import PropertyDetail from "./PropertyDetail";
 // CREDIT: Adapted from Code Institute Moments Tutorial Project
 // URL:    https://github.com/Code-Institute-Solutions/moments
 
+/**
+ * Component used to display individual property components using the expanded
+ * detail view.
+ * @returns
+ */
 export default function PropertyPage() {
   const { id } = useParams();
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -42,7 +47,6 @@ export default function PropertyPage() {
         setNotes(notes);
         setHasLoaded(true);
       } catch (err) {
-        console.log(err);
         /* 
         As the promises can be returned in any order, the error checking
         below accounts for rejection of both requests:
@@ -111,7 +115,9 @@ export default function PropertyPage() {
                   are private to you!
                 </div>
               ) : (
-                <span>Log in to create private notes about this property.</span>
+                <div className="text-center w-100">
+                  Log in to create private notes about this property.
+                </div>
               )}
             </Col>
           </>

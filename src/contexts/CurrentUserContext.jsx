@@ -17,6 +17,13 @@ export const SetCurrentUserContext = createContext();
 export const useCurrentUser = () => useContext(CurrentUserContext);
 export const useSetCurrentUser = () => useContext(SetCurrentUserContext);
 
+/**
+ * Context Provider for the current user data.
+ * @param {object} params
+ * @param {object} params.children content included between the opening and
+ * closing tags of component
+ * @returns
+ */
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const history = useHistory();
@@ -29,7 +36,7 @@ export const CurrentUserProvider = ({ children }) => {
       setCurrentUser(data);
     } catch (err) {
       if (err) {
-        console.log(err);
+        // continue regardless of error
       }
     }
   };

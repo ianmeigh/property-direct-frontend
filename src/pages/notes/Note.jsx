@@ -7,12 +7,26 @@ import MoreActionsDropdown from "../../components/MoreActionsDropdown";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import NoteForm from "./NoteForm";
 
+/**
+ * Component to display a note a user has created for a property, handle
+ * deletion of comments.
+ * @param {object} props
+ * @param {number} props.id id of the note
+ * @param {string} props.owner username of note owner
+ * @param {string} props.updated_at time since the note was updated
+ * @param {string} props.content note body / content
+ * @param {function} props.setNotes function to update the notes state variable
+ * @returns
+ */
 export default function Note(props) {
   const { id, owner, updated_at, content, setNotes } = props;
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const [showEditForm, setShowEditForm] = useState(false);
 
+  /**
+   * Deletes the note from the API and the notes state variable
+   */
   const handleDelete = async () => {
     try {
       await axiosRes.delete(`/notes/${id}/`);
@@ -21,7 +35,7 @@ export default function Note(props) {
         results: prevNotes.results.filter((note) => note.id !== id),
       }));
     } catch (err) {
-      console.log(err);
+      // continue regardless of error
     }
   };
 

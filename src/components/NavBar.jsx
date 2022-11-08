@@ -14,7 +14,6 @@ import styles from "../styles/NavBar.module.css";
 import {
   LoggedInDesktopNavLinksAllUsers,
   loggedInDesktopNavLinksSellers,
-  loggedInDesktopNavLinksStandardUsers,
   LoggedInMobileNavLinksAllUsers,
   loggedInMobileNavLinksSellers,
   loggedInMobileNavLinksStandardUsers,
@@ -25,6 +24,10 @@ import {
   loggedOutOffcanvasLinks,
 } from "./NavBarLinks";
 
+/**
+ * Component to display responsive Navigation Bar
+ * @returns
+ */
 export default function NavBar() {
   const currentUser = useCurrentUser();
   const { expanded, setExpanded, ref } = useOffcanvasToggle();
@@ -155,10 +158,7 @@ export default function NavBar() {
                   {<LoggedInDesktopNavLinksAllUsers />}
                 </>
               ) : currentUser ? (
-                <>
-                  {loggedInDesktopNavLinksStandardUsers}
-                  {<LoggedInDesktopNavLinksAllUsers />}
-                </>
+                <>{<LoggedInDesktopNavLinksAllUsers />}</>
               ) : (
                 loggedOutDesktopNavLinks
               )}

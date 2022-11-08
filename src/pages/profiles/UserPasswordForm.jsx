@@ -13,6 +13,10 @@ import appStyles from "../../App.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import btnStyles from "../../styles/Buttons.module.css";
 
+/**
+ * Component to display the password edit form and submit data to the API.
+ * @returns
+ */
 export default function UserPasswordForm() {
   const history = useHistory();
   const { id } = useParams();
@@ -44,7 +48,7 @@ export default function UserPasswordForm() {
 
   /**
    * Updates the password on the API and in the current user context.
-   * @param {Object} event - Event Submit Object
+   * @param {object} event - Event Submit Object
    */
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -52,7 +56,6 @@ export default function UserPasswordForm() {
       await axiosRes.post("/dj-rest-auth/password/change/", userData);
       history.goBack();
     } catch (err) {
-      console.log(err);
       setErrors(err.response?.data);
     }
   };

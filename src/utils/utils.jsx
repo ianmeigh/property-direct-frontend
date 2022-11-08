@@ -7,7 +7,7 @@ import { axiosReq } from "../api/axiosDefaults";
 
 /**
  * Fetches paginated data.
- * @param {Object} resource - API response object containing a next key (URL).
+ * @param {object} resource - API response object containing a next key (URL).
  * @param {*} setResource - useState setter function to update the resource.
  */
 export const fetchMoreData = async (resource, setResource) => {
@@ -23,7 +23,7 @@ export const fetchMoreData = async (resource, setResource) => {
       }, prevResource.results),
     }));
   } catch (err) {
-    console.log(err);
+    // continue regardless of error
   }
 };
 
@@ -31,10 +31,10 @@ export const fetchMoreData = async (resource, setResource) => {
  * Conditional logic to determine if the profile passed as a parameter has been
  * followed, and update the profileData necessary to reflect this action to the
  * authenticated user.
- * @param {Object} profile - User profile.
- * @param {Object} clickedProfile - Profile of the user that is being followed.
- * @param {Int} following_id - ID of the follower record from the API.
- * @returns {Object} - User profile object that has been updated if it was
+ * @param {object} profile - User profile.
+ * @param {object} clickedProfile - Profile of the user that is being followed.
+ * @param {number} following_id - ID of the follower record from the API.
+ * @returns {object} - User profile object that has been updated if it was
  * followed.
  */
 export const followHelper = (profile, clickedProfile, following_id) => {
@@ -56,10 +56,10 @@ export const followHelper = (profile, clickedProfile, following_id) => {
  * Conditional logic to determine if the profile passed as a parameter has been
  * unfollowed, and update the profileData necessary to reflect this action to
  * the authenticated user.
- * @param {Object} profile - User profile.
- * @param {Object} clickedProfile - Profile of the user that is being
+ * @param {object} profile - User profile.
+ * @param {object} clickedProfile - Profile of the user that is being
  * unfollowed.
- * @returns {Object} - User profile object that has been updated if it was
+ * @returns {object} - User profile object that has been updated if it was
  * unfollowed.
  */
 export const unfollowHelper = (profile, clickedProfile) => {
@@ -79,7 +79,7 @@ export const unfollowHelper = (profile, clickedProfile) => {
 
 /**
  * Store authenticated users refresh token expiry timestamp in localStorage
- * @param {Object} data - Response from API when logging in using the
+ * @param {object} data - Response from API when logging in using the
  * '/dj-rest-auth/login/' endpoint.
  */
 export const setTokenTimestamp = (data) => {
@@ -89,7 +89,7 @@ export const setTokenTimestamp = (data) => {
 
 /**
  * Checks if the refreshTokenTimestamp exists in localStorage
- * @returns {Boolean}
+ * @returns {boolean}
  */
 export const shouldRefreshToken = () => {
   return !!localStorage.getItem("refreshTokenTimestamp");

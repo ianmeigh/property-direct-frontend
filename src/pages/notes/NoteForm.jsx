@@ -11,6 +11,19 @@ import btnStyles from "../../styles/Buttons.module.css";
 // CREDIT: Adapted from Code Institute Moments Tutorial Project
 // URL:    https://github.com/Code-Institute-Solutions/moments
 
+/**
+ * Component to display note creation/edit form and submit data to the API.
+ * @param {object} props
+ * @param {number} props.id id number of the note to be edited
+ * @param {string} props.currentContent current content of the note being edited
+ * @param {function} props.setShowEditForm update the state variable which
+ * determines if the form is displayed to the user
+ * @param {number} props.property id on the property a note is being left on
+ * @param {function} props.setNotes function to update the notes state variable
+ * @param {string} props.profile_image url of current users profile image
+ * @param {number} props.profile_id id of the currently authenticated user
+ * @returns
+ */
 export default function NoteForm({
   id,
   currentContent,
@@ -67,7 +80,7 @@ export default function NoteForm({
         }));
         setShowEditForm(false);
       } catch (err) {
-        console.log(err);
+        // continue regardless of error
       }
     } else {
       try {
@@ -81,7 +94,7 @@ export default function NoteForm({
         }));
         setContent("");
       } catch (err) {
-        console.log(err);
+        // continue regardless of error
       }
     }
   };
@@ -103,7 +116,6 @@ export default function NoteForm({
           maxRows={6}
         />
       </Form.Group>
-
       <div className="align-self-end mt-3">
         <button
           className={`${btnStyles.Button} ${btnStyles.Primary} btn `}

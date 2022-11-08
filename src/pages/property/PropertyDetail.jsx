@@ -19,6 +19,20 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import btnStyles from "../../styles/Buttons.module.css";
 import styles from "../../styles/PropertyDetail.module.css";
 
+/**
+ * Component used to display the details of an individual property in a
+ * condensed or expanded detail view.
+ *
+ * All property details are spread as they are passed in to this component and
+ * destructured for before use.
+ * @param {object} props
+ * @param {function} props.setProperties function to update the notes state
+ * variable
+ * @param {boolean} props.detailView used to specify that the full property
+ * detail html layout should be returned, if not supplied the html for the
+ * condensed list view will be used
+ * @returns
+ */
 export default function PropertyDetail(props) {
   const {
     id,
@@ -77,7 +91,7 @@ export default function PropertyDetail(props) {
       await axiosRes.delete(`/property/${id}/`);
       history.goBack();
     } catch (err) {
-      console.log(err);
+      // continue regardless of error
     }
   };
 
@@ -96,7 +110,7 @@ export default function PropertyDetail(props) {
         }),
       }));
     } catch (err) {
-      console.log(err);
+      // continue regardless of error
     }
   };
 
@@ -115,7 +129,7 @@ export default function PropertyDetail(props) {
         }),
       }));
     } catch (err) {
-      console.log(err);
+      // continue regardless of error
     }
   };
 
@@ -316,14 +330,16 @@ export default function PropertyDetail(props) {
         <Col md={12} className="shadow mb-4">
           <div className="d-flex flex-column flex-xxl-row border rounded-top overflow-hidden position-relative">
             <Col xxl={6}>
-              <Image src={image_hero} className={`${styles.PropertyImage}`} />
-              {is_sold_stc && (
-                <Card.ImgOverlay
-                  className={`${styles.Banner} rounded border border-2 border-dark text-white bg-danger p-3 user-select-none`}
-                >
-                  <p className="mb-0">Sold STC</p>
-                </Card.ImgOverlay>
-              )}
+              <Link to={`/property/${id}`}>
+                <Image src={image_hero} className={`${styles.PropertyImage}`} />
+                {is_sold_stc && (
+                  <Card.ImgOverlay
+                    className={`${styles.Banner} rounded border border-2 border-dark text-white bg-danger p-3 user-select-none`}
+                  >
+                    <p className="mb-0">Sold STC</p>
+                  </Card.ImgOverlay>
+                )}
+              </Link>
             </Col>
             {/* Text Context and Price (below xxl breakpoint) */}
             <Col className="d-flex flex-xxl-column flex-column-reverse">
@@ -389,7 +405,9 @@ export default function PropertyDetail(props) {
                   {`${description.slice(0, 200).trimEnd()}...`}
                 </p>
                 <div className="mt-3 d-flex justify-content-between">
-                  <Link to={`/property/${id}`}>More Detail...</Link>
+                  <Link to={`/property/${id}`}>
+                    <p className={`${styles.MoreDetail} m-0`}>More Detail...</p>
+                  </Link>
                   <p className="mb-1 text-muted">
                     {created_at === updated_at
                       ? `Listed on ${created_at}`

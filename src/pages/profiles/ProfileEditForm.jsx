@@ -21,6 +21,10 @@ import styles from "../../styles/ProfileEditForm.module.css";
 // CREDIT: Adapted from Code Institute Moments Tutorial Project
 // URL:    https://github.com/Code-Institute-Solutions/moments
 
+/**
+ * Component to display the profile edit form and submit data to the API.
+ * @returns
+ */
 export default function ProfileEditForm() {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
@@ -32,8 +36,18 @@ export default function ProfileEditForm() {
     name: "",
     description: "",
     image: "",
+    email: "",
+    telephone_landline: "",
+    telephone_mobile: "",
   });
-  const { name, description, image } = profileData;
+  const {
+    name,
+    description,
+    image,
+    email,
+    telephone_landline,
+    telephone_mobile,
+  } = profileData;
 
   const [errors, setErrors] = useState({});
 
@@ -47,24 +61,36 @@ export default function ProfileEditForm() {
       if (currentUser?.profile_id?.toString() === id) {
         try {
           const { data } = await axiosReq.get(`/profiles/${id}/`);
-          const { name, description, image } = data;
-          setProfileData({ name, description, image });
+          const {
+            name,
+            description,
+            image,
+            email,
+            telephone_landline,
+            telephone_mobile,
+          } = data;
+          setProfileData({
+            name,
+            description,
+            image,
+            email,
+            telephone_landline,
+            telephone_mobile,
+          });
         } catch (err) {
-          console.log(err);
           history.push("/");
         }
       } else {
         history.push("/");
       }
     };
-
     handleMount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history, id]);
 
   /**
    * Updates profileData state object element change (form field).
-   * @param {Object} event - Event Change Object
+   * @param {object} event - Event Change Object
    */
   const handleChange = (event) => {
     setProfileData({
@@ -76,12 +102,15 @@ export default function ProfileEditForm() {
   /**
    * Adds form field values to FormData object, updates the API and the current
    * user context.
-   * @param {Object} event - Event Submit Object
+   * @param {object} event - Event Submit Object
    */
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("name", name);
+    formData.append("telephone_landline", telephone_landline);
+    formData.append("telephone_mobile", telephone_mobile);
+    formData.append("email", email);
     formData.append("description", description);
 
     if (imageFile?.current?.files[0]) {
@@ -96,7 +125,6 @@ export default function ProfileEditForm() {
       }));
       history.goBack();
     } catch (err) {
-      console.log(err);
       setErrors(err.response?.data);
     }
   };
@@ -149,8 +177,23 @@ export default function ProfileEditForm() {
           </Col>
           {/* Form Fields */}
           <Col className="p-0">
-            <Container className="p-4 h-100">
-              <Form.Group>
+            <Container className="px-4 h-100">
+              <Form.Group className="mb-3" controlId="name">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  className="text-center"
+                  type="text"
+                  name="name"
+                  value={name}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              {errors?.name?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                  {message}
+                </Alert>
+              ))}
+              <Form.Group className="my-3">
                 <Form.Label>Bio</Form.Label>
                 <Form.Control
                   as="textarea"
@@ -161,6 +204,51 @@ export default function ProfileEditForm() {
                 />
               </Form.Group>
               {errors?.description?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                  {message}
+                </Alert>
+              ))}
+              <Form.Group className="my-3" controlId="telephone_landline">
+                <Form.Label>telephone_landline</Form.Label>
+                <Form.Control
+                  className="text-center"
+                  type="text"
+                  name="telephone_landline"
+                  value={telephone_landline}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              {errors?.telephone_landline?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                  {message}
+                </Alert>
+              ))}
+              <Form.Group className="my-3" controlId="telephone_mobile">
+                <Form.Label>telephone_mobile</Form.Label>
+                <Form.Control
+                  className="text-center"
+                  type="text"
+                  name="telephone_mobile"
+                  value={telephone_mobile}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              {errors?.telephone_mobile?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                  {message}
+                </Alert>
+              ))}
+              <Form.Group className="my-3" controlId="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  className="text-center"
+                  type="text"
+                  name="email"
+                  value={email}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              {errors?.email?.map((message, idx) => (
                 <Alert variant="warning" key={idx}>
                   {message}
                 </Alert>

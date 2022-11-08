@@ -8,6 +8,14 @@ import { useLocation } from "react-router-dom";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
 import btnStyles from "../styles/Buttons.module.css";
 
+/**
+ * Component to display seller contact information.
+ * @param {object} props
+ * @param {string} props.telephone_mobile sellers mobile contact information
+ * @param {string} props.telephone_landline sellers landline contact information
+ * @param {string} props.email sellers email contact information
+ * @returns
+ */
 export default function ContactInformationBtn({
   telephone_mobile = "",
   telephone_landline = "",
@@ -56,13 +64,19 @@ export default function ContactInformationBtn({
       {type === "phone" &&
         (currentUser ? (
           !telephone_mobile && !telephone_landline ? (
-            <Button
-              className={`${btnStyles.Static} ${btnStyles.Primary}`}
-              disabled
+            <OverlayTrigger
+              placement="bottom"
+              overlay={
+                <Tooltip>
+                  The seller has not added a telephone number to their profile.
+                </Tooltip>
+              }
             >
-              <i className="fas fa-phone-alt pe-2"></i>
-              {btnText}
-            </Button>
+              <Button className={`${btnStyles.Static} ${btnStyles.Primary}`}>
+                <i className="fas fa-phone-alt pe-2"></i>
+                {btnText}
+              </Button>
+            </OverlayTrigger>
           ) : (
             <Button
               className={`${btnStyles.Button} ${btnStyles.Primary}`}
@@ -107,13 +121,19 @@ export default function ContactInformationBtn({
       {type === "email" &&
         (currentUser ? (
           !email ? (
-            <Button
-              className={`${btnStyles.Static} ${btnStyles.Primary}`}
-              disabled
+            <OverlayTrigger
+              placement="bottom"
+              overlay={
+                <Tooltip>
+                  The seller has not added an email address to their profile.
+                </Tooltip>
+              }
             >
-              <i className="fas fa-envelope pe-2"></i>
-              {btnText}
-            </Button>
+              <Button className={`${btnStyles.Static} ${btnStyles.Primary}`}>
+                <i className="fas fa-envelope pe-2"></i>
+                {btnText}
+              </Button>
+            </OverlayTrigger>
           ) : (
             <Button
               className={`${btnStyles.Button} ${btnStyles.Primary}`}

@@ -27,6 +27,10 @@ import PopularProfiles from "./PopularProfiles";
 // CREDIT: Adapted from Code Institute Moments Tutorial Project
 // URL:    https://github.com/Code-Institute-Solutions/moments
 
+/**
+ * Component to display a visited user profile.
+ * @returns
+ */
 export default function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
   const [profileProperties, setProfileProperties] = useState({ results: [] });
@@ -71,7 +75,6 @@ export default function ProfilePage() {
         ) {
           history.push("/404");
         }
-        console.log(err);
       }
     };
     fetchData();

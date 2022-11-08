@@ -1,7 +1,9 @@
+/* root variables */
 :root {
   --secondary-text-color: #525252;
 }
 
+/* Property Headings used for Larger Viewports*/
 .PropertyHeadingFont {
   font-family: "Montserrat", Helvetica, sans-serif;
 }
@@ -19,11 +21,13 @@
   font-size: 1.6rem;
 }
 
+/* Style for Property Information (# of Bedrooms/Bathrooms  */
 .QuickInfo {
   font-size: 1.2rem;
   color: var(--secondary-text-color);
 }
 
+/* Cursor Styles used for Bookmark Icon */
 .CursorNotAllowed {
   cursor: not-allowed;
 }
@@ -32,10 +36,16 @@
   cursor: pointer;
 }
 
+/* Property Information, Image and Link Styles */
 .PropertyImage {
   object-fit: cover;
   height: 100%;
   width: 100%;
+}
+
+.MoreDetail {
+  font-size: 1.1rem;
+  font-style: italic;
 }
 
 .Map {

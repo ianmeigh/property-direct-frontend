@@ -23,6 +23,21 @@ import PropertyDetail from "./PropertyDetail";
 // CREDIT: Adapted from Code Institute Moments Tutorial Project
 // URL:    https://github.com/Code-Institute-Solutions/moments
 
+/**
+ * Component used to display the multiple property detail components in a
+ * condensed list view.
+ *
+ * Search is implemented in this component which allow the
+ * users to filter properties by predetermined criteria (max price, dedicated
+ * parking etc.) and area (by entering a postcode as a pont of origin and a
+ * radius from the postcode).
+ * @param {object} props
+ * @param {string} props.message message to be displayed to the user if there
+ * are no records returned from the API for display
+ * @param {string} props.filter filters url parameters to display a subset of
+ * data from the API
+ * @returns
+ */
 export default function PropertyListPage({ message, filter = "" }) {
   const [properties, setProperties] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -66,8 +81,8 @@ export default function PropertyListPage({ message, filter = "" }) {
    * Fetch properties within the supplied radius (miles) from a point of origin
    * postcode. If no radius or postcode are supplied will return all properties
    * matching the filter prop.
-   * @param {String} postcode - UK Postcode
-   * @param {Float} radius - Float representing distance in miles
+   * @param {string} postcode - UK Postcode
+   * @param {float} radius - Float representing distance in miles
    */
   const fetchProperties = async (postcode = "", radius = "") => {
     // Clear any previous errors before attempting another search
@@ -81,13 +96,12 @@ export default function PropertyListPage({ message, filter = "" }) {
     } catch (err) {
       setErrors(err.response?.data);
       setHasLoaded(true);
-      console.log(err.response?.data);
     }
   };
 
   /**
    * Function to handle Search form submission
-   * @param {Object} event - onClick event for form submit button
+   * @param {object} event - onClick event for form submit button
    */
   const handleSubmit = (event) => {
     event.preventDefault();
