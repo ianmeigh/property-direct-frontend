@@ -91,7 +91,7 @@ export default function PropertyDetail(props) {
       await axiosRes.delete(`/property/${id}/`);
       history.goBack();
     } catch (err) {
-      console.log(err);
+      // continue regardless of error
     }
   };
 
@@ -110,7 +110,7 @@ export default function PropertyDetail(props) {
         }),
       }));
     } catch (err) {
-      console.log(err);
+      // continue regardless of error
     }
   };
 
@@ -129,7 +129,7 @@ export default function PropertyDetail(props) {
         }),
       }));
     } catch (err) {
-      console.log(err);
+      // continue regardless of error
     }
   };
 

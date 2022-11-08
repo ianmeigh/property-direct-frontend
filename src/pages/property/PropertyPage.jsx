@@ -47,7 +47,6 @@ export default function PropertyPage() {
         setNotes(notes);
         setHasLoaded(true);
       } catch (err) {
-        console.log(err);
         /* 
         As the promises can be returned in any order, the error checking
         below accounts for rejection of both requests:

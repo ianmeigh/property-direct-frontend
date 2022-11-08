@@ -75,7 +75,6 @@ export default function ProfilePage() {
         ) {
           history.push("/404");
         }
-        console.log(err);
       }
     };
     fetchData();

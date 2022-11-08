@@ -23,7 +23,7 @@ export const fetchMoreData = async (resource, setResource) => {
       }, prevResource.results),
     }));
   } catch (err) {
-    console.log(err);
+    // continue regardless of error
   }
 };
 

@@ -35,7 +35,7 @@ export default function Note(props) {
         results: prevNotes.results.filter((note) => note.id !== id),
       }));
     } catch (err) {
-      console.log(err);
+      // continue regardless of error
     }
   };
 

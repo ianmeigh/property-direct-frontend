@@ -96,7 +96,6 @@ export default function PropertyListPage({ message, filter = "" }) {
     } catch (err) {
       setErrors(err.response?.data);
       setHasLoaded(true);
-      console.log(err.response?.data);
     }
   };
 

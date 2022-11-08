@@ -15,7 +15,7 @@ export const useHandleLogout = () => {
       setCurrentUser(null);
       removeTokenTimestamp();
     } catch (err) {
-      console.log(err);
+      // continue regardless of error
     }
   };
   return handleLogout;

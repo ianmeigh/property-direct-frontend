@@ -148,7 +148,7 @@ export default function PropertyForm() {
               })
             : history.push("/");
         } catch (err) {
-          console.log(err);
+          // continue regardless of error
         }
       };
       handleMount();

@@ -80,7 +80,7 @@ export default function NoteForm({
         }));
         setShowEditForm(false);
       } catch (err) {
-        console.log(err);
+        // continue regardless of error
       }
     } else {
       try {
@@ -94,7 +94,7 @@ export default function NoteForm({
         }));
         setContent("");
       } catch (err) {
-        console.log(err);
+        // continue regardless of error
       }
     }
   };

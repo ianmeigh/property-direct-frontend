@@ -36,7 +36,7 @@ export const CurrentUserProvider = ({ children }) => {
       setCurrentUser(data);
     } catch (err) {
       if (err) {
-        console.log(err);
+        // continue regardless of error
       }
     }
   };

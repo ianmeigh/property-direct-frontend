@@ -31,7 +31,6 @@ export const useRedirect = (userAuthStatus) => {
           }
         }
       } catch (err) {
-        console.log(err);
         // Redirect if anonymous
         if (userAuthStatus === "isAnonymous") {
           history.push("/");
