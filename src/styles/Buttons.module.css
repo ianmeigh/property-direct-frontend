@@ -41,7 +41,7 @@
   font-size: 1.1rem;
   color: var(--white) !important;
   cursor: not-allowed !important;
-  opacity: 80%;
+  opacity: 0.7;
 }
 
 .Secondary {
@@ -51,5 +51,5 @@
 
 .Secondary:hover {
   background-color: var(--secondary-btn-color);
-  opacity: 70%;
+  opacity: 0.7;
 }
