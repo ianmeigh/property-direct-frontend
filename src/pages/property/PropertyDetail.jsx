@@ -177,7 +177,11 @@ export default function PropertyDetail(props) {
           </p>
           {/* Image and contact info */}
           <Card>
-            <Card.Img src={image_hero} variant="top" />
+            <Card.Img
+              src={image_hero}
+              alt={`Property image for ${street_name}`}
+              variant="top"
+            />
             {is_sold_stc && (
               <Card.ImgOverlay
                 className={`${styles.Banner} rounded border border-2 border-dark text-white bg-danger p-3 user-select-none`}
@@ -190,12 +194,14 @@ export default function PropertyDetail(props) {
               <Link
                 to={`/profiles/${profile_id}`}
                 className="d-md-none text-decoration-none text-black"
+                aria-label={`${owner}'s profile.`}
               >
                 <Avatar src={profile_image} mobile text={owner} />
               </Link>
               <Link
                 to={`/profiles/${profile_id}`}
                 className="d-none d-md-block text-decoration-none text-black"
+                aria-label={`${owner}'s profile.`}
               >
                 <Avatar src={profile_image} text={owner} />
               </Link>
@@ -330,8 +336,15 @@ export default function PropertyDetail(props) {
         <Col md={12} className="shadow mb-4">
           <div className="d-flex flex-column flex-xxl-row border rounded-top overflow-hidden position-relative">
             <Col xxl={6}>
-              <Link to={`/property/${id}`}>
-                <Image src={image_hero} className={`${styles.PropertyImage}`} />
+              <Link
+                to={`/property/${id}`}
+                aria-label={`Property image for ${street_name}`}
+              >
+                <Image
+                  src={image_hero}
+                  alt={`Property image for ${street_name}`}
+                  className={`${styles.PropertyImage}`}
+                />
                 {is_sold_stc && (
                   <Card.ImgOverlay
                     className={`${styles.Banner} rounded border border-2 border-dark text-white bg-danger p-3 user-select-none`}
@@ -421,12 +434,14 @@ export default function PropertyDetail(props) {
                   <Link
                     to={`/profiles/${profile_id}`}
                     className="d-md-none text-decoration-none text-black"
+                    aria-label={`${owner}'s profile.`}
                   >
                     <Avatar src={profile_image} mobile text={owner} />
                   </Link>
                   <Link
                     to={`/profiles/${profile_id}`}
                     className="d-none d-md-block text-decoration-none text-black"
+                    aria-label={`${owner}'s profile.`}
                   >
                     <Avatar src={profile_image} text={owner} />
                   </Link>
@@ -448,12 +463,14 @@ export default function PropertyDetail(props) {
               <Link
                 to={`/profiles/${profile_id}`}
                 className="d-md-none text-decoration-none text-black"
+                aria-label={`${owner}'s profile.`}
               >
                 <Avatar src={profile_image} mobile text={owner} />
               </Link>
               <Link
                 to={`/profiles/${profile_id}`}
                 className="d-none d-md-block text-decoration-none text-black"
+                aria-label={`${owner}'s profile.`}
               >
                 <Avatar src={profile_image} text={owner} />
               </Link>

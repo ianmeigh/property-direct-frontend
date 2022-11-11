@@ -85,6 +85,7 @@ export function LoggedInDesktopNavLinksAllUsers() {
         className={`${styles.NavLink} ${styles.NavIcon} d-flex flex-row align-items-center px-2`}
         to="/"
         onClick={handleLogout}
+        aria-label="Logout"
       >
         <i className="fas fa-sign-out-alt pe-1"></i>
         <p className="m-0 d-none">Logout</p>
@@ -305,7 +306,13 @@ export function LoggedInOffcanvasLinksAllUsers() {
       </NavLink>
       {/* Bookmarks */}
       {/* Logout */}
-      <NavLink exact className={styles.NavLink} to="/" onClick={handleLogout}>
+      <NavLink
+        exact
+        className={styles.NavLink}
+        to="/"
+        onClick={handleLogout}
+        aria-label="Logout"
+      >
         <p>Logout</p>
       </NavLink>
     </>
