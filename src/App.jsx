@@ -47,7 +47,7 @@ function App() {
             path="/feed"
             render={() => (
               <PropertyListPage
-                message="No results found, any properties you bookmark will be listed here."
+                message="No results found, any properties from sellers you follow will be listed here."
                 filter={`property_feed_for_profile=${profile_id}`}
               />
             )}
