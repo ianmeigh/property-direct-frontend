@@ -16,7 +16,7 @@
 .Button:hover {
   box-shadow: 0px 3px 5px #707070;
   transform: translateY(-1.5px);
-  background-image: linear-gradient(rgb(0 0 0/15%) 0 0);
+  background-image: linear-gradient(rgb(0 0 0/15%),rgb(0 0 0/15%));
   cursor: pointer;
   border-color: transparent !important;
 }
@@ -41,7 +41,7 @@
   font-size: 1.1rem;
   color: var(--white) !important;
   cursor: not-allowed !important;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .Secondary {
@@ -51,5 +51,5 @@
 
 .Secondary:hover {
   background-color: var(--secondary-btn-color);
-  opacity: 0.7;
+  opacity: 0.8;
 }
