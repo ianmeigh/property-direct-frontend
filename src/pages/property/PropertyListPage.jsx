@@ -179,6 +179,7 @@ export default function PropertyListPage({ message, filter = "" }) {
                   required
                   type="text"
                   name="postcode"
+                  placeholder="Enter a UK postcode.."
                   value={postcode}
                   onChange={(event) => setPostcode(event.target.value)}
                 />
