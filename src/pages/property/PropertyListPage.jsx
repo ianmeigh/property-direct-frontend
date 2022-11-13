@@ -16,6 +16,7 @@ import NoResults from "../../assets/no-results.png";
 import Asset from "../../components/Asset";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import btnStyles from "../../styles/Buttons.module.css";
+import styles from "../../styles/PropertyListPage.module.css";
 import { fetchMoreData } from "../../utils/utils";
 import PopularProfiles from "../profiles/PopularProfiles";
 import PropertyDetail from "./PropertyDetail";
@@ -212,6 +213,7 @@ export default function PropertyListPage({ message, filter = "" }) {
                 className={`${btnStyles.Button} ${btnStyles.Primary} btn`}
                 type="button"
                 onClick={handleShow}
+                aria-label="Filters menu"
               >
                 <i className="fas fa-filter"></i>
                 <span className="d-none d-sm-inline ms-2">Show Filters</span>
@@ -374,6 +376,7 @@ export default function PropertyListPage({ message, filter = "" }) {
                         className={`${btnStyles.Button} ${btnStyles.Primary} btn me-3`}
                         type="button"
                         onClick={handleClose}
+                        aria-label="Save filters and close menu"
                       >
                         <i className="fas fa-search"></i>
                         <span className="ms-2">Save Filters</span>
@@ -382,6 +385,7 @@ export default function PropertyListPage({ message, filter = "" }) {
                         className={`${btnStyles.Button} ${btnStyles.Primary} btn`}
                         type="button"
                         onClick={clearSearchFilters}
+                        aria-label="Clear filters"
                       >
                         <i className="fas fa-eraser"></i>
                         <span className="ms-2">Clear Filters</span>
@@ -395,6 +399,7 @@ export default function PropertyListPage({ message, filter = "" }) {
                 <Button
                   className={`${btnStyles.Button} ${btnStyles.Primary} btn me-2`}
                   type="submit"
+                  aria-label="Search"
                 >
                   <i className="fas fa-search"></i>
                   <span className="d-none d-sm-inline ms-2">Search</span>
@@ -403,6 +408,7 @@ export default function PropertyListPage({ message, filter = "" }) {
                   className={`${btnStyles.Button} ${btnStyles.Primary} btn`}
                   type="button"
                   onClick={clearSearch}
+                  aria-label="Clear search"
                 >
                   <i className="fas fa-eraser"></i>
                   <span className="d-none d-sm-inline ms-2">Clear Search</span>
@@ -418,7 +424,9 @@ export default function PropertyListPage({ message, filter = "" }) {
             <>
               <div className="text-center mb-4">
                 {pathname === "/" && properties.count !== 0 && (
-                  <h4>{properties.count} Properties Available</h4>
+                  <p className={styles.ResultsCount}>
+                    {properties.count} Properties Available
+                  </p>
                 )}
               </div>
               {properties.results.length ? (

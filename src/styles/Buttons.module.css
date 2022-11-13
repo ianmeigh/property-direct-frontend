@@ -41,7 +41,7 @@
   font-size: 1.1rem;
   color: var(--white) !important;
   cursor: not-allowed !important;
-  opacity: 0.8;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.15),rgba(255, 255, 255, 0.3));
 }
 
 .Secondary {
@@ -51,5 +51,5 @@
 
 .Secondary:hover {
   background-color: var(--secondary-btn-color);
-  opacity: 0.8;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.15),rgba(255, 255, 255, 0.3));
 }
