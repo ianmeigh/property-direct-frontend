@@ -116,7 +116,7 @@ export default function ProfilePage() {
             !isOwner &&
             (profile?.following_id ? (
               <Button
-                className={`${btnStyles.Button} ${btnStyles.SecondaryOutline}`}
+                className={`${btnStyles.Button} ${btnStyles.Secondary}`}
                 onClick={() => handleUnfollow(profile)}
               >
                 Unfollow
