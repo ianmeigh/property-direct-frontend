@@ -16,8 +16,8 @@ This is my 5th portfolio project developed as part of the Code Institute Diploma
 
 ### API Project Links
 
-[API - Repository](https://github.com/ianmeigh/property-direct-backend)
-[API - Deployment](https://ci-pp5-property-direct-api.herokuapp.com)
+- [API - Repository](https://github.com/ianmeigh/property-direct-backend)
+- [API - Deployment](https://ci-pp5-property-direct-api.herokuapp.com)
 
 ## TOC
 
@@ -39,7 +39,7 @@ This is my 5th portfolio project developed as part of the Code Institute Diploma
   - [Property Search Form](#property-search-form)
   - [Note Creation, Editing and Deletion](#note-creation-editing-and-deletion)
   - [Bookmarks](#bookmarks)
-  - [Top Seller and Following Users](#top-seller-and-following-users)
+  - [Top Sellers and Following Users](#top-sellers-and-following-users)
   - [Profile](#profile)
   - [Profile Edit Form](#profile-edit-form)
   - [Username and Password Edit Forms](#username-and-password-edit-forms)
@@ -519,7 +519,7 @@ You should then update the `CLIENT_ORIGIN` config variable in your deployed vers
 
 ## Credits
 
-s ### Code
+### Code
 
 - The Moments tutorial produced by Code institute is credited throughout this project as it was used to create the foundations on which I built upon to create my project.
 - [React documentation](https://reactjs.org/docs/getting-started.html) - Was used throughout development to gain a better understanding of Hooks.
